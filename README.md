@@ -30,8 +30,8 @@ The objective is to reduce repetition and avoid divergent or contradictory guida
   https://github.com/xymon-monitoring/xymon-wiki  
   Search-engine indexable documentation and knowledge base, published as a website.
 
-- **xymon-problem (non-code / operational topics - needs cleanup)**
-  (placeholder) https://github.com/xymon-monitoring/xymon-problem  
+- **xymon-problems (non-code / operational topics - needs cleanup)**
+  (placeholder) https://github.com/xymon-monitoring/xymon-problems  
   Repository intended for issues/topics that are not strictly code problems. Requires cleanup.
 
 ---
