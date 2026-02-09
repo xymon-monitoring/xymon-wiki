@@ -54,14 +54,11 @@ The objective is to reduce repetition and avoid divergent or contradictory guida
   Subscription (web): https://mailman.xymon.com/postorius/lists/xymon.xymon.com/  
   Alternative subscription by email: `xymon-subscribe@xymon.com`  
 
-  This is the primary forum for user questions, troubleshooting, and general discussions about Xymon. :contentReference[oaicite:0]{index=0}  
-
-- **Legacy Mailman Registration Page (direct form)**
-  http://lists.xymon.com/mailman/listinfo/xymon :contentReference[oaicite:1]{index=1}  
+  This is the primary forum for user questions, troubleshooting, and general discussions about Xymon. 
 
 - **Public Archives**
   http://lists.xymon.com/archive  
-  Past discussions are publicly available and searchable. :contentReference[oaicite:2]{index=2}  
+  Past discussions are publicly available and searchable. 
 
 ---
 
