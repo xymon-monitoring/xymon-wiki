@@ -7,86 +7,60 @@ Contains HOWTOs, troubleshooting notes, deployment examples, platform-specific i
 
 ## Purpose
 
-This repository serves as a central, searchable entry point for operational and technical knowledge related to the Xymon ecosystem.  
+This repository and website serve as a central, searchable entry point for operational and technical knowledge related to the Xymon ecosystem.  
 The objective is to reduce repetition and avoid divergent or contradictory guidance across scattered threads.
+
+---
+
+## Access the Wiki Website
+
+- [https://xymon-monitoring.github.io/xymon-wiki/](https://xymon-monitoring.github.io/xymon-wiki/)  
+  Public, search-engine indexable documentation site.
+
+- [https://github.com/xymon-monitoring/xymon-wiki](https://github.com/xymon-monitoring/xymon-wiki)  
+  Source repository for the wiki content.
 
 ---
 
 ## Primary Repositories
 
-- **Xymon Core**
-  https://github.com/xymon-monitoring/xymon  
+- [https://github.com/xymon-monitoring/xymon](https://github.com/xymon-monitoring/xymon)  
   Main source code, active development, server and client components.
 
-- **SVN Mirror (Historical Reference)**
-  https://github.com/xymon-monitoring/xymon-svn-mirror  
+- [https://github.com/xymon-monitoring/xymon-svn-mirror](https://github.com/xymon-monitoring/xymon-svn-mirror)  
   Preserved legacy history.
 
-- **Windows / PowerShell Client**
-  https://github.com/xymon-monitoring/xymon-client-powershell  
+- [https://github.com/xymon-monitoring/xymon-client-powershell](https://github.com/xymon-monitoring/xymon-client-powershell)  
   Modern client implementation for Windows environments.
 
-- **xymon-wiki (this repository)**
-  https://github.com/xymon-monitoring/xymon-wiki  
-  Search-engine indexable documentation and knowledge base, published as a website.
-
-- **xymon-problems (non-code / operational topics - needs cleanup)**
-  (placeholder) https://github.com/xymon-monitoring/xymon-problems  
-  Repository intended for issues/topics that are not strictly code problems. Requires cleanup.
+- [https://github.com/xymon-monitoring/xymon-problems](https://github.com/xymon-monitoring/xymon-problems)  
+  Repository intended for issues/topics that are not strictly code problems (cleanup pending).
 
 ---
 
 ## Work Tracking
 
-- **Issues (main tracker)**
-  https://github.com/xymon-monitoring/xymon/issues  
-  Structured tracking of active work, bug reports, design discussions, and tasks.  
-  Key topics may be pinned to remain visible.
+- [https://github.com/xymon-monitoring/xymon/issues](https://github.com/xymon-monitoring/xymon/issues)  
+  Structured tracking of active work, bug reports, design discussions, and tasks. Key topics may be pinned to remain visible.
 
-- **Index Issue (recommended)**
-  A single pinned "index" issue can be used to track and link to the current key topics,
-  so context stays discoverable and consistent over time.
+- Index Issue (recommended)  
+  A single pinned "index" issue can be used to track and link to the current key topics so context remains discoverable over time.
+
 ---
 
 ## Mailing List
 
-- **Xymon General Discussion Mailing List**
-  Subscription (web): https://mailman.xymon.com/postorius/lists/xymon.xymon.com/  
-  Alternative subscription by email: `xymon-subscribe@xymon.com`  
+- [https://mailman.xymon.com/postorius/lists/xymon.xymon.com/](https://mailman.xymon.com/postorius/lists/xymon.xymon.com/)  
+  Primary forum for user questions, troubleshooting, and long-form discussions.
 
-  This is the primary forum for user questions, troubleshooting, and general discussions about Xymon. 
+- Alternative subscription by email: `xymon-subscribe@xymon.com`
 
-- **Public Archives**
-  http://lists.xymon.com/archive  
-  Past discussions are publicly available and searchable. 
+- [http://lists.xymon.com/archive](http://lists.xymon.com/archive)  
+  Public searchable archive of past discussions.
 
 ---
 
 ## Communication Channels
 
-- **Private coordination repository (communication channels)**
-  https://github.com/xymon-monitoring/private  
-  Private repo used to reserve channel names and keep internal notes related to future Telegram/Signal structure.
-
-- **Telegram**
-  Used for operational coordination and rapid exchanges (easy API/bots).
-
-- **Signal**
-  Used for secure communications when confidentiality is required (high security).
-
-(Some channel names are reserved for potential future use in a private repository.)
-
----
-
-## Scope of This Wiki
-
-This space is intended for:
-
-- HOWTO guides
-- Deployment and integration examples
-- Troubleshooting notes
-- Platform-specific procedures
-- Field experience and operational practices
-
-Release-specific or code-level changes should remain in the corresponding source repository
-and be referenced from here.
+- [https://github.com/xymon-monitoring/private](https://github.com/xymon-monitoring/private)  
+  Private coordination repository used to reserve channel names and keep internal notes related to future Telegram and Signal st
