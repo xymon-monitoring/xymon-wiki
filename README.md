@@ -46,14 +46,30 @@ The objective is to reduce repetition and avoid divergent or contradictory guida
 - **Index Issue (recommended)**
   A single pinned "index" issue can be used to track and link to the current key topics,
   so context stays discoverable and consistent over time.
+---
 
-- **Mailing List**
-  Long-form, asynchronous discussions and historical archive.  
-  The wiki should be preferred for stable, repeatable answers to reduce reposting.
+## Mailing List
+
+- **Xymon General Discussion Mailing List**
+  Subscription (web): https://mailman.xymon.com/postorius/lists/xymon.xymon.com/  
+  Alternative subscription by email: `xymon-subscribe@xymon.com`  
+
+  This is the primary forum for user questions, troubleshooting, and general discussions about Xymon. :contentReference[oaicite:0]{index=0}  
+
+- **Legacy Mailman Registration Page (direct form)**
+  http://lists.xymon.com/mailman/listinfo/xymon :contentReference[oaicite:1]{index=1}  
+
+- **Public Archives**
+  http://lists.xymon.com/archive  
+  Past discussions are publicly available and searchable. :contentReference[oaicite:2]{index=2}  
 
 ---
 
 ## Communication Channels
+
+- **Private coordination repository (communication channels)**
+  https://github.com/xymon-monitoring/private  
+  Private repo used to reserve channel names and keep internal notes related to future Telegram/Signal structure.
 
 - **Telegram**
   Used for operational coordination and rapid exchanges (easy API/bots).
