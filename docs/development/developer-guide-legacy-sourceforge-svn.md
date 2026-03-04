@@ -1,51 +1,3 @@
-# System Monitoring with Xymon - Developer Guide (GitHub era)
-
-This page is the GitHub-era entry point for Xymon development.  
-The legacy Developer Guide content (SourceForge/SVN era) is preserved below verbatim for reference and review. Nothing has been removed.
-
----
-
-## GitHub development entry point
-
-### Main repositories and tracking
-- Code repository: https://github.com/xymon-monitoring/xymon
-- Issues / work tracking: https://github.com/xymon-monitoring/xymon/issues
-- Wiki source repository: https://github.com/xymon-monitoring/xymon-wiki
-- Wiki website: https://xymon-monitoring.github.io/xymon-wiki/
-
-### Contribution guidelines (canonical Markdown sources)
-- [C coding contribution guidelines](docs/contributing/c-coding-contribution-guidelines.md)
-- [AI agent contribution directives](docs/contributing/ai-agent-contribution-directives.md)
-
-### Git quick start
-Clone:
-```sh
-git clone https://github.com/xymon-monitoring/xymon.git
-cd xymon
-```
-
-Create a branch:
-```sh
-git checkout -b fix/<short-topic>
-```
-
-Sync with upstream:
-```sh
-git fetch origin
-git rebase origin/main
-```
-
-Inspect changes:
-```sh
-git status -sb
-git diff
-git log --oneline --decorate --graph --max-count=20
-```
-
----
-
-## Legacy content (verbatim, SourceForge/SVN era)
-
 == Getting Started with hobbit development on sourceforge ==
 === Reference Books ===
 * [[C Programming]]
@@ -579,6 +531,7 @@ GNU Gettext 0.17 (November 2007)
 ## Generate html.RTF and pdf for different purpose.
 # Request Development Team to use doxygen syntax for source code documentation.
 
+
 === MediaWiki to DocBook ===
 * use mvc to gain hobbit wiki source
 * convert mediawiki source to latex.
@@ -947,7 +900,6 @@ Stop.
 
 C:\bbwin09\trunk\Core>
 </pre>
-
 * http://msdn.microsoft.com/en-us/library/Aa267384
 * [http://www.omnetpp.org/listarchive/msg07806.php Possible fix with similar issue].
 * [http://www.omnetpp.org/listarchive/msg07798.php vc6 to vc8].
@@ -1159,5 +1111,560 @@ C:\tmp\test\trunk\Setup>
 
 ==== bbwin 0.9 package source ====
 
-{{BookCat}}
+== Hobbit server software build source ==
+==== How to use hobbit-4.0.3.sb build source ? ====
+* hobbit-4.0.3.sb is an XML file contain the detail exact steps to build hobbit-4.03. into binary code for different OS. It need to be run against "sb" tool.
+* TBA.
 
+==== The source : hobbit-4.0.3.sb ====
+<pre>
+[root] cat hobbit-4.0.3.sb
+<?xml version="1.0"?>
+<programs>
+  <program name="hobbit" version="4.0.3" revision="1">
+    <module name="default">
+    <build-name>hobbit-4.0.3</build-name>
+    <install-name>hobbit</install-name>
+    <syntaxhighlights>
+    <syntaxhighlight  path="src/hobbit-4.0.3.tar.gz" />
+    </sources>
+    <dependencies>
+      <depend var="fping">fping24</depend>
+      <depend var="APACHESS">apacheS2048</depend>
+      <depend var="RRDTOOL">rrdtool10</depend>
+      <depend var="PCRE">libpcre44</depend>
+      <depend var="OPENSSL">libopenssl097</depend>
+      <depend var="OPENLDAP">openldap2127</depend>
+    </dependencies>
+    <!--
+    ######################################
+    # Platform specific configuration
+    ######################################
+    -->
+     <configure>
+<![CDATA[
+    case "${SB_SYSTYPE}" in
+    *-hpux11.11)
+      ;;
+    *-hpux10.20)
+      ;;
+    *-linux*)
+     ;;
+    *-solaris2*)
+    ;;
+    esac
+set -x
+rm -f Makefile
+TARGET=hobbit \
+ENABLESSL=y \
+ENABLELDAP=y \
+ENABLELDAPSSL=y \
+BBUSER=hobbit \
+BBTOPDIR=/opt/TWWfsw/hobbit \
+BBVAR=/var/opt/TWWfsw/hobbit/data \
+BBHOSTURL=/hobbit \
+CGIDIR=/etc/opt/TWWfsw/apacheS2048/cgi-bin \
+BBCGIURL=/hobbit-cgi \
+SECURECGIDIR=/etc/opt/TWWfsw/apacheS2048/cgi-secure \
+SECUREBBCGIURL=/hobbit-seccgi \
+HTTPDGID=il02w-web \
+BBLOGDIR=/var/opt/TWWfsw/hobbit/log/hobbit \
+BBHOSTNAME=localhost \
+BBHOSTIP=127.0.0.1 \
+MANROOT=/opt/TWWfsw/hobbit/man \
+BARS=all \
+USENEWHIST=y \
+PIXELCOUNT=960 \
+MAKE=/opt/TWWfsw/bin/gmake \
+INSTALLBINDIR=/opt/TWWfsw/hobbit/server/bin \
+INSTALLETCDIR=/opt/TWWfsw/hobbit/server/etc \
+INSTALLWEBDIR=/opt/TWWfsw/hobbit/web \
+INSTALLEXTDIR=/opt/TWWfsw/hobbit/server  \
+INSTALLTMPDIR=/var/opt/TWWfsw/hobbit/tmp \
+INSTALLWWWDIR=/opt/TWWfsw/hobbit/server/www ./configure \
+--rrdinclude  /opt/TWWfsw/rrdtool10/include  \
+--rrdlib      /opt/TWWfsw/rrdtool10/lib       \
+--pcreinclude /opt/TWWfsw/libpcre44/include   \
+--pcrelib     /opt/TWWfsw/libpcre44/lib       \
+--sslinclude  /opt/TWWfsw/libopenssl097/include    \
+--ssllib      /opt/TWWfsw/libopenssl097/lib      \
+--ldapinclude /opt/TWWfsw/openldap2127/include     \
+--ldaplib     /opt/TWWfsw/openldap2127/lib     \
+--fping       /opt/TWWfsw/fping24/sbin/fping
+
+]]>
+      </configure>
+
+<!--
+######################################
+# Now build (compile) the software
+######################################
+-->
+<build>
+<![CDATA[
+case "${SB_SYSTYPE}" in
+*-hpux11.11)
+gmake
+  ;;
+*-hpux10.20)
+  ;;
+*-linux*)
+gmake
+ ;;
+*-solaris2.[689])
+gmake
+ ;;
+esac
+]]>
+      </build>
+      <install>
+<![CDATA[
+########################################################
+# building hobbit on different OS
+########################################################
+case "${SB_SYSTYPE}" in
+*-hpux11.11)
+gmake install
+  ;;
+*-hpux10.20)
+  ;;
+*-linux*)
+gmake install
+ ;;
+*-solaris2.[689])
+LD_LIBRARY_PATH=/opt/TWWfsw/libopenssl097/lib
+export LD_LIBRARY_PATH
+gmake install
+ ;;
+esac
+## create man directory for TWW
+#ln -s /opt/TWWfsw/hobbit/server/bin  /opt/TWWfsw/hobbit/bin
+#mkdir -p /opt/TWWfsw/hobbit/man
+#cp -rp /opt/TWWfsw/hobbit/server/www/help/manpages/*  /opt/TWWfsw/hobbit/man
+#
+
+]]>
+      </install>
+
+      <uninstall>
+<![CDATA[
+set -x
+rm -rf /opt/TWWfsw/hobbit
+rm -rf /etc/opt/TWWfsw/apacheS2048/cgi-secure
+rm -rf /etc/opt/TWWfsw/apacheS2048/cgi-bin/bb-*
+rm -rf /etc/opt/TWWfsw/apacheS2048/cgi-bin/hobbit*
+rm -rf /var/opt/TWWfsw/hobbit
+]]>
+      </uninstall>
+    </module>
+
+    <notes>
+      <note type="installation">
+        <para>
+         This sb file is to digitalize the hobbit software build process for different OS.
+         Original: 05/26/2005 T.J.Yang tj_yang at hotmail do com 
+        </para>
+       </note>
+    </notes>
+
+    <changelog>
+    </changelog>
+  </program>
+</programs>
+
+[root]
+
+</pre>
+
+=== Hobbit server package build source ===
+==== hobbit-4.0.3.pb ====
+<pre>
+[root] cat hobbit-4.0.3.pb
+<?xml version="1.0"?>
+<packages>
+  <package name="hobbit" version="4.0.3" revision="1">
+    <package-manager name="depot">
+      <title>hobbit</title>
+      <vendor>GPL</vendor>
+      <description >
+      </description>
+      <install-name>hobbit</install-name>
+      <pkgname-base>TWWhobbit</pkgname-base>
+
+      <version>4.0.3</version>
+      <revision>1</revision>
+      <subpkg type="runtime">
+      </subpkg>
+    </package-manager>
+
+    <package-manager name="rpm4">
+      <category>System Environment/Daemons</category>
+      <title>Hobbit System Monitoring Tool</title>
+      <vendor>GNU</vendor>
+      <description>
+Hobbit System Monitoring tool. An open-source version of Big Brother.
+      </description>
+      <install-name>hobbit</install-name>
+      <pkgname-base>TWWhobbit</pkgname-base>
+      <init name="/etc/init.d/TWWhobbit" path="pkg/hobbit-init-linux" />
+      <init link-src="/etc/rc2.d/S661hobbit"
+        link-dest="/etc/init.d/TWWhobbit"/>
+      <init link-src="/etc/rc1.d/K269hobbit"
+        link-dest="/etc/init.d/TWWhobbit"/>
+      <config>/etc/init.d/TWWhobbit</config>
+      <version>4.0.3</version>
+      <revision>1</revision>
+      <subpkg type="runtime">
+      <depend pkgname-base="TWWperl561" title="perl 5.6.1" subpkg="runtime">v&gt;=5.6.1 r&gt;=1</depend>
+      <depend pkgname-base="TWWrrdtool10" title="Round Robin Database" subpkg="runtime">v&gt;=1.0.42</depend>
+      <depend pkgname-base="TWWrrdtool10" title="Round Robin Database" subpkg="man">v&gt;=1.0.42</depend>
+      </subpkg>
+
+      <subpkg type="conf">
+        <depend pkgname-base="TWWhobbit"  title="Client: Big Brother System Monitoring Tool" subpkg="runtime">v&gt;=4.0.3</depend>
+         <postinstall path="pkg/postinstall-linux" />
+         <preremove   path="pkg/preremove-linux" />
+         <postremove  path="pkg/postremove-linux" />
+       </subpkg>
+
+    </package-manager>
+  </package>
+</packages>
+[root]
+
+</pre>
+
+== Hobbit Required Packages  ==
+* fping 
+* apache web server
+* rrdtool
+* pcre
+* openssl
+* openldap
+* following is the listing of exact version to build hobbit-4.0.3
+ <pre>
+    <dependencies>
+      <depend var="fping">fping24</depend>
+      <depend var="APACHESS">apacheS2048</depend>
+      <depend var="RRDTOOL">rrdtool10</depend>
+      <depend var="PCRE">libpcre44</depend>
+      <depend var="OPENSSL">libopenssl097</depend>
+      <depend var="OPENLDAP">openldap2127</depend>
+    </dependencies>
+ </pre>
+
+=== Following diagram list out all the hobbit depended software by GraphViz ===
+<pre>
+TBA.
+</pre>
+
+== Package build automation  ==
+
+=== The Makefile to automate the whole process ===
+
+== Create a firefox search engine plugin for hobbit server ==
+* References: http://mycroft.mozdev.org/deepdocs/deepdocs.html
+
+== Using relational DBs with Xymon Server ==
+The default database back end of Xymon is RRD(Roun-Robin Database).
+=== Database ===
+==== RRD ====
+==== SQLite3 ====
+* Almost as fast as C fopen function code.
+* No server process, data are store in plain files.
+* Just like another rrd file that can be rsynced over to your standby xymon server.
+
+==== MySql ====
+* light weight DB.
+==== Oracle ====
+==== LDAP ====
+==== XML flat file ====
+
+=== Benefits of using relation DBs ===
+==== Inventory Monitoring ====
+* Store a machine's asset information
+** Serial Number
+** OS type
+** Computer Maker
+** Leased/owned 
+** Trigger an alert if leasing is expiring soon.
+** Display pie chart of OS type,Makers ... etc.
+
+==== bb-hosts generation ====
+* bb-hosts files got generated from host database table.
+
+=== MVC Implementation ===
+==== Mysql + PHP + EXTJS ====
+==== Catalyst/SQLite ====
+===== Bill of Materials =====
+* Catalyst Book 1
+* perl-5.10.0
+* Fedora 11
+* Address Book Example in Book 1.
+* SQLite3
+* Catalyst::Runtime,Catalyst::Plugins::*,Catalyst::Devel.
+* Sql files to create Asset schema.
+===== Procedures =====
+* Use catalyst.pl to initiate your MVC project with sample templates.
+<pre>
+[tjyang@t-fedora11 test]$ catalyst.pl xymonasset
+created "xymonasset"
+created "xymonasset/script"
+created "xymonasset/lib"
+created "xymonasset/root"
+created "xymonasset/root/static"
+created "xymonasset/root/static/images"
+created "xymonasset/t"
+created "xymonasset/lib/xymonasset"
+created "xymonasset/lib/xymonasset/Model"
+created "xymonasset/lib/xymonasset/View"
+created "xymonasset/lib/xymonasset/Controller"
+created "xymonasset/xymonasset.conf"
+created "xymonasset/lib/xymonasset.pm"
+created "xymonasset/lib/xymonasset/Controller/Root.pm"
+created "xymonasset/README"
+created "xymonasset/Changes"
+created "xymonasset/t/01app.t"
+created "xymonasset/t/02pod.t"
+created "xymonasset/t/03podcoverage.t"
+created "xymonasset/root/static/images/catalyst_logo.png"
+created "xymonasset/root/static/images/btn_120x50_built.png"
+created "xymonasset/root/static/images/btn_120x50_built_shadow.png"
+created "xymonasset/root/static/images/btn_120x50_powered.png"
+created "xymonasset/root/static/images/btn_120x50_powered_shadow.png"
+created "xymonasset/root/static/images/btn_88x31_built.png"
+created "xymonasset/root/static/images/btn_88x31_built_shadow.png"
+created "xymonasset/root/static/images/btn_88x31_powered.png"
+created "xymonasset/root/static/images/btn_88x31_powered_shadow.png"
+created "xymonasset/root/favicon.ico"
+created "xymonasset/Makefile.PL"
+created "xymonasset/script/xymonasset_cgi.pl"
+created "xymonasset/script/xymonasset_fastcgi.pl"
+created "xymonasset/script/xymonasset_server.pl"
+created "xymonasset/script/xymonasset_test.pl"
+created "xymonasset/script/xymonasset_create.pl"
+[tjyang@t-fedora11 test]$ catalyst.pl 
+</pre>
+* perl Makefile.PL
+<pre>
+[tjyang@t-fedora11 xymonasset]$ perl Makefile.PL
+include /var/www/html/test/xymonasset/inc/Module/Install.pm
+include inc/Module/Install/Metadata.pm
+include inc/Module/Install/Base.pm
+Cannot determine perl version info from lib/xymonasset.pm
+include inc/Module/Install/Catalyst.pm
+*** Module::Install::Catalyst
+include inc/Module/Install/Makefile.pm
+Please run "make catalyst_par" to create the PAR package!
+*** Module::Install::Catalyst finished.
+include inc/Module/Install/Scripts.pm
+include inc/Module/Install/AutoInstall.pm
+include inc/Module/Install/Include.pm
+include inc/Module/AutoInstall.pm
+*** Module::AutoInstall version 1.03
+*** Checking for Perl dependencies...
+[Core Features]
+- Catalyst::Runtime                ...loaded. (5.71001 >= 5.71001)
+- Catalyst::Plugin::ConfigLoader   ...loaded. (0.22)
+- Catalyst::Plugin::Static::Simple ...loaded. (0.20)
+- Catalyst::Action::RenderView     ...loaded. (0.09)
+- parent                           ...loaded. (0.221)
+- Config::General                  ...loaded. (2.42)
+*** Module::AutoInstall configuration finished.
+include inc/Module/Install/WriteAll.pm
+include inc/Module/Install/Win32.pm
+include inc/Module/Install/Can.pm
+include inc/Module/Install/Fetch.pm
+Writing Makefile for xymonasset
+Writing META.yml
+[tjyang@t-fedora11 xymonasset]$
+
+</pre>
+
+=== Upgrade Xymon Web GUI ===
+Current Xymon(Hobbit) is coded in C and using CGI and html code to compose a simple web interface.
+Recently, we have a few javascript framework choices to upgrade xymon server with RIA web interface.
+
+==== Using qwikioffice for Xymon Dashboard ====
+* [http://www.qwikioffice.com/desktop-demo/login.html qwikioffice Demo Site]
+
+==== Using Tomatocart's admin tool for Xymon administration tool ====
+*[http://xymon.dlinkddns.com/to/admin/index.php?language=en_US Xymon Admin Interface]
+
+==== Replace Xymon C/CGI with C/EXTJS ====
+ 
+* [http://oss.metaparadigm.com/json-c/ JSON in C]
+
+== Compilation Errors and Warning ==
+=== Possible Solutions ===
+* To remove "unsigned char" usage hobbit src tree.
+<pre>
+ find . -type f -name "*.[c|h]" -exec perl -pi -e 's!unsigned\schar!char!g' {} \;
+</pre>
+* To cast the char that need to be unsigned.
+
+=== GCC Compilation Warnings  ===
+* pointer targets in assignment differ in signedness
+** [http://www.velocityreviews.com/forums/t276758-why-use-unsigned-char-ever.html Why use unsigned char ?]
+**[http://bytes.com/topic/c/answers/473994-char-vs-unsigned-char char-vs-unsigned-char]
+* "/usr/include/sys/socket.h:214: note: expected socklen_t * __restrict__ but argument is of type int *"
+
+=== Compilation Warning on 4.3.0 C source code example listing ===
+<pre>
+[tjyang@f12 4.3.0]$ gmake
+MAKE="gmake" CC="gcc" CFLAGS="-g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I`pwd`/include -DCLIENTONLY=1" LDFLAGS="" `pwd`/build/genconfig.sh
+Checking for socklen_t
+Checking for snprintf
+Checking for vsnprintf
+Checking for rpc/rpcent.h
+Checking for sys/select.h
+Checking for u_int32_t typedef
+Checking for PATH_MAX definition
+Checking for SHUT_RD/WR/RDWR definitions
+Checking for strtoll()
+config.h created
+<snip>
+gcc -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 -I. -I../include    -c -o digest.o digest.c
+digest.c: In function âmd5hashâ:
+digest.c:40: warning: pointer targets in passing argument 2 of âmyMD5_Updateâ differ in signedness
+/home/tjyang/hobbitmon/branches/4.3.0/include/../lib/md5.h:18: note: expected âunsigned char *â but argument is of type âchar *â
+gcc -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 -I. -I../include    -c -o encoding.o encoding.c
+encoding.c: In function âbase64encodeâ:
+encoding.c:31: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:34: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:50: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:60: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:75: warning: pointer targets in return differ in signedness
+encoding.c: In function âbase64decodeâ:
+encoding.c:86: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:114: warning: pointer targets in return differ in signedness
+encoding.c: In function âgetescapestringâ:
+encoding.c:125: warning: pointer targets in assignment differ in signedness
+encoding.c: In function ânlencodeâ:
+encoding.c:181: warning: pointer targets in assignment differ in signedness
+encoding.c:183: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:187: warning: pointer targets in assignment differ in signedness
+encoding.c:191: warning: pointer targets in assignment differ in signedness
+encoding.c:198: warning: pointer targets in passing argument 1 of â__builtin_strcspnâ differ in signedness
+encoding.c:198: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:198: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:198: warning: pointer targets in passing argument 1 of â__strcspn_c1â differ in signedness
+/usr/include/bits/string2.h:971: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:198: warning: pointer targets in passing argument 1 of â__strcspn_c2â differ in signedness
+/usr/include/bits/string2.h:982: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:198: warning: pointer targets in passing argument 1 of â__strcspn_c3â differ in signedness
+/usr/include/bits/string2.h:994: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:198: warning: pointer targets in passing argument 1 of â__builtin_strcspnâ differ in signedness
+encoding.c:198: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:198: warning: pointer targets in passing argument 1 of â__builtin_strcspnâ differ in signedness
+encoding.c:198: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c: In function ânldecodeâ:
+encoding.c:231: warning: pointer targets in passing argument 1 of â__builtin_strcspnâ differ in signedness
+encoding.c:231: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:231: warning: pointer targets in passing argument 1 of âstrlenâ differ in signedness
+/usr/include/string.h:397: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:231: warning: pointer targets in passing argument 1 of â__strcspn_c1â differ in signedness
+/usr/include/bits/string2.h:971: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:231: warning: pointer targets in passing argument 1 of â__strcspn_c2â differ in signedness
+/usr/include/bits/string2.h:982: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:231: warning: pointer targets in passing argument 1 of â__strcspn_c3â differ in signedness
+/usr/include/bits/string2.h:994: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:231: warning: pointer targets in passing argument 1 of â__builtin_strcspnâ differ in signedness
+encoding.c:231: note: expected âconst char *â but argument is of type âunsigned char *â
+encoding.c:231: warning: pointer targets in passing argument 1 of â__builtin_strcspnâ differ in signedness
+encoding.c:231: note: expected âconst char *â but argument is of type âunsigned char *â
+<snip>
+loadhosts.c: In function âbbh_find_itemâ:
+loadhosts.c:228: warning: return discards qualifiers from pointer target type
+loadhosts.c: In function âbbh_itemâ:
+loadhosts.c:540: warning: pointer targets in passing argument 1 of ânlencodeâ differ in signedness
+/home/tjyang/hobbitmon/branches/4.3.0/include/../lib/encoding.h:17: note: expected âunsigned char *â but argument is of type âchar *â
+loadhosts.c:540: warning: pointer targets in passing argument 2 of âaddtobufferâ differ in signedness
+/home/tjyang/hobbitmon/branches/4.3.0/include/../lib/strfunc.h:16: note: expected âchar *â but argument is of type âunsigned char *â
+loadhosts.c: In function âbbh_item_idâ:
+loadhosts.c:619: warning: return discards qualifiers from pointer target type
+<snip>
+msort.c: In function âmsortâ:
+msort.c:119: warning: passing argument 4 of âqsortâ from incompatible pointer type
+/usr/include/stdlib.h:756: note: expected â__compar_fn_tâ but argument is of type âint (*)(void **, void **)â
+<snip>
+sha2.c: In function âmySHA224_Finalâ:
+sha2.c:972: warning: pointer targets in passing argument 2 of âsha224_finalâ differ in signedness
+sha2.c:812: note: expected âunsigned char *â but argument is of type âchar *â
+sha2.c: In function âmySHA256_Finalâ:
+sha2.c:977: warning: pointer targets in passing argument 2 of âsha256_finalâ differ in signedness
+sha2.c:417: note: expected âunsigned char *â but argument is of type âchar *â
+gcc -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 -I. -I../include    -c -o sig.o sig.c
+<snip>
+gcc -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 -I. -I../include  -DCLIENTONLY -c -o timefunc-client.o timefunc.c
+ar cr hobbitclient.a osdefs.o cgiurls.o color-client.o digest.o encoding.o environ-client.o errormsg.o holidays.o ipaccess.o loadhosts.o md5.o memory.o misc.o msort.o rbtr.o rmd160c.o sendmsg.o sha1.o sha2.o sig.o stackio.o strfunc.o suid.o timefunc-client.o
+ranlib hobbitclient.a || echo ""
+gmake[1]: Leaving directory `/home/tjyang/hobbitmon/branches/4.3.0/lib'
+CC="gcc" CFLAGS="-g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I`pwd`/include -DCLIENTONLY=1" LDFLAGS="" RPATHOPT="-Wl,--rpath," SSLFLAGS="" SSLINCDIR="" SSLLIBS="" NETLIBS="" LIBRTDEF="-lrt" BBHOME="/home/xymon/client" gmake -C common client
+gmake[1]: Entering directory `/home/tjyang/hobbitmon/branches/4.3.0/common'
+<snip>
+gcc -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 -c -o bbdigest.o bbdigest.c
+bbdigest.c: In function âmainâ:
+bbdigest.c:48: warning: pointer targets in passing argument 2 of âdigest_dataâ differ in signedness
+/home/tjyang/hobbitmon/branches/4.3.0/include/../lib/digest.h:26: note: expected âunsigned char *â but argument is of type âchar *â
+gcc -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 -o ../client/bbdigest bbdigest.o ../lib/hobbitclient.a  -lrt
+gmake[1]: Leaving directory `/home/tjyang/hobbitmon/branches/4.3.0/common'
+CC="gcc" CFLAGS="-g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I`pwd`/include -DCLIENTONLY=1" LDFLAGS="" RPATHOPT="-Wl,--rpath," SSLLIBS="" NETLIBS="" LIBRTDEF="-lrt" BBHOME="/home/xymon/client" gmake -C build all
+gmake[1]: Entering directory `/home/tjyang/hobbitmon/branches/4.3.0/build'
+gcc -o merge-lines -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 merge-lines.c
+gcc -o merge-sects -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 merge-sects.c
+gcc -o setup-newfiles -g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I/home/tjyang/hobbitmon/branches/4.3.0/include -DCLIENTONLY=1 -Wl,--rpath, setup-newfiles.c ../lib/hobbitclient.a   -lrt
+setup-newfiles.c: In function âmainâ:
+setup-newfiles.c:27: warning: pointer targets in assignment differ in signedness
+setup-newfiles.c:79: warning: pointer targets in passing argument 1 of âstrstrâ differ in signedness
+/usr/include/string.h:340: note: expected âconst char *â but argument is of type âunsigned char *â
+gmake[1]: Leaving directory `/home/tjyang/hobbitmon/branches/4.3.0/build'
+CC="gcc" CFLAGS="-g -O2 -Wall -Wno-unused -D_REENTRANT -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DLINUX -I. -I`pwd`/include -DCLIENTONLY=1" BBHOME="/home/xymon/client" BBHOSTIP="127.0.0.1" LOCALCLIENT="no" NETLIBS="" LIBRTDEF="-lrt" gmake -C client all
+gmake[1]: Entering directory `/home/tjyang/hobbitmon/branches/4.3.0/client'
+<snip>
+msgcache.c: In function âmainâ:
+msgcache.c:537: warning: pointer targets in passing argument 3 of âacceptâ differ in signedness
+/usr/include/sys/socket.h:214: note: expected âsocklen_t * __restrict__â but argument is of type âint *â
+cat hobbitclient.cfg.DIST | sed -e 's!@BBHOSTIP@!127.0.0.1!g' >hobbitclient.cfg
+../build/bb-commands.sh >>hobbitclient.cfg
+cat clientlaunch.cfg.DIST | sed -e 's!@CLIENTFLAGS@!!g' >clientlaunch.cfg
+gmake[1]: Leaving directory `/home/tjyang/hobbitmon/branches/4.3.0/client'
+
+Build complete. Now run 'gmake install' as root
+
+[tjyang@f12 4.3.0]$
+
+</pre>
+== Xymon GUI ideas ==
+=== GUI Requirements ===
+# Keep cgi+html+tigramenu for legacy support.
+# Include modern Javascript GUI framework like extjs or jQuery.
+# Provide realtime web GUI update from clients using AJAX.
+## Waiting for 1+ minutes to see the changes from web page is barely acceptable but hope to avoid.
+
+=== From Neil Franken ===
+# Use CSS to provide easy theme and resolution change.
+## Resolutions: 
+## Themes:
+#Enable fine-grained control on columns in different views.
+
+=== From T.J. Yang ===
+I found following combination of existing opensource software can make up a new GUI for Xymon.
+End user can still see old cgi+html GUI. 
+#Use extjs for new GUI and miframe.js to contain old tigra menu GUI in a frame.
+# See [http://xymon.dlinkddns.com:8083/hobbit/ext3/examples/desktop/  Xymon Desktop Prototype].{{dead link|date=December 2011}}
+
+== Using command line tool to update  this wiki book ==
+=== Installation of mediawiki client in perl ===
+
+* [http://search.cpan.org/~markj/ Mediawik command line tool]
+* A makefile script to automate the hobbit documentation effort.
+
+{{BookCat}}
