@@ -16,10 +16,10 @@ The objective is to reduce repetition and avoid divergent or contradictory guida
 
 - Website (public, indexed):  
   [https://xymon-monitoring.github.io/xymon-wiki/](https://xymon-monitoring.github.io/xymon-wiki/)
-
+  
 Key pages (canonical Markdown sources):
-- [C coding contribution guidelines](https://github.com/xymon-monitoring/xymon-wiki/blob/main/docs/contributing/c-coding-contribution-guidelines.md)
-- [AI agent contribution directives](https://github.com/xymon-monitoring/xymon-wiki/blob/main/docs/contributing/ai-agent-contribution-directives.md)
+- [C coding contribution guidelines](docs/contributing/c-coding-contribution-guidelines.md)
+- [AI agent contribution directives](docs/contributing/ai-agent-contribution-directives.md)
 
 - Source repository:  
   [https://github.com/xymon-monitoring/xymon-wiki](https://github.com/xymon-monitoring/xymon-wiki)
