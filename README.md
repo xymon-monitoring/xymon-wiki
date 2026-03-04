@@ -14,11 +14,15 @@ The objective is to reduce repetition and avoid divergent or contradictory guida
 
 ## Access the Wiki Website
 
-- [https://xymon-monitoring.github.io/xymon-wiki/](https://xymon-monitoring.github.io/xymon-wiki/)  
-  Public, search-engine indexable documentation site.
+- Website (public, indexed):  
+  [https://xymon-monitoring.github.io/xymon-wiki/](https://xymon-monitoring.github.io/xymon-wiki/)
 
-- [https://github.com/xymon-monitoring/xymon-wiki](https://github.com/xymon-monitoring/xymon-wiki)  
-  Source repository for the wiki content.
+  Key pages:
+  - C contribution guidelines (newcomers + AI directives):  
+    [https://xymon-monitoring.github.io/xymon-wiki/docs/contributing/c-coding-guidelines/](https://xymon-monitoring.github.io/xymon-wiki/docs/contributing/c-coding-guidelines/)
+
+- Source repository:  
+  [https://github.com/xymon-monitoring/xymon-wiki](https://github.com/xymon-monitoring/xymon-wiki)
 
 ---
 
