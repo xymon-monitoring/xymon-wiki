@@ -1,4 +1,4 @@
-# C Coding Contribution Guidelines
+# C Coding Contribution Guidelines (Draft)
 
 Scope
 - General expectations for contributing C changes.
@@ -68,7 +68,7 @@ Always include environment details:
 - relevant dependency versions
 - install method (packages vs custom)
 
-## PR Description Template (Required)
+## PR Description Template (Required?)
 
 - Problem:
 - Reproduction:
