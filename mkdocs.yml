@@ -12,6 +12,7 @@ theme:
     - navigation.tracking
     - navigation.tabs
     - navigation.sections
+    - navigation.indexes
     - navigation.top
     - toc.follow
     - search.suggest
@@ -56,12 +57,11 @@ nav:
       - Xymon server documentation: guides/server-documentation.md
       - Compile Xymon: guides/how-to-compile-xymon.md
       - Client / Server communication: guides/client-server-communication.md
-  - Clients:
-      - Windows PowerShell client:
-          - Overview: clients/windows-powershell/index.md
-          - Installation: clients/windows-powershell/installation.md
-          - Local settings: clients/windows-powershell/local-settings.md
-          - Remote settings: clients/windows-powershell/remote-settings.md
+  - Windows PowerShell client:
+      - clients/windows-powershell/index.md
+      - Installation: clients/windows-powershell/installation.md
+      - Local settings: clients/windows-powershell/local-settings.md
+      - Remote settings: clients/windows-powershell/remote-settings.md
   - Contributing:
       - C coding guidelines: contributing/c-coding-contribution-guidelines.md
       - AI agent directives: contributing/ai-agent-contribution-directives.md
