@@ -18,7 +18,7 @@ Canonical governance and upstream lifecycle rules live in:
 - [git-actions-upstream-workflow.md](git-actions-upstream-workflow.md)
 - [git-rules.md](git-rules.md)
 
-This document does NOT define upstream behavior.
+This document does not define upstream behavior.
 It describes **local usage and customization only**.
 
 
@@ -36,12 +36,12 @@ It covers:
 - adapting workflows for local use,
 - enabling manual and branch-agnostic execution.
 
-It does NOT cover:
+It does not cover:
 
 - upstream promotion rules,
 - branch governance,
 - authoritative CI or release processes,
-- Action YAML best practices beyond what is required for execution.
+- Action yaml best practices beyond what is required for execution.
 
 
 Relation to upstream actions

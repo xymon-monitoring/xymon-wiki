@@ -21,9 +21,9 @@ Scope
 
 Repository roles
 ----------------
-UPSTREAM  : authoritative repository (read-only via git)
-PERSONAL  : contributor fork (integration, testing, CI)
-LOCAL     : developer working copy
+upstream  : authoritative repository (read-only via git)
+personal  : contributor fork (integration, testing, CI)
+local     : developer working copy
 
 
 Reference baselines
@@ -71,7 +71,7 @@ Allowed merge modes include:
 Hard rules
 ----------
 
-- Upstream is fetch-only; make all changes in PERSONAL or LOCAL
+- Upstream is fetch-only; make all changes in personal or local
 - Treat `main` and `devel` the same way: branch from them and avoid direct commits
 - Use work branches for non-trivial changes
 - Any divergence from baselines must be intentional

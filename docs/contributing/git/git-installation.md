@@ -30,7 +30,7 @@ choco install git gh
 ```
 
 
-AUTHENTICATE gh (ONCE, BROWSER-BASED)
+Authenticate gh (once, browser-based)
 -------------------------------------
 Run:
 ```

@@ -81,7 +81,7 @@ Rules
 
 Step 1 - check upstream status
 ------------------------------
-Use the baseline verification in [git-setup.md](git-setup.md) (PHASE 5).
+Use the baseline verification in [git-setup.md](git-setup.md) (phase 5).
 
 Step 2 - sync your personal fork (if needed)
 --------------------------------------------
@@ -125,10 +125,10 @@ If it is, sync it using the GitHub UI:
 - Click "Sync fork"
 - Choose "Update branch"
 
-IMPORTANT:
+important:
 `main` and `devel` are moving targets: they advance as upstream evolves.
 
-Do NOT sync if you have commits on `main` or `devel`.
+Do not sync if you have commits on `main` or `devel`.
 GitHub will warn that syncing will overwrite those changes.
 
 Move any work in progress to a dedicated branch first.

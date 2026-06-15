@@ -9,7 +9,7 @@ developing, maintaining, and promoting GitHub Actions.
 Canonical governance rules live in:
 
 - [git-rules.md](git-rules.md)
-  - See ACTION BRANCHES for `action/*` governance.
+  - See action branches for `action/*` governance.
 
 The standard contribution workflow is defined in:
 
@@ -31,12 +31,12 @@ It covers only:
 - upstream Git operations for Actions,
 - GitHub UI interactions related to Actions.
 
-It does NOT cover:
+It does not cover:
 
 - repository setup,
 - branch governance rules,
 - application code contributions,
-- Action YAML design details.
+- Action yaml design details.
 
 
 Action branch model (optional)
@@ -137,8 +137,8 @@ On GitHub (personal fork UI):
 - Sync branch `devel`
 - Sync relevant `action/*` branches (if used)
 
-IMPORTANT:
-Do NOT sync if you have commits on `main`, `devel`, or `action/*`.
+important:
+Do not sync if you have commits on `main`, `devel`, or `action/*`.
 Move any work in progress to a dedicated branch first.
 These branches must remain clean.
 
@@ -224,7 +224,7 @@ If using `action/*` branches for reuse or long-term maintenance:
 - Maintain the Action independently from application code.
 
 
-STEP 6 - PROMOTE TO main / devel
+Step 6 - promote to main / devel
 --------------------------------
 If using `action/*`, promote from `action/<name>` into `main` and/or `devel`
 via controlled upstream Pull Requests.

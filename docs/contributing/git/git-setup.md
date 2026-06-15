@@ -51,8 +51,8 @@ Rules
 - Upstream is the single authoritative truth source.
 - All baseline verification is performed against upstream.
 - Origin (personal fork) is a writable mirror used only as a sync and PR source.
-- Upstream is fetch-only and modified ONLY via Pull Requests.
-- Push is allowed ONLY to the personal fork.
+- Upstream is fetch-only and modified only via Pull Requests.
+- Push is allowed only to the personal fork.
 - main  = stable / release
 - devel = active development baseline
 
@@ -147,7 +147,7 @@ Warnings:
 
 - Tracked changes are discarded.
 - Untracked files are preserved.
-- git clean is intentionally NOT used.
+- git clean is intentionally not used.
 - Back up anything important before running a destructive reset.
 
 Backup options (recommended):
