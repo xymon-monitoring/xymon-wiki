@@ -35,15 +35,17 @@
   --md-accent-fg-color:         var(--xymon-cyan);
   --md-typeset-a-color:         var(--xymon-link-teal); /* iconic Xymon links */
   --md-default-bg-color:        #000000;  /* black body, like xymonbody.css */
-  --md-default-fg-color:        #d8d8bf;  /* Xymon tan text */
-  --md-default-fg-color--light: #cfcfb6;
-  --md-typeset-color:           #d8d8bf;
+  --md-default-fg-color:        #ffffff;  /* white text */
+  --md-default-fg-color--light: #e6e6e6;
+  --md-default-fg-color--lighter: #b3b3b3;
+  --md-typeset-color:           #ffffff;
 }
 
-/* The green left band (dark scheme). bkg-green.gif is 125x1 tiled repeat-y on a
-   black body: a 125px green->black gradient down the left edge. Reproduced as a
-   fixed overlay rail; pointer-events:none so it never blocks clicks. */
-body[data-md-color-scheme="slate"]::before {
+/* The green left band — on both light and dark schemes. bkg-green.gif is 125x1
+   tiled repeat-y: a 125px green gradient down the left edge, fading into the page
+   (black in dark, white in light). Fixed overlay; pointer-events:none so it
+   never blocks clicks. */
+body::before {
   content: "";
   position: fixed;
   top: 0;
