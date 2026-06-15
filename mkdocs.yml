@@ -51,6 +51,7 @@ nav:
   - Home: index.md
   - About:
       - History of Xymon: about/history-of-xymon.md
+      - Project & community: about/project-and-community.md
   - Guides:
       - Xymon server documentation: guides/server-documentation.md
       - Compile Xymon: guides/how-to-compile-xymon.md
