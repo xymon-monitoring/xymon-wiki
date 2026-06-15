@@ -156,10 +156,17 @@ Examples:
 Used to specify the version of the script the client should be running. If the client is running a lower version, it will attempt to retrieve the correct version from the location given and restart. If the client version is equal to or greater than the specified version, no action is taken.
 Update checks run on “slow scan” executions – by default, approximately every 6 hours.
 
-* VERSION – the version number the client should be running.
-* UPDATE_LOCATION – the location where the client can copy the newer version of the script from. This can be an UNC path (\\SERVER\share\), or a http, https or bb url. Should not contain a filename. If you have not disabled the download command on the Xymon server, you can use bb:// urls (bb://path/on/server) which will copy the script directly from the Xymon server’s download directory.
-* HASH – optional – possible values MD5, SHA1 or SHA256 - specify a hashing algorithm to check the update file matches the expected HASHVALUE
-* HASHVALUE – optional (required if HASH specified) – specify a hash value to compare to the calculated hash value of the download update
+More than one `clientversion` directive can be specified, for example to define multiple download locations. During each update check, the directives are evaluated one by one:
+
+* If the running version is already equal to or higher than a directive's `VERSION`, that directive is skipped (logged as "doing nothing") and the next directive is evaluated.
+* As soon as a directive is found where the running version is lower than `VERSION`, the client attempts to retrieve `xymonclient_<VERSION>.ps1` from that directive's `UPDATE_LOCATION`, verifies it (if `HASH/HASHVALUE` is specified) and restarts itself to run the new version. Evaluation of any remaining `clientversion` directives stops at that point for this run.
+
+On the next run, now under the new version, all `clientversion` directives are evaluated again from the start. A staged upgrade (e.g. 2.0 → 2.1 → 2.2) is therefore applied one version per restart, not all in a single run.
+
+* `VERSION` – the version number the client should be running.
+* `UPDATE_LOCATION` – the location where the client can copy the newer version of the script from. This can be an UNC path (`\\SERVER\share\`), or a http, https or bb url. Should not contain a filename. If you have not disabled the download command on the Xymon server, you can use `bb://` and `xymon://` urls (`bb://path/on/server`) which will copy the script directly from the Xymon server’s download directory.
+* `HASH` – optional – possible values MD5, SHA1 or SHA256 - specify a hashing algorithm to check the update file matches the expected HASHVALUE
+* `HASHVALUE` – optional (required if HASH specified) – specify a hash value to compare to the calculated hash value of the download update
 
 The client expects to be able to download or copy a file `xymonclient_<version>.ps1` from the update location (e.g. `xymonclient_1.95.ps1`). If the file cannot be downloaded or copied, the current version of the script will continue running.
 
@@ -180,6 +187,10 @@ Minimum client version should be 2.1 and updates can be downloaded from http://s
 `clientversion:2.21:bb://XymonPS:SHA1:829bc631cd428c55c4673c00242db81fe7c4fb37`
 
 Minimum client version should be 2.21 and updates can be downloaded from the XymonPS sub directory of the download directory on the Xymon server. The update should be hashed using SHA1 and if the calculated value does not match 829bc631cd428c55c4673c00242db81fe7c4fb37, then the update will be rejected (this is an example hash value only).
+
+`external:everyscan:sync:script.ps1|powershell.exe|-executionpolicy remotesigned –file "{script}"`
+
+This will run script.ps1 (from externalscriptlocation) every scan, synchronously, using powershell.exe with the arguments specified. No hash is specified, so the script will not be checked or automatically downloaded/updated.
 
 ## servergifs
 
@@ -313,28 +324,40 @@ Repeat the disk test as disk_ops, yellow alert if drive d: >= 70% used, red aler
 
 ## external
 
-`external:PRIORITY:SCHEDULE:METHOD:SCRIPT|HASH|HASHVALUE|PROCESS|ARGUMENTS`
+`external:[PRIORITY:]SCHEDULE:METHOD:SCRIPT[|HASH|HASHVALUE][|PROCESS|ARGUMENTS]`
 
 Please note that the delimiters for this directive are slightly different - the pipe delimiter is used for some parameters to ease parsing.
 external allows you to specify external scripts to run periodically to provide additional data. Scripts compatible with BBWin should work with a minimum of changes. External scripts return data back to Xymon by writing results to an external data file – see the section above in the main document.
 
-* PRIORITY – optional – value 0-99. If specifying multiple externals, they will be executed in priority order, lower values first. If values match, async externals will be executed before sync. If priority is not specified, the lowest priority will be allocated (99).
-* SCHEDULE – possible values everyscan, slowscan or scan,N - when to run the external script. scan,N runs the script every N scans (e.g. scan,12 runs the script every 12th scan with the default ‘loopinterval’ of 300 seconds, that is approximately every hour)
-* METHOD – possible values sync or async – run the script synchronously (XymonPSClient waits for the script to finish before proceeding) or asynchronously (the script runs in the background)
-* SCRIPT – the name of the script without path (if it exists in the externalscriptlocation and you do not wish to use update functions) or the location (UNC path or http/https/bb url) from which it can be copied / downloaded
-* HASH – optional - possible values MD5, SHA1 or SHA256 - specify a hashing algorithm to check the script matches the expected HASHVALUE
-* HASHVALUE – (only if HASH is specified) - specify a hash value to compare to the calculated hash value of the script
-* PROCESS – optional – specify the name of a process to be used to execute the script – e.g. powershell.exe for Powershell scripts
-* ARGUMENTS – optional (required if PROCESS specified) – specify any arguments to be passed to PROCESS. The text {script} can be used – it will be replaced with the full path and filename of the script. The text {scriptdir} can be used – it will be replaced with the path to the script.
+### Format
 
-If the externalscriptlocation directory does not exist and the external directive is used, XymonPSClient will attempt to create it.
+The directive is parsed as a fixed set of colon (`:`) separated fields, followed by an optional set of pipe (`|`) separated fields:
 
-If a hash algorithm and value is specified, XymonPSClient will calculate the hash of the script currently on the server and will not execute the script if the values do not match. If the script does not exist or the hash check fails, XymonPSClient will attempt to copy or download the script from the location specified by SCRIPT.
+* The first field is always `external`.
+* `PRIORITY` is optional. If present, it is a purely numeric field (0-99) immediately followed by a colon. If the second field is not numeric, PRIORITY is omitted and that field is treated as SCHEDULE. 
+* `SCHEDULE** and `METHOD` are always present and always colon-separated.
+* `SCRIPT` is everything up to the first recognised `|HASH|HASHVALUE` and/or `|PROCESS|ARGUMENTS` pair (or to the end of the line if neither is present). SCRIPT itself may contain `:` (e.g. a `http://` or `bb://` URL or a `U:\path`).
+* `HASH/HASHVALUE` and `PROCESS/ARGUMENTS` are each optional, pipe-separated pairs that can appear independently of each other, in this order: `SCRIPT[|HASH|HASHVALUE][|PROCESS|ARGUMENTS]`. In other words, you can specify SCRIPT only, SCRIPT with a hash check, SCRIPT with a PROCESS/ARGUMENTS, or both.
 
-The optional PROCESS and ARGUMENTS parameters allow a process to be called to call the script, e.g. and interpreter. If PROCESS is used, HASH, HASHVALUE and ARGUMENTS must be specified. The text {script} in the ARGUMENTS parameter will be replaced with the full path and filename of the script. For example, if the external script is a Powershell script, powershell.exe would be used for the PROCESS and –file “{script}” for the ARGUMENTS.
+Details:
+
+* `PRIORITY` – optional – value 0-99. If specifying multiple externals, they will be executed in priority order, lower values first. If values match, async externals will be executed before sync. If priority is not specified, the lowest priority will be allocated (99).
+* `SCHEDULE` – possible values everyscan, slowscan or scan,N - when to run the external script. scan,N runs the script every N scans (e.g. scan,12 runs the script every 12th scan with the default ‘loopinterval’ of 300 seconds, that is approximately every hour).
+* `METHOD` – possible values sync or async – run the script synchronously (XymonPSClient waits for the script to finish before proceeding) or asynchronously (the script runs in the background).
+* `SCRIPT` – the name of the script without path (if it exists in the externalscriptlocation and you do not wish to use update functions) or the location (UNC path or http/https/bb url) from which it can be copied / downloaded.
+* `HASH` – optional - possible values `MD5`, `SHA1` or `SHA256` - specify a hashing algorithm to check the script matches the expected HASHVALUE. If specified, HASHVALUE must also be specified.
+* `HASHVALUE` – (only if HASH is specified) - specify a hash value to compare to the calculated hash value of the script
+* `PROCESS` – optional – specify the name of a process to be used to execute the script – e.g. powershell.exe for Powershell scripts. If specified, `ARGUMENTS` must also be specified. `PROCESS/ARGUMENTS` can be specified with or without a preceding HASH/HASHVALUE pair. 
+* `ARGUMENTS` – optional (required if `PROCESS` specified) – specify any arguments to be passed to `PROCESS`. The text {script} can be used – it will be replaced with the full path and filename of the script. The text {scriptdir} can be used – it will be replaced with the path to the script.
+
+If the externalscriptlocation directory does not exist and the external directive is used, XymonPSClient will create the directory.
+
+If a hash algorithm and value is specified, XymonPSClient will calculate the hash of the script currently on the server and will not execute the script if the values do not match. If the script does not exist or the hash check fails, XymonPSClient will attempt to copy or download the script from the location specified by `SCRIPT`.
+
+The optional `PROCESS` and `ARGUMENTS` parameters allow a process to be called to call the script, e.g. and interpreter. If `PROCESS` is used, `HASH`, `HASHVALUE` and `ARGUMENTS` must be specified. The text {script} in the `ARGUMENTS` parameter will be replaced with the full path and filename of the script. For example, if the external script is a Powershell script, powershell.exe would be used for the PROCESS and –file “{script}” for the `ARGUMENTS`.
 Care should be taken with potentially long running scripts. Do not run long running scripts synchronously as that will cause the XymonPSClient to pause until the script finishes and may well cause purple alerts. Likewise, do not run long-running scripts asynchronously on every scan, as that will cause multiple copies of the script to run.
 
-**Examples**
+### Examples
 
 `external:everyscan:sync:fsmon.vbs`
 
