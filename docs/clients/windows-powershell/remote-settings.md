@@ -384,7 +384,7 @@ If slimmode is set and the services directive is not, all processes will be repo
 If slimmode is set and a list of processes is provided, only those processes will be reported back to the server. The names of the processes should be as they are shown on the ‘cpu’ page on Xymon.
 If slimmode is set and the processes directive is not, all processes will be reported as normal.
 
-sections:<CSV list of sections>
+`sections:<CSV list of sections>`
 
 The sections to include can be:
 * netstat
