@@ -13,6 +13,7 @@ All contributions are welcome via Pull Requests.
 
 SCOPE
 -----
+
 - local development environments
 - personal GitHub forks
 - safe contribution to the upstream repository
@@ -54,6 +55,7 @@ for GitHub Actions changes:
 REVIEW AND MERGE POLICY
 -----------------------
 Integration into `main` or `devel` requires review by two people:
+
 - one author
 - one independent reviewer
 
@@ -61,12 +63,14 @@ If an exception is needed, it must be clearly explained
 in the Pull Request.
 
 Allowed merge modes include:
+
 - squash
 - merge commit
 - rebase
 
 HARD RULES
 ----------
+
 - Upstream is fetch-only; make all changes in PERSONAL or LOCAL
 - Treat `main` and `devel` the same way: branch from them and avoid direct commits
 - Use work branches for non-trivial changes

@@ -7,10 +7,12 @@ This document defines the **upstream, authoritative workflow** for
 developing, maintaining, and promoting GitHub Actions.
 
 Canonical governance rules live in:
+
 - [git-rules.md](git-rules.md)
   - See ACTION BRANCHES for `action/*` governance.
 
 The standard contribution workflow is defined in:
+
 - [git-contribution-flow.md](git-contribution-flow.md)
 
 This document specifies **how GitHub Actions evolve upstream**.
@@ -20,14 +22,17 @@ It does not redefine governance.
 SCOPE
 -----
 This workflow applies to:
+
 - GitHub Actions under `.github/`,
 - upstream maintenance and promotion of Actions.
 
 It covers only:
+
 - upstream Git operations for Actions,
 - GitHub UI interactions related to Actions.
 
 It does NOT cover:
+
 - repository setup,
 - branch governance rules,
 - application code contributions,
@@ -40,6 +45,7 @@ Some GitHub Actions may be maintained in **dedicated upstream Action branches**
 (e.g. `action/build`, `action/test`, `action/release`).
 
 When used, these branches:
+
 - should contain only `.github/` content,
 - can serve as the canonical source for Actions,
 - are promoted into `main` and/or `devel` via controlled merges.
@@ -48,7 +54,7 @@ If not used, Actions live directly on `main` and `devel`.
 
 
 AUTHORITATIVE ACTION FLOW (ASCII)
-=================================
+---------------------------------
 
 This diagram shows **Action-specific lifecycle steps**.
 All standard operations (branching, committing, PR rules) follow
@@ -126,6 +132,7 @@ Ensure your personal fork is aligned with upstream before starting
 any GitHub Actions work.
 
 On GitHub (personal fork UI):
+
 - Sync branch `main`
 - Sync branch `devel`
 - Sync relevant `action/*` branches (if used)
@@ -242,6 +249,7 @@ git push origin --delete action-<topic>
 
 KEY PRINCIPLES
 --------------
+
 - Upstream is the authoritative truth source.
 - `action/*` branches are canonical when used.
 - `main` is the stable integration target; `devel` is the active development baseline.

@@ -7,13 +7,14 @@ This document defines the canonical setup and maintenance procedure
 for contributors using a personal fork.
 
 Authoritative governance rules live in:
+
 - [git-rules.md](git-rules.md)
 
 This document is procedural and scoped to the contributor workflow.
 
 
 AUTHORITATIVE FLOW (PHASED)
-==========================
+--------------------------
 
 ```text
 PHASE 1
@@ -46,6 +47,7 @@ PHASE 7           │ contribution workflow
 
 RULES
 -----
+
 - Upstream is the single authoritative truth source.
 - All baseline verification is performed against upstream.
 - Origin (personal fork) is a writable mirror used only as a sync and PR source.
@@ -57,20 +59,23 @@ RULES
 
 PHASE 0 - PREREQUISITES
 ----------------------
+
 - A GitHub account
 - Git installed locally
 - A personal fork is allowed; direct upstream pushes are not
 
 Reference:
+
 - [git-installation.md](git-installation.md)
 
 
 PHASE 1 - CREATE PERSONAL FORK (GITHUB UI)
 -----------------------------------------
 On GitHub:
+
 - Fork xymon-monitoring/xymon
 - Result:
-  <your-github-username>/xymon
+  `<your-github-username>/xymon`
 
 
 PHASE 2 - CLONE PERSONAL FORK (LOCAL)
@@ -118,6 +123,7 @@ git diff devel upstream/devel
 ```
 
 Expected result:
+
 - No output means your branch matches upstream.
 - Differences mean your branch is ahead or behind and should be aligned before you branch.
 
@@ -138,6 +144,7 @@ git stash pop
 ```
 
 Warnings:
+
 - Tracked changes are discarded.
 - Untracked files are preserved.
 - git clean is intentionally NOT used.
@@ -155,6 +162,7 @@ cp -a . ../xymon-backup
 PHASE 7 - CONTRIBUTION WORKFLOW
 -------------------------------
 Day-to-day development, PR flow, and cleanup are defined in:
+
 - [git-contribution-flow.md](git-contribution-flow.md)
 
 

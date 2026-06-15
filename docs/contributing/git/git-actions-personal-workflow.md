@@ -8,11 +8,13 @@ for adapting, running, and validating GitHub Actions in a personal fork
 or downstream repository.
 
 It is intended for contributors and downstream users who want to:
+
 - reuse upstream GitHub Actions,
 - adapt them to local repository constraints,
 - run Actions on demand or on arbitrary branches.
 
 Canonical governance and upstream lifecycle rules live in:
+
 - [git-actions-upstream-workflow.md](git-actions-upstream-workflow.md)
 - [git-rules.md](git-rules.md)
 
@@ -23,16 +25,19 @@ It describes **local usage and customization only**.
 SCOPE
 -----
 This workflow applies to:
+
 - personal forks,
 - downstream repositories,
 - local experimentation and validation of GitHub Actions.
 
 It covers:
+
 - syncing upstream Action branches,
 - adapting workflows for local use,
 - enabling manual and branch-agnostic execution.
 
 It does NOT cover:
+
 - upstream promotion rules,
 - branch governance,
 - authoritative CI or release processes,
@@ -45,6 +50,7 @@ Upstream GitHub Actions may be maintained in dedicated branches
 (e.g. `action/build`, `action/test`, `action/release`).
 
 In a personal context:
+
 - upstream Action branches are **sources**, not authorities,
 - local modifications are expected and allowed,
 - divergence is acceptable and intentional.
@@ -53,7 +59,7 @@ Upstream remains the reference for future updates.
 
 
 PERSONAL ACTION FLOW (ASCII)
-============================
+----------------------------
 
 This diagram shows how a user consumes and adapts upstream Actions
 in a personal or downstream repository.
@@ -114,6 +120,7 @@ STEP 2 - ADAPT ACTION FOR PERSONAL USE
 Modify the workflow under `.github/` to fit your repository.
 
 Typical adaptations include:
+
 - adjusting paths or build commands,
 - changing matrix values,
 - disabling unused jobs,
@@ -148,6 +155,7 @@ branches: [ main, devel ]
 ```
 
 Options:
+
 - remove branch filters entirely, or
 - use a wildcard:
 
@@ -164,6 +172,7 @@ Upstream workflows may include restrictions that do not apply
 in a personal context.
 
 Review and adjust:
+
 - repository name checks:
   `if: github.repository == 'xymon-monitoring/xymon'`
 - environment protections,
@@ -176,6 +185,7 @@ STEP 6 - SECRETS AND PERMISSIONS
 Personal forks do not inherit upstream secrets.
 
 If required:
+
 - define your own secrets in the fork,
 - downgrade permissions where possible,
 - avoid assuming access to signing or release credentials.
@@ -186,6 +196,7 @@ in a personal context.
 STEP 7 - EXECUTE AND ITERATE
 ----------------------------
 After adaptation, Actions can be run:
+
 - manually via GitHub UI,
 - on any branch push,
 - as part of local validation workflows.
@@ -195,6 +206,7 @@ Iteration is expected and unrestricted.
 LIMITATIONS
 -----------
 Personal Action workflows:
+
 - are non-authoritative,
 - may diverge from upstream,
 - may not fully reflect upstream execution context.
@@ -203,6 +215,7 @@ They must never be assumed to represent upstream behavior.
 
 KEY PRINCIPLES
 --------------
+
 - Upstream defines **what is canonical**.
 - Personal workflows define **what is usable locally**.
 - Divergence in personal forks is expected and acceptable.

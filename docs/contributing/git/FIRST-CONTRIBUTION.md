@@ -12,6 +12,7 @@ This project is designed so you can contribute safely and learn as you go.
 GOOD FIRST CONTRIBUTIONS
 ------------------------
 Great ways to start:
+
 - documentation or wording fixes,
 - small cleanups,
 - CI or GitHub Actions tweaks,
@@ -23,6 +24,7 @@ Small, focused changes are always welcome.
 START HERE
 ----------
 Follow these in order:
+
 1. [git-installation.md](git-installation.md)
 2. [git-setup.md](git-setup.md)
 3. [git-contribution-flow.md](git-contribution-flow.md)

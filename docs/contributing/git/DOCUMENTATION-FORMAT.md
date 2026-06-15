@@ -10,6 +10,7 @@ in this repository.
 MARKDOWN FORMAT RULES
 ---------------------
 Use these rules as written when editing documentation.
+
 - Use setext-style headings (`Title` + `====` / `----`)
 - Use fenced code blocks for diagrams and commands
 - Use bullet or numbered lists for enumerations

@@ -9,7 +9,7 @@ If you have not set up your fork and remotes yet, start with
 
 
 AUTHORITATIVE FLOW (STEP-BASED)
-===============================
+-------------------------------
 
 ```text
 STEP 1
@@ -70,6 +70,7 @@ STEP 8            │ cleanup
 
 RULES
 -----
+
 - Upstream is the authoritative truth source.
 - All verification is done against upstream.
 - All writes go to the personal fork.
@@ -85,6 +86,7 @@ Use the baseline verification in [git-setup.md](git-setup.md) (PHASE 5).
 STEP 2 - SYNC YOUR PERSONAL FORK (IF NEEDED)
 --------------------------------------------
 If your fork is behind, sync it in the GitHub UI:
+
 - Click "Sync fork"
 - Choose "Update branch"
 
@@ -119,6 +121,7 @@ STEP 5 - SYNC YOUR FORK AND LOCAL WITH UPSTREAM (RECOMMENDED)
 Before opening any PR, make sure your fork and local branches are not behind upstream.
 
 If it is, sync it using the GitHub UI:
+
 - Click "Sync fork"
 - Choose "Update branch"
 

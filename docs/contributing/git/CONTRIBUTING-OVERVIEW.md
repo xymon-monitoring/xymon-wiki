@@ -25,6 +25,7 @@ but the mailing list remains the main place for discussion and support.
 
 WORKING WITH GITHUB
 -------------------
+
 1. Make changes on your computer
 2. Push them to your own GitHub fork
 3. Open a Pull Request to the main project
@@ -57,9 +58,11 @@ HOW CHANGES MOVE
 WHERE TO START
 --------------
 New here?
+
 - Start with [FIRST-CONTRIBUTION.md](FIRST-CONTRIBUTION.md)
 
 Need Git help?
+
 - [git-installation.md](git-installation.md)
 - [git-setup.md](git-setup.md)
 
@@ -67,13 +70,16 @@ Need Git help?
 MORE DETAILS
 ------------
 How to contribute:
+
 - [git-contribution-flow.md](git-contribution-flow.md)
 
 Rules and good practices:
+
 - [git-rules.md](git-rules.md)
 - [git-guidelines.md](git-guidelines.md)
 
 Working on CI?
+
 - [git-actions-upstream-workflow.md](git-actions-upstream-workflow.md)
 - [git-actions-personal-workflow.md](git-actions-personal-workflow.md)
 
@@ -81,4 +87,5 @@ Working on CI?
 DOCUMENTATION FORMAT
 --------------------
 When editing documentation, please follow:
+
 - [DOCUMENTATION-FORMAT.md](DOCUMENTATION-FORMAT.md)
