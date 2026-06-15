@@ -73,7 +73,7 @@ body::before {
    — out of the band's green half: start it at 50% of the band, which rescales
    with the viewport. */
 .md-header__inner,
-.md-tabs__inner,
+.md-tabs .md-grid,
 .md-sidebar--primary,
 .md-content {
   padding-left: calc(var(--xymon-band-width) / 2);
