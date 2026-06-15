@@ -35,10 +35,10 @@
   --md-accent-fg-color:         var(--xymon-cyan);
   --md-typeset-a-color:         var(--xymon-link-teal); /* iconic Xymon links */
   --md-default-bg-color:        #000000;  /* black body, like xymonbody.css */
-  --md-default-fg-color:        #ffffff;  /* white text */
-  --md-default-fg-color--light: #e6e6e6;
-  --md-default-fg-color--lighter: #b3b3b3;
-  --md-typeset-color:           #ffffff;
+  --md-default-fg-color:        #e8e8e8;  /* soft white — easier than pure #fff on black */
+  --md-default-fg-color--light: #c4c4c4;
+  --md-default-fg-color--lighter: #8f8f8f;
+  --md-typeset-color:           #e8e8e8;
 }
 
 /* The green left band — on both light and dark schemes. bkg-green.gif is 125x1
