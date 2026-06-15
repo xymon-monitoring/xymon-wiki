@@ -32,7 +32,7 @@ General:
 - [Xymon server documentation](guides/server-documentation.md) — links to the official xymon.com help pages
 - [Compile Xymon](guides/how-to-compile-xymon.md)
 - [Client / Server communication](guides/client-server-communication.md)
-- [History of Xymon](guides/history-of-xymon.md)
+- [History of Xymon](about/history-of-xymon.md)
 
 Windows PowerShell client (XymonPSClient) — the official Xymon client for Windows
 (all modern versions):
