@@ -1659,7 +1659,7 @@ Build complete. Now run 'gmake install' as root
 I found following combination of existing opensource software can make up a new GUI for Xymon.
 End user can still see old cgi+html GUI. 
 #Use extjs for new GUI and miframe.js to contain old tigra menu GUI in a frame.
-# See [http://xymon.dlinkddns.com:8083/hobbit/ext3/examples/desktop/  Xymon Desktop Prototype].{{dead link|date=December 2011}}
+# See [http://xymon.dlinkddns.com:8083/hobbit/ext3/examples/desktop/  Xymon Desktop Prototype].
 
 == Using command line tool to update  this wiki book ==
 === Installation of mediawiki client in perl ===
@@ -1667,4 +1667,3 @@ End user can still see old cgi+html GUI.
 * [http://search.cpan.org/~markj/ Mediawik command line tool]
 * A makefile script to automate the hobbit documentation effort.
 
-{{BookCat}}
