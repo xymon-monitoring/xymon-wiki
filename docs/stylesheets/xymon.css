@@ -1,35 +1,37 @@
 /*
- * Xymon brand palette for Material for MkDocs.
- * Colours taken from the stock Xymon web theme (xymond/wwwfiles):
- *   - link / heading green-teal  #00FFAA   (xymonbody.css)
- *   - status / brand green                 (green status)
- *   - menu cyan                  #00BBBB   (xymonmenu-blue.css)
- *   - body text (classic dark)   #D8D8BF
- *   - yellow                     #FFFF44
+ * Xymon brand palette for Material for MkDocs, inspired by both Xymon sites:
+ *   - xymon.sourceforge.io (xymonbody.css): black body, tan text #D8D8BF,
+ *     teal links #00FFAA, green status band (bkg-green.gif, 125x1 repeat-y).
+ *   - xymon.com (xymonmenu-blue.css): blue menu #456789 / #345678,
+ *     cyan accent #00BBBB, pale-yellow highlight #EBEB77.
+ * Result: blue header (xymon.com menu) + green left band (sourceforge body),
+ * on a black page with tan text and teal links.
  */
 
 :root {
-  --xymon-green:        #19a319; /* header-friendly Xymon green */
-  --xymon-green-light:  #4cc24c;
-  --xymon-green-dark:   #0f7a0f;
-  --xymon-cyan:         #00bbbb; /* Xymon menu accent */
-  --xymon-link-teal:    #00ffaa; /* classic Xymon link colour */
+  --xymon-blue:       #456789; /* xymon.com menu blue (header) */
+  --xymon-blue-dark:  #345678; /* xymon.com menu blue, darker */
+  --xymon-blue-light: #5a7fa3;
+  --xymon-green:      #19a319; /* Xymon status green (left band) */
+  --xymon-cyan:       #00bbbb; /* Xymon menu accent */
+  --xymon-link-teal:  #00ffaa; /* classic Xymon link colour */
+  --xymon-yellow:     #ebeb77; /* xymon.com menu highlight */
 }
 
 /* Light scheme */
 [data-md-color-scheme="default"] {
-  --md-primary-fg-color:        var(--xymon-green);
-  --md-primary-fg-color--light: var(--xymon-green-light);
-  --md-primary-fg-color--dark:  var(--xymon-green-dark);
+  --md-primary-fg-color:        var(--xymon-blue);
+  --md-primary-fg-color--light: var(--xymon-blue-light);
+  --md-primary-fg-color--dark:  var(--xymon-blue-dark);
   --md-accent-fg-color:         var(--xymon-cyan);
 }
 
-/* Dark scheme — reproduce the classic xymon.sourceforge.io look: black page,
-   tan text, teal links, and a green band down the left edge. */
+/* Dark scheme (default) — the classic Xymon look: black page, tan text,
+   teal links, blue header (xymon.com menu), green band down the left edge. */
 [data-md-color-scheme="slate"] {
-  --md-primary-fg-color:        var(--xymon-green);
-  --md-primary-fg-color--light: var(--xymon-green-light);
-  --md-primary-fg-color--dark:  var(--xymon-green-dark);
+  --md-primary-fg-color:        var(--xymon-blue);
+  --md-primary-fg-color--light: var(--xymon-blue-light);
+  --md-primary-fg-color--dark:  var(--xymon-blue-dark);
   --md-accent-fg-color:         var(--xymon-cyan);
   --md-typeset-a-color:         var(--xymon-link-teal); /* iconic Xymon links */
   --md-default-bg-color:        #000000;  /* black body, like xymonbody.css */
@@ -38,9 +40,9 @@
   --md-typeset-color:           #d8d8bf;
 }
 
-/* The green left band. bkg-green.gif is 125x1 tiled repeat-y on a black body:
-   a 125px green->black gradient down the left edge. Reproduced here as a fixed
-   overlay rail (dark scheme only); pointer-events:none so it never blocks clicks. */
+/* The green left band (dark scheme). bkg-green.gif is 125x1 tiled repeat-y on a
+   black body: a 125px green->black gradient down the left edge. Reproduced as a
+   fixed overlay rail; pointer-events:none so it never blocks clicks. */
 body[data-md-color-scheme="slate"]::before {
   content: "";
   position: fixed;
