@@ -63,8 +63,8 @@ nav:
       - Local settings: clients/windows-powershell/local-settings.md
       - Remote settings: clients/windows-powershell/remote-settings.md
   - Contributing:
-      - Overview: contributing/git/CONTRIBUTING-OVERVIEW.md
-      - First contribution: contributing/git/FIRST-CONTRIBUTION.md
+      - Overview: contributing/git/contributing-overview.md
+      - First contribution: contributing/git/first-contribution.md
       - Git workflow:
           - Installation: contributing/git/git-installation.md
           - Setup: contributing/git/git-setup.md
@@ -73,7 +73,7 @@ nav:
           - GitHub Actions — personal: contributing/git/git-actions-personal-workflow.md
       - Rules: contributing/git/git-rules.md
       - Guidelines: contributing/git/git-guidelines.md
-      - Documentation format: contributing/git/DOCUMENTATION-FORMAT.md
+      - Documentation format: contributing/git/documentation-format.md
       - C coding guidelines: contributing/c-coding-contribution-guidelines.md
       - AI agent directives: contributing/ai-agent-contribution-directives.md
   - Development:

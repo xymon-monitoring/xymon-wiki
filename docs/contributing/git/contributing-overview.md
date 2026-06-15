@@ -59,7 +59,7 @@ Where to start
 --------------
 New here?
 
-- Start with [FIRST-CONTRIBUTION.md](FIRST-CONTRIBUTION.md)
+- Start with [first-contribution.md](first-contribution.md)
 
 Need Git help?
 
@@ -88,4 +88,4 @@ Documentation format
 --------------------
 When editing documentation, please follow:
 
-- [DOCUMENTATION-FORMAT.md](DOCUMENTATION-FORMAT.md)
+- [documentation-format.md](documentation-format.md)

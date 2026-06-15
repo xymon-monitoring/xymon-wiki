@@ -37,4 +37,4 @@ Maintainers will review your PR and may suggest improvements.
 
 Want to go further?
 -------------------
-See [CONTRIBUTING-OVERVIEW.md](CONTRIBUTING-OVERVIEW.md) for all topics.
+See [contributing-overview.md](contributing-overview.md) for all topics.
