@@ -1,5 +1,5 @@
 # Remote settings
-The configuration items in this section are additional to the standard configuration items accepted by the Xymon client on other operating systems. These standard items are documented in the `client-local.cfg` man page or via the xymon.com website (https://www.xymon.com/help/manpages/man5/client-local.cfg.5.html).
+The configuration items in this section are additional to the standard configuration items accepted by the Xymon client on other operating systems. These standard items are documented in the [`clientlocal.cfg` man page](https://www.xymon.com/help/manpages/man5/client-local.cfg.5.html).
 
 ## eventlogswanted & eventlog
 
