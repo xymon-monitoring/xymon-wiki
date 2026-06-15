@@ -8,7 +8,7 @@ XymonPSClient supports sending data to the Xymon server in two ways – via TCP 
 
 TCP is the usual way of connecting hosts to the Xymon server, using a normal TCP socket usually to port 1984. To use TCP, configure the `<servers>` element in xymonclient_config.xml and leave out `<serverUrl>` or make it blank (`<serverUrl/>`).
 
-HTTP is an alternate method. It can be used if you have xymoncgimsg.cgi running on the web server on your Xymon server – see https://www.xymon.com/help/manpages/man8/xymoncgimsg.cgi.8.html. The web server running the CGI can be configured for SSL (i.e. HTTPS) and / or authentication – XymonPSClient supports basic authentication and SSL. If you require authentication, the `<serverHttpUsername>` and `<serverHttpPassword>` elements should be configured.
+HTTP is an alternate method. It can be used if you have xymoncgimsg.cgi running on the web server on your Xymon server – see [xymoncgimsg.cgi man page](https://www.xymon.com/help/manpages/man8/xymoncgimsg.cgi.8.html). The web server running the CGI can be configured for SSL (i.e. HTTPS) and / or authentication – XymonPSClient supports basic authentication and SSL. If you require authentication, the `<serverHttpUsername>` and `<serverHttpPassword>` elements should be configured.
 
 If you are using HTTP and transmitting over unsecure networks (e.g.  the internet), it is strongly recommended to enable SSL, authentication and disallow HTTP connections.
 
