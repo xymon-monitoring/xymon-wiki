@@ -1,6 +1,7 @@
 # C Coding Contribution Guidelines (Draft)
 
 Scope
+
 - General expectations for contributing C changes.
 - Goals: stability, reviewability, and evidence-based validation.
 
@@ -24,11 +25,13 @@ Scope
 ## Patch and PR Scope
 
 Allowed by default
+
 - Focused bugfixes.
 - Small refactors required to implement the fix safely.
 - Targeted build/detection adjustments tied to a documented failure mode.
 
 Not allowed unless explicitly agreed
+
 - Drive-by cleanups (whitespace, reformatting, broad renames).
 - Deletions of legacy code paths unrelated to the fix.
 - New compatibility frameworks or large abstraction layers.
@@ -36,12 +39,14 @@ Not allowed unless explicitly agreed
 ## Conditional Logic and Compatibility
 
 Preferred pattern
+
 - One canonical code path whenever possible.
 - If compatibility is required, centralize it:
   - a single wrapper or compatibility unit
   - controlled by one build-time detected flag
 
 Avoid
+
 - Scattering `#ifdef` at call sites.
 - Multiple overlapping detection modes.
 - Duplicated logic across several locations.
@@ -58,11 +63,13 @@ Avoid
 ## Testing Expectations (Minimum)
 
 For any PR that touches build logic or external dependencies:
+
 - Provide:
   - configure/build confirmation (commands + key output excerpts)
   - runtime sanity check if applicable
 
 Always include environment details:
+
 - OS
 - compiler
 - relevant dependency versions

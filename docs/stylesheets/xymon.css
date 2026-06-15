@@ -16,6 +16,13 @@
   --xymon-cyan:       #00bbbb; /* Xymon menu accent */
   --xymon-link-teal:  #00ffaa; /* classic Xymon link colour */
   --xymon-yellow:     #ebeb77; /* xymon.com menu highlight */
+
+  /* Code font: Material's default Roboto Mono renders box-drawing glyphs
+     (─ │ ┌ ┐ └ ┘ ► ▼) at a different advance width than ASCII, which breaks
+     the right edge of the ASCII workflow diagrams. Use the OS monospace stack
+     (these render box-drawing at true cell width). */
+  --md-code-font: ui-monospace, SFMono-Regular, "SF Mono", "Cascadia Mono",
+    "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 /* Light scheme */

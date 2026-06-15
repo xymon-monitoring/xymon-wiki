@@ -1,6 +1,7 @@
 # AI Agent Contribution Directives (Draft)
 
 Scope
+
 - General directives for any AI-assisted contribution (patch generation, PR drafting, review assistance).
 
 ## Mandatory Rules
@@ -47,6 +48,7 @@ Scope
 ## Build / Detection Constraints
 
 If proposing any detection change, the AI must specify:
+
 - detection criteria and ordering
 - flag/macro names produced
 - where those flags are consumed

@@ -205,6 +205,7 @@ Version 4.6:
     systems that the user has responsibility for / is allowed to access.
 
 Somewhere along the road I will also introduce a new "ping" test daemon
+
 - I am getting to the point where ping'ing all hosts take longer than 5
 minutes (I have a lot of hosts). So something needs to be done, and I
 think I know how to do it.

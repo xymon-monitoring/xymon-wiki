@@ -1,4 +1,6 @@
-# Files
+# Installation and usage
+
+## Files
 
 The following files are required:
 
@@ -8,7 +10,7 @@ The following files are required:
 
 Any other files are legacy from older versions and can be deleted. In particular, XymonPSClient.exe is not required.
 
-# Before installing
+## Before installing
 
 The script is designed to be installed as a Windows service. In the original script, a renamed srvany.exe was used (XymonPSClient.exe). 
 
@@ -18,7 +20,7 @@ Note that the version of NSSM supplied in this repository is for x64 systems. If
 
 You may need to “unblock” execution of the downloaded scripts and files depending on your Windows settings. To do this, right-click each file and select Properties. If you see the option to unblock, please click the Unblock button.
  
-# Installation steps
+## Installation steps
 
 Installation of the client is straightforward:
  
@@ -36,11 +38,11 @@ The script will create the windows service entry using the SYSTEM or LOCALSYSTEM
 
 If BBWin or the original PowerShell client is running, it’s best to stop and disable those services first.
 
-# Powershell execution policy
+## Powershell execution policy
 
 In step 3 above, if the PowerShell execution policy has not been set then you will receive a PowerShell error. You can either run “Set-ExecutionPolicy RemoteSigned” from an administrative PowerShell prompt or start powershell using “powershell.exe -executionpolicy remotesigned” from Start->Run.
 
-# Uninstallation
+## Uninstallation
 
 1. Sop the XymonPSClient service - run the following commands to uninstall the service from a PowerShell prompt (may need to be an administrative prompt):
    * `cd "c:\program files\xymon"` (substitute the installation location) 
@@ -48,7 +50,7 @@ In step 3 above, if the PowerShell execution policy has not been set then you wi
    * `.\xymonclient.ps1 uninstall`
 2. You can then delete all files from the installation directory. There may also be two log files (by default in the c:\ directory), xymonclient.log and xymon-lastcollect.txt which can also be deleted.
 
-# External scripts
+## External scripts
 
 As of version 2.1, XymonPSClient supports external scripts. Along with external data, this has been designed to try and support existing external scripts that may be being used with BBWin with a minimum of modification.
 
@@ -83,7 +85,7 @@ In either case, you may want to use the “lifetime” option to prevent your te
 
 Some scripts (e.g. those supplied with BBWin) use registry keys to determine the location of the script and data directories. The easiest way to adjust for XymonPSClient is to create or update the keys, pointing the values to the new locations. Note that on 64 bit platforms, the keys may have been created by BBWin under the Wow6432Node (e.g. HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\BBWin), you will need to recreate the keys in the standard location HKEY_LOCAL_MACHINE\SOFTWARE\BBWin.
 
-# Returning data to Xymon
+## Returning data to Xymon
 
 There are a number of options for returning data from external scripts to Xymon:
 
@@ -91,7 +93,7 @@ There are a number of options for returning data from external scripts to Xymon:
 * Write a file to localdatalocation – results in the file content being contained in the core ‘client’ message back to Xymon
 * Send a message back to Xymon directly (e.g. using ‘xymon.ps1’ available from the XymonPSClient svn repository as a basis)
 
-# External data
+## External data
 
 For external data, XymonPSClient supports the same file format as BBWin. XymonPSClient will always look for external data in the location specified by the XML configuration ‘externaldatalocation’ – by default, the ‘tmp’ subdirectory in the installation directory. This data collection occurs if the directory exists, regardless of whether any external scripts are defined. This allows you to use completely external scripts / processes e.g. via Windows Task Scheduler and still have the results reported back to Xymon.
 
@@ -118,9 +120,9 @@ green 14/01/2016 14:37:07 [SERVER1]
 
 Here the group colour is green and the subtest colour is also green, no lifetime has been specified so the result will turn purple after the default interval if no more test results are sent.
 
-# Local data
+## Local data
 
-Data written to the localdatalocation will be read and included in the core ‘client’ message back to Xymon. It will be included in a section named [local:<filename>], where <filename> is the name of the file the data was found in. The data will not be parsed, it will simply be copied into the message.
+Data written to the localdatalocation will be read and included in the core ‘client’ message back to Xymon. It will be included in a section named [local:`<filename>`], where `<filename>` is the name of the file the data was found in. The data will not be parsed, it will simply be copied into the message.
 
 The data file will not be read if it is locked for writing by any other process. This is to prevent data being sent which is only partially written.
 
@@ -143,7 +145,7 @@ Microsoft SQL Server 2014 (SP2-GDR) (KB3194714) - 12.0.5203.0 (X64)
 
 The file ‘sqlversion’ will be deleted.
 
-# Using xymon.ps1
+## Using xymon.ps1
 
 The powershell version of the 'xymon' communications program will accept similar commands to the native UNIX version. This command can be used to send various messages to the Xymon server. see the following syntax:
 

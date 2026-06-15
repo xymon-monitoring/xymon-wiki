@@ -1,10 +1,12 @@
-# Port 1984
+# Client / Server communication
+
+## Port 1984
 
 Historically uses port 1984 for data communication between the client and server.
 
 This is not secured or encrypted.
 
-# Cgi-bin xymoncgimsg.cgi
+## Cgi-bin xymoncgimsg.cgi
 
 Alternatively the script xymoncgimsg.cgi can be used on a webserver like apache for communication between client and server.
 
@@ -13,7 +15,7 @@ Protection with username and password is also possible.
 
 The encryption and username/password is not maintained within the xymon software but is the responsibility of the webserver hosting the xymoncgimsg.cgi script.
 
-## Client support
+### Client support
 
 The [XymonPSClient](../clients/windows-powershell/index.md) has built-in support for this.
 
