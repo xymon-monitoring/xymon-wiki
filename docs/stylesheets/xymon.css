@@ -41,7 +41,7 @@
 /* The green left band. bkg-green.gif is 125x1 tiled repeat-y on a black body:
    a 125px green->black gradient down the left edge. Reproduced here as a fixed
    overlay rail (dark scheme only); pointer-events:none so it never blocks clicks. */
-[data-md-color-scheme="slate"] body::before {
+body[data-md-color-scheme="slate"]::before {
   content: "";
   position: fixed;
   top: 0;
