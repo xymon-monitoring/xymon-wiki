@@ -23,6 +23,7 @@ Only one eventlogswanted statement can be processed. If you are using config mer
 * REQUIRED_LEVELS – optional – the levels that should be returned, comma separated. Allowed values: Information, Warning, Critical, Error, Verbose. By default, all are returned.
 
 **Examples**
+
 * `eventlogswanted:100:Application,System:1000:Warning,Critical`
 * `eventlogswanted:System:1000:Warning,Critical,Error`
 
@@ -35,6 +36,7 @@ If config merging resulted in the above two eventlogswanted statements, the firs
 * EVENT_LOG – the event log this section refers to
 
 The eventlog directive works in one of two ways:
+
 * Exclude mode: including all events except specified – use ignore
 * Include mode: ignore all events except specified – use include
 
@@ -258,6 +260,7 @@ can be shortened to procruntime
 
 Will raise an alert if the named process has been running for a specified number of minutes. For example, if you have a process that should normally take 10 minutes but 30 minutes is abnormal, you can use this test to check and alert when the process takes more than 10 minutes to run.
 The Xymon PS client uses data from Windows to find out the start time of each process. From this, it can calculate how long a process has been “alive” for, the elapsed time. This data is then used for this alert and is shown on the procs page.
+
 * PROCESS_NAME – then process to alert on. This should match the name of the process as seen on the cpu page. Service names can also be used, prefixed with SVC: as seen on the cpu page.
 * YELLOW_STATUS – number of minutes after which a yellow alert will be raised.
 * RED_STATUS – number of minutes after which a red alert will be raised.
@@ -288,6 +291,7 @@ repeattest parameters:
 * DESTINATION TEST – the test name the repeated data will be sent as. 
 
 trigger parameters:
+
 * ALERTCOLOUR – the colour of alert to raise (red, yellow, green)
 * REGEX – the regular expression used to detect a condition for which an ALERTCOLOUR alert should be raised
 
@@ -313,6 +317,7 @@ Repeat the disk test as disk_ops, yellow alert if drive d: >= 70% used, red aler
 
 Please note that the delimiters for this directive are slightly different - the pipe delimiter is used for some parameters to ease parsing.
 external allows you to specify external scripts to run periodically to provide additional data. Scripts compatible with BBWin should work with a minimum of changes. External scripts return data back to Xymon by writing results to an external data file – see the section above in the main document.
+
 * PRIORITY – optional – value 0-99. If specifying multiple externals, they will be executed in priority order, lower values first. If values match, async externals will be executed before sync. If priority is not specified, the lowest priority will be allocated (99).
 * SCHEDULE – possible values everyscan or slowscan - when to run the external script
 * METHOD – possible values sync or async – run the script synchronously (XymonPSClient waits for the script to finish before proceeding) or asynchronously (the script runs in the background)
@@ -393,6 +398,7 @@ If slimmode is set and the processes directive is not, all processes will be rep
 `sections:<CSV list of sections>`
 
 The sections to include can be:
+
 * netstat
 * ports
 * ipconfig

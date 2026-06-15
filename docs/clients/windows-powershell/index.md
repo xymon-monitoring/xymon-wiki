@@ -22,6 +22,7 @@ In both scenarios, replacing the encrypted password with the plain text password
 
 # Configuration
 The Xymon PS Client takes its configuration from two locations:
+
 * [Local settings](local-settings.md): either registry or XML
 * [Remote settings](remote-settings.md): returned from the Xymon server, configured in `client-local.cfg`
 
