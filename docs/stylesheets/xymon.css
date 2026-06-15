@@ -59,8 +59,16 @@ body::before {
   left: 0;
   bottom: 0;
   width: 125px;
-  background: linear-gradient(to right, #18d018 0%, #0f9e0f 30%, rgba(0, 0, 0, 0) 100%);
+  /* Strong green only in the LEFT HALF, fully transparent by mid-band, so text
+     to the right stays readable. */
+  background: linear-gradient(to right, #18d018 0%, #0f9e0f 28%, rgba(0, 0, 0, 0) 50%);
   opacity: 0.95;
   pointer-events: none;
   z-index: 1000;
+}
+
+/* Keep the left navigation off the strong (left) half of the green band so its
+   text stays readable — indent it past the band's coloured part. */
+.md-sidebar--primary {
+  padding-left: 3rem;
 }
