@@ -4,6 +4,21 @@ Collaborative knowledge space maintained by the community — HOWTOs, troublesho
 notes, deployment examples, platform-specific information, and practical experience
 not tied to a specific release.
 
+## What is Xymon?
+
+Xymon is a system for monitoring servers and networks. Inspired by Big Brother, it
+works well from a handful of hosts up to networks with thousands of servers and
+services. A central server periodically checks network services (HTTP, FTP, SMTP, …)
+and — through agents on each host — local disk, logfiles and processes. It builds
+status web pages with drill-down, records the history of every item for availability
+and trend reporting (with graphs), and raises alerts by e-mail, SMS or pager when
+something breaks.
+
+Xymon is the successor to the *bbgen toolkit* (an add-on to Big Brother since 2002)
+and was renamed from *Hobbit* in 2009. The easiest way to understand it is to see it
+live at **[xymon.com](https://www.xymon.com/)**; for the full introduction, read
+[About Xymon](https://www.xymon.com/help/about.html).
+
 ## Purpose
 
 A central, searchable entry point for operational and technical knowledge about the
