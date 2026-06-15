@@ -13,7 +13,9 @@ eventlog entries allow filtering out or including certain events.
 
 Only one eventlogswanted statement can be processed. If you are using config merging and you have multiple eventlogswanted statements, you can set a priority on the statements – the statement with the highest priority will be the one processed.
 
-## eventlogswanted:PRIORITY:LIST_OF_EVENT_LOGS:MAX_SIZE:REQUIRED_LEVELS
+## eventlogswanted
+
+`eventlogswanted:PRIORITY:LIST_OF_EVENT_LOGS:MAX_SIZE:REQUIRED_LEVELS`
 
 * PRIORITY – optional – used to specify which eventlogswanted statement is used, in case config merging means multiple eventlogswanted statements appear. The statement with the highest priority will be used. If omitted, priority for the statement will be zero.
 * LIST_OF_EVENT_LOGS – a comma delimited list of event logs to retrieve data from; can use wildcards (* = match any character)
@@ -26,7 +28,11 @@ Only one eventlogswanted statement can be processed. If you are using config mer
 
 If config merging resulted in the above two eventlogswanted statements, the first would be used as it has a priority of 100.
 
-`eventlog:EVENT_LOG`: EVENT_LOG – the event log this section refers to
+## eventlog
+
+`eventlog:EVENT_LOG`
+
+* EVENT_LOG – the event log this section refers to
 
 The eventlog directive works in one of two ways:
 * Exclude mode: including all events except specified – use ignore
@@ -159,7 +165,7 @@ If you are using the http(s) option and your web server returns an unusual 404 p
 
 If the hash options are used, any update (whether from UNC path or http(s)) will have a hash value calculated and this will be compared to the HASHVALUE specified. If the values match, the update will be applied, otherwise, the update will be rejected. It is therefore recommended that you use these options from version 2.05 onwards! You should calculate the hash value using md5sum, sha1sum, sha256sum or similar to match the HASH algorithm you specify.
 
-**Examples:**
+**Examples**
 
 `clientversion:2.01:\\server1\XymonPS\`
 
@@ -183,7 +189,7 @@ This is useful when the default location has been overridden on the Xymon server
 
 * GIFS_LOCATION – the location on the server for server gifs, must be http[s] accessible. Should end in a slash (/).
 
-**Example:**
+**Example**
 
 `servergifs:/site/London/`
 
@@ -212,7 +218,7 @@ By default, the client will report on IPv4 addresses in the [ifstat] section. Th
 
 * LIST_OF_IP_CLASSES – ip classes to report on, comma separated. Supported classes: ‘IPv4’ or ‘IPv6’ (not case sensitive)
 
-**Examples:**
+**Examples**
 
 Just report on IPv6 addresses:
 
@@ -232,7 +238,7 @@ Used to limit the ports reported to just listening ports. By default, the client
 
 If ports is not specified in client-local.cfg, or any option other than ‘listenonly’ is specified, then all ports will be reported. If ‘ports:listenonly’ is specified, only listening ports will be reported.
 
-**Examples:**
+**Examples**
 
 Report only listening ports:
 
@@ -256,7 +262,7 @@ The Xymon PS client uses data from Windows to find out the start time of each pr
 * YELLOW_STATUS – number of minutes after which a yellow alert will be raised.
 * RED_STATUS – number of minutes after which a red alert will be raised.
 
-**Examples:**
+**Examples**
 
 Raise a yellow alert if an importer process is found that has been running for 20 minutes. Red if it has been running for 60 minutes:
 
@@ -285,7 +291,7 @@ trigger parameters:
 * ALERTCOLOUR – the colour of alert to raise (red, yellow, green)
 * REGEX – the regular expression used to detect a condition for which an ALERTCOLOUR alert should be raised
 
-**Examples:**
+**Examples**
 
 Repeat the services test as svcs_ops. Raise an alert if SQL server is stopped:
 
@@ -323,7 +329,7 @@ If a hash algorithm and value is specified, XymonPSClient will calculate the has
 The optional PROCESS and ARGUMENTS parameters allow a process to be called to call the script, e.g. and interpreter. If PROCESS is used, HASH, HASHVALUE and ARGUMENTS must be specified. The text {script} in the ARGUMENTS parameter will be replaced with the full path and filename of the script. For example, if the external script is a Powershell script, powershell.exe would be used for the PROCESS and –file “{script}” for the ARGUMENTS.
 Care should be taken with potentially long running scripts. Do not run long running scripts synchronously as that will cause the XymonPSClient to pause until the script finishes and may well cause purple alerts. Likewise, do not run long-running scripts asynchronously on every scan, as that will cause multiple copies of the script to run.
 
-**Examples:**
+**Examples**
 
 `external:everyscan:sync:fsmon.vbs`
 
@@ -352,7 +358,7 @@ Using the directive xymonlogsend in the client-local.cfg will cause the client t
 
 You can optionally specify two colours, the first for a different colour on slow scan and the second for a different colour when the client is restarted (e.g. after an update). This allows you to see the history of slow scans or client updates via the front end status history options.
 
-**Examples:**
+**Examples**
 
 `xymonlogsend`
 
@@ -397,7 +403,7 @@ The sections to include can be:
 
 If slimmode is set, all the above sections will be excluded unless they are mentioned in a sections directive.
 
-**Example:**
+**Example**
 
 `slimmode`
 
@@ -411,7 +417,7 @@ If slimmode is set, all the above sections will be excluded unless they are ment
 * Only powershell and LogonUI processes will be included
 * The ‘who’ section will be populated but netstat, ports, ipconfig, route, ifstat, users will be omitted
 
-## Maxloop
+## maxloop
 
 `maxloop:COLLECTIONS`
 
