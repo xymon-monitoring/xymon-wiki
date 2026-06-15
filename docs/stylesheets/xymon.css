@@ -24,11 +24,32 @@
   --md-accent-fg-color:         var(--xymon-cyan);
 }
 
-/* Dark scheme — lean into the classic Xymon dark look */
+/* Dark scheme — reproduce the classic xymon.sourceforge.io look: black page,
+   tan text, teal links, and a green band down the left edge. */
 [data-md-color-scheme="slate"] {
   --md-primary-fg-color:        var(--xymon-green);
   --md-primary-fg-color--light: var(--xymon-green-light);
   --md-primary-fg-color--dark:  var(--xymon-green-dark);
   --md-accent-fg-color:         var(--xymon-cyan);
   --md-typeset-a-color:         var(--xymon-link-teal); /* iconic Xymon links */
+  --md-default-bg-color:        #000000;  /* black body, like xymonbody.css */
+  --md-default-fg-color:        #d8d8bf;  /* Xymon tan text */
+  --md-default-fg-color--light: #cfcfb6;
+  --md-typeset-color:           #d8d8bf;
+}
+
+/* The green left band. bkg-green.gif is 125x1 tiled repeat-y on a black body:
+   a 125px green->black gradient down the left edge. Reproduced here as a fixed
+   overlay rail (dark scheme only); pointer-events:none so it never blocks clicks. */
+[data-md-color-scheme="slate"] body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 125px;
+  background: linear-gradient(to right, #15c215, rgba(0, 0, 0, 0));
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1000;
 }
