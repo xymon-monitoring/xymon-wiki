@@ -76,8 +76,10 @@ For very old Windows versions, use [bbwin](https://bbwin.sourceforge.net/).
 
 - Alternative subscription by email: `xymon-subscribe@xymon.com`
 
-- [http://lists.xymon.com/archive](http://lists.xymon.com/archive)  
-  Public searchable archive of past discussions.
+- Archives (three views of the same list):
+  - [Pipermail](https://lists.xymon.com/xymon/) — original historical archive, 2005 → mid-2024 (post-2024 superseded by HyperKitty).
+  - [HyperKitty](https://mailman.xymon.com/hyperkitty/list/xymon@xymon.com/) — current Mailman 3 web archive, 2024-07 → present.
+  - [Merged mirror](https://xymon-monitoring.github.io/xymon-discussion-public/) — Pipermail + HyperKitty combined, deduped and searchable, 2005 → present.
 
 ---
 
