@@ -26,6 +26,22 @@ Key pages (canonical Markdown sources):
 
 ---
 
+## Knowledge base
+
+General:
+- [Home](docs/home.md)
+- [How to compile Xymon](docs/how-to-compile-xymon.md)
+- [Client / Server communication](docs/client-server-communication.md)
+- [History of Xymon](docs/history-of-xymon.md)
+
+Windows PowerShell client (XymonPSClient):
+- [Overview](docs/clients/windows-powershell/overview.md)
+- [Installation and usage](docs/clients/windows-powershell/installation.md)
+- [Local settings](docs/clients/windows-powershell/local-settings.md)
+- [Remote settings](docs/clients/windows-powershell/remote-settings.md)
+
+---
+
 ## Primary Repositories
 
 - [https://github.com/xymon-monitoring/xymon](https://github.com/xymon-monitoring/xymon)  
