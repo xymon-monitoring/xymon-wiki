@@ -7,5 +7,5 @@ Collaborative knowledge base for the Xymon monitoring ecosystem.
 The content lives as Markdown under [`docs/`](docs/) and is published automatically
 (MkDocs Material → GitHub Pages) on every push to `main`.
 
-**Contributing** — edit a page under `docs/` and open a pull request; see the
-[AI agent contribution directives](docs/contributing/ai-agent-contribution-directives.md).
+To edit, click the ✎ pencil at the top of any page on the site — it opens the
+GitHub editor, and your change republishes automatically.
