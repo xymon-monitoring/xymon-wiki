@@ -51,6 +51,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Guides:
+      - Xymon server documentation: guides/server-documentation.md
       - Compile Xymon: guides/how-to-compile-xymon.md
       - Client / Server communication: guides/client-server-communication.md
       - History of Xymon: guides/history-of-xymon.md
