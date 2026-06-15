@@ -69,8 +69,11 @@ body::before {
   z-index: 1000;
 }
 
-/* Keep all text — left navigation AND page content — out of the band's green
-   half: start it at 50% of the band, which rescales with the viewport. */
+/* Keep all text — header (logo/title + tabs), left navigation AND page content
+   — out of the band's green half: start it at 50% of the band, which rescales
+   with the viewport. */
+.md-header__inner,
+.md-tabs__inner,
 .md-sidebar--primary,
 .md-content {
   padding-left: calc(var(--xymon-band-width) / 2);
