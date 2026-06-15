@@ -4,19 +4,19 @@
 
 The following files are required:
 
-* Nssm.exe
-* XymonClient.ps1
-* Xymonclient_config.xml
+* nssm.exe
+* xymonclient.ps1
+* xymonclient_config.xml
 
 Any other files are legacy from older versions and can be deleted. In particular, XymonPSClient.exe is not required.
 
 ## Before installing
 
-The script is designed to be installed as a Windows service. In the original script, a renamed srvany.exe was used (XymonPSClient.exe).
+The script is designed to be installed as a Windows service. In the original script, a renamed `srvany.exe` was used (`XymonPSClient.exe`).
 
-In more recent versions, the decision has been made to switch to use NSSM (http://nssm.cc/). This is a public domain service manager very similar to srvany. It offers the feature of restarting the script if it is stopped for any reason – for example, if a user kills the PowerShell process. It also allows the use of 64-bit processes on 64-bit operating systems.
+In more recent versions, the decision has been made to switch to use NSSM ([NSSM](http://nssm.cc/)). This is a public domain service manager very similar to srvany. It offers the feature of restarting the script if it is stopped for any reason – for example, if a user kills the PowerShell process. It also allows the use of 64-bit processes on 64-bit operating systems.
 
-Note that the version of NSSM supplied in this repository is for x64 systems. If you are running an x86 (32-bit) system, please download the 32-bit bit nssm.exe from http://nssm.cc/.
+Note that the version of NSSM supplied in this repository is for x64 systems. If you are running an x86 (32-bit) system, please download the 32-bit bit nssm.exe from [NSSM](http://nssm.cc/).
 
 You may need to “unblock” execution of the downloaded scripts and files depending on your Windows settings. To do this, right-click each file and select Properties. If you see the option to unblock, please click the Unblock button.
 
@@ -26,9 +26,9 @@ Installation of the client is straightforward:
 
 1. Review xymonclient_config.xml and at the least, set the Xymon server address.
 1. Copy the following files to a directory on the target server (e.g. c:\program files\xymon)
-   * `Xymonclient.ps1`
-   * `Nssm.exe`
-   * `Xymonclient_config.xml`
+   * `xymonclient.ps1`
+   * `nssm.exe`
+   * `xymonclient_config.xml`
 1. Run the following command to install the service from a PowerShell prompt (may need to be an administrative prompt):
    * `.\xymonclient.ps1 install`
 1. Either review and start the service in Windows services control panel or run:
