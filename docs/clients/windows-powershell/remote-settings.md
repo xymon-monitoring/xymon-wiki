@@ -327,7 +327,7 @@ Repeat the disk test as disk_ops, yellow alert if drive d: >= 70% used, red aler
 `external:[PRIORITY:]SCHEDULE:METHOD:SCRIPT[|HASH|HASHVALUE][|PROCESS|ARGUMENTS]`
 
 Please note that the delimiters for this directive are slightly different - the pipe delimiter is used for some parameters to ease parsing.
-external allows you to specify external scripts to run periodically to provide additional data. Scripts compatible with BBWin should work with a minimum of changes. External scripts return data back to Xymon by writing results to an external data file – see the section above in the main document.
+external allows you to specify external scripts to run periodically to provide additional data. Scripts compatible with BBWin should work with a minimum of changes. External scripts return data back to Xymon by writing results to an external data file – see [External data](usage.md#external-data) in the usage document.
 
 ### Format
 

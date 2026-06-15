@@ -26,4 +26,6 @@ The Xymon PS Client takes its configuration from two locations:
 * [Local settings](local-settings.md): either registry or XML
 * [Remote settings](remote-settings.md): returned from the Xymon server, configured in `client-local.cfg`
 
-## [Installation and usage](installation.md)
+## [Installation](installation.md)
+
+## [Usage](usage.md)

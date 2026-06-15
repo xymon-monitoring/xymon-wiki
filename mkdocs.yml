@@ -60,6 +60,7 @@ nav:
   - Windows PowerShell client:
       - clients/windows-powershell/index.md
       - Installation: clients/windows-powershell/installation.md
+      - Usage: clients/windows-powershell/usage.md
       - Local settings: clients/windows-powershell/local-settings.md
       - Remote settings: clients/windows-powershell/remote-settings.md
   - Contributing:
