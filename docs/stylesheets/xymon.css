@@ -1,0 +1,34 @@
+/*
+ * Xymon brand palette for Material for MkDocs.
+ * Colours taken from the stock Xymon web theme (xymond/wwwfiles):
+ *   - link / heading green-teal  #00FFAA   (xymonbody.css)
+ *   - status / brand green                 (green status)
+ *   - menu cyan                  #00BBBB   (xymonmenu-blue.css)
+ *   - body text (classic dark)   #D8D8BF
+ *   - yellow                     #FFFF44
+ */
+
+:root {
+  --xymon-green:        #19a319; /* header-friendly Xymon green */
+  --xymon-green-light:  #4cc24c;
+  --xymon-green-dark:   #0f7a0f;
+  --xymon-cyan:         #00bbbb; /* Xymon menu accent */
+  --xymon-link-teal:    #00ffaa; /* classic Xymon link colour */
+}
+
+/* Light scheme */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        var(--xymon-green);
+  --md-primary-fg-color--light: var(--xymon-green-light);
+  --md-primary-fg-color--dark:  var(--xymon-green-dark);
+  --md-accent-fg-color:         var(--xymon-cyan);
+}
+
+/* Dark scheme — lean into the classic Xymon dark look */
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        var(--xymon-green);
+  --md-primary-fg-color--light: var(--xymon-green-light);
+  --md-primary-fg-color--dark:  var(--xymon-green-dark);
+  --md-accent-fg-color:         var(--xymon-cyan);
+  --md-typeset-a-color:         var(--xymon-link-teal); /* iconic Xymon links */
+}
