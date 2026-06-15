@@ -1,12 +1,12 @@
-GIT INSTALLATION AND AUTH
+Git installation and auth
 =========================
 
-PURPOSE
+Purpose
 -------
 This document covers Git and GitHub CLI installation and login.
 
 
-INSTALLATION
+Installation
 ------------
 Recommended environment: Linux or WSL (same as CI).
 
@@ -49,7 +49,7 @@ Verify:
 gh auth status
 ```
 
-VERIFY / CONFIGURE GIT IDENTITY
+Verify / configure Git identity
 ------------------------------
 
 After authentication, verify that a Git identity is configured.

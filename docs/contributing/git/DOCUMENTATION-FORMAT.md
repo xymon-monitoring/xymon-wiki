@@ -1,13 +1,13 @@
-DOCUMENTATION FORMAT
+Documentation format
 ====================
 
-SCOPE
+Scope
 -----
 This document defines formatting rules for documentation files
 in this repository.
 
 
-MARKDOWN FORMAT RULES
+Markdown format rules
 ---------------------
 Use these rules as written when editing documentation.
 
@@ -17,7 +17,7 @@ Use these rules as written when editing documentation.
 - Use relative Markdown links for repo files (outside code blocks)
 
 
-NOTES
+Notes
 -----
 Audience: contributors editing Markdown docs and maintainers managing documentation output.
 

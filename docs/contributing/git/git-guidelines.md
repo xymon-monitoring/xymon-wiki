@@ -1,7 +1,7 @@
-GIT GUIDELINES - BEST PRACTICES
+Git guidelines - best practices
 ==============================
 
-PURPOSE
+Purpose
 -------
 This document gives simple, practical advice
 for working with Git in this project.
@@ -13,26 +13,26 @@ Official Git rules and repository governance are defined in:
 This document does not define rules.
 
 
-SCOPE
+Scope
 -----
 These guidelines apply to everyday development work.
 
 
-WORKING GUIDELINES
+Working guidelines
 ------------------
 
 - Keep commits focused so the project history stays easy to read
 - Use your personal fork to test and integrate changes
 
 
-BRANCH PRACTICES
+Branch practices
 ----------------
 
 - Use a separate branch for any change that is more than a small fix
 - Keep branches short-lived and remove them after merge
 
 
-COMMIT MESSAGES
+Commit messages
 ---------------
 
 - Write clear commit messages
@@ -40,21 +40,21 @@ COMMIT MESSAGES
 - A squashed commit should still clearly describe the change
 
 
-PULL REQUEST PRACTICES
+Pull request practices
 ----------------------
 
 - Split large changes into smaller PRs when possible
 - If a change must be large, explain why in the PR description
 
 
-REVIEW PRACTICES
+Review practices
 ----------------
 
 - Explain what your PR does and why
 - Avoid mixing refactoring and behavior changes if possible
 
 
-THINGS TO AVOID
+Things to avoid
 ---------------
 
 - Very large or unclear commits
@@ -63,13 +63,13 @@ THINGS TO AVOID
 - Changing shared history without coordination
 
 
-IF SOMETHING GOES WRONG
+If something goes wrong
 -----------------------
 
 - Find the last working state
 - Fix or restore carefully
 
 
-KEY IDEA
+Key idea
 --------
 Prefer clear, careful work over rigid process.

@@ -1,7 +1,7 @@
-GIT SETUP - PROCEDURES
+Git setup - procedures
 =====================
 
-PURPOSE
+Purpose
 -------
 This document defines the canonical setup and maintenance procedure
 for contributors using a personal fork.
@@ -13,7 +13,7 @@ Authoritative governance rules live in:
 This document is procedural and scoped to the contributor workflow.
 
 
-AUTHORITATIVE FLOW (PHASED)
+Authoritative flow (phased)
 --------------------------
 
 ```text
@@ -45,7 +45,7 @@ PHASE 7           │ contribution workflow
 ```
 
 
-RULES
+Rules
 -----
 
 - Upstream is the single authoritative truth source.
@@ -57,7 +57,7 @@ RULES
 - devel = active development baseline
 
 
-PHASE 0 - PREREQUISITES
+Phase 0 - prerequisites
 ----------------------
 
 - A GitHub account
@@ -69,7 +69,7 @@ Reference:
 - [git-installation.md](git-installation.md)
 
 
-PHASE 1 - CREATE PERSONAL FORK (GITHUB UI)
+Phase 1 - create personal fork (GitHub UI)
 -----------------------------------------
 On GitHub:
 
@@ -78,7 +78,7 @@ On GitHub:
   `<your-github-username>/xymon`
 
 
-PHASE 2 - CLONE PERSONAL FORK (LOCAL)
+Phase 2 - clone personal fork (local)
 ------------------------------------
 Using gh (recommended):
 ```
@@ -93,7 +93,7 @@ cd xymon
 ```
 
 
-PHASE 3 - DECLARE UPSTREAM (FETCH-ONLY)
+Phase 3 - declare upstream (fetch-only)
 --------------------------------------
 The upstream remote represents the authoritative repository and is
 intentionally configured as fetch-only.
@@ -103,14 +103,14 @@ git remote set-url --push upstream DISABLED
 ```
 
 
-PHASE 4 - VERIFY REMOTES
+Phase 4 - verify remotes
 -----------------------
 ```
 git remote -v
 ```
 
 
-PHASE 5 - BASELINE VERIFICATION (AGAINST UPSTREAM)
+Phase 5 - baseline verification (against upstream)
 -------------------------------------------------
 Baseline verification is always performed against upstream.
 
@@ -128,7 +128,7 @@ Expected result:
 - Differences mean your branch is ahead or behind and should be aligned before you branch.
 
 
-PHASE 6 - CONTROLLED RESTORE (OPTIONAL)
+Phase 6 - controlled restore (optional)
 --------------------------------------
 Non-destructive attempt (from the current local branch):
 ```
@@ -159,14 +159,14 @@ cp -a . ../xymon-backup
 ```
 
 
-PHASE 7 - CONTRIBUTION WORKFLOW
+Phase 7 - contribution workflow
 -------------------------------
 Day-to-day development, PR flow, and cleanup are defined in:
 
 - [git-contribution-flow.md](git-contribution-flow.md)
 
 
-END OF PROCEDURE
+End of procedure
 ----------------
 This procedure is complete for the defined scope and relies on
 GitHub UI actions and referenced governance documents.

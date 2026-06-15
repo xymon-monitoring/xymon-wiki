@@ -1,7 +1,7 @@
-GIT ACTIONS PERSONAL WORKFLOW
+Git actions personal workflow
 ============================
 
-PURPOSE
+Purpose
 -------
 This document defines the **personal (non-authoritative) workflow**
 for adapting, running, and validating GitHub Actions in a personal fork
@@ -22,7 +22,7 @@ This document does NOT define upstream behavior.
 It describes **local usage and customization only**.
 
 
-SCOPE
+Scope
 -----
 This workflow applies to:
 
@@ -44,7 +44,7 @@ It does NOT cover:
 - Action YAML best practices beyond what is required for execution.
 
 
-RELATION TO UPSTREAM ACTIONS
+Relation to upstream actions
 ----------------------------
 Upstream GitHub Actions may be maintained in dedicated branches
 (e.g. `action/build`, `action/test`, `action/release`).
@@ -58,7 +58,7 @@ In a personal context:
 Upstream remains the reference for future updates.
 
 
-PERSONAL ACTION FLOW (ASCII)
+Personal action flow (ASCII)
 ----------------------------
 
 This diagram shows how a user consumes and adapts upstream Actions
@@ -95,10 +95,10 @@ STEP 3            │ execution
 ```
 
 
-WORKFLOW STEPS
+Workflow steps
 --------------
 
-STEP 1 - SYNC UPSTREAM ACTIONS (IF USED)
+Step 1 - sync upstream actions (if used)
 ----------------------------------------
 If you use upstream Action branches, sync the desired Action branch into
 your personal fork or downstream repository.
@@ -115,7 +115,7 @@ git push -u origin action/<name>
 This creates a local copy that can be modified freely.
 
 
-STEP 2 - ADAPT ACTION FOR PERSONAL USE
+Step 2 - adapt action for personal use
 --------------------------------------
 Modify the workflow under `.github/` to fit your repository.
 
@@ -129,7 +129,7 @@ Typical adaptations include:
 These changes are **local-only** and must not be pushed upstream.
 
 
-STEP 3 - ENABLE MANUAL EXECUTION
+Step 3 - enable manual execution
 --------------------------------
 To allow on-demand execution, ensure the workflow includes
 a `workflow_dispatch` trigger.
@@ -144,7 +144,7 @@ This allows manual runs from the GitHub UI.
 Upstream repositories should keep `workflow_dispatch` restricted
 (see [git-actions-upstream-workflow.md](git-actions-upstream-workflow.md)).
 
-STEP 4 - ALLOW EXECUTION ON ANY BRANCH
+Step 4 - allow execution on any branch
 -------------------------------------
 Upstream workflows often restrict execution to specific branches.
 
@@ -166,7 +166,7 @@ branches:
 
 This enables execution on feature branches and test branches.
 
-STEP 5 - REMOVE UPSTREAM-ONLY CONSTRAINTS
+Step 5 - remove upstream-only constraints
 -----------------------------------------
 Upstream workflows may include restrictions that do not apply
 in a personal context.
@@ -180,7 +180,7 @@ Review and adjust:
 
 Such guards should remain upstream but may be removed locally.
 
-STEP 6 - SECRETS AND PERMISSIONS
+Step 6 - secrets and permissions
 --------------------------------
 Personal forks do not inherit upstream secrets.
 
@@ -193,7 +193,7 @@ If required:
 Actions requiring protected secrets may not be fully testable
 in a personal context.
 
-STEP 7 - EXECUTE AND ITERATE
+Step 7 - execute and iterate
 ----------------------------
 After adaptation, Actions can be run:
 
@@ -203,7 +203,7 @@ After adaptation, Actions can be run:
 
 Iteration is expected and unrestricted.
 
-LIMITATIONS
+Limitations
 -----------
 Personal Action workflows:
 
@@ -213,7 +213,7 @@ Personal Action workflows:
 
 They must never be assumed to represent upstream behavior.
 
-KEY PRINCIPLES
+Key principles
 --------------
 
 - Upstream defines **what is canonical**.

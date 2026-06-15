@@ -1,7 +1,7 @@
-FIRST CONTRIBUTION
+First contribution
 ==================
 
-WELCOME
+Welcome
 -------
 Welcome, and thanks for your interest in contributing.
 
@@ -9,7 +9,7 @@ Your first contribution does not need to be big or perfect.
 This project is designed so you can contribute safely and learn as you go.
 
 
-GOOD FIRST CONTRIBUTIONS
+Good first contributions
 ------------------------
 Great ways to start:
 
@@ -21,7 +21,7 @@ Great ways to start:
 Small, focused changes are always welcome.
 
 
-START HERE
+Start here
 ----------
 Follow these in order:
 
@@ -30,11 +30,11 @@ Follow these in order:
 3. [git-contribution-flow.md](git-contribution-flow.md)
 
 
-WHAT HAPPENS NEXT
+What happens next
 -----------------
 Maintainers will review your PR and may suggest improvements.
 
 
-WANT TO GO FURTHER?
+Want to go further?
 -------------------
 See [CONTRIBUTING-OVERVIEW.md](CONTRIBUTING-OVERVIEW.md) for all topics.

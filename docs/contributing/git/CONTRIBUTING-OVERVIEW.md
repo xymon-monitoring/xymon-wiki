@@ -1,7 +1,7 @@
-CONTRIBUTING OVERVIEW
+Contributing overview
 =====================
 
-WELCOME
+Welcome
 -------
 Want to contribute? You are in the right place.
 
@@ -9,7 +9,7 @@ This page gives a quick overview and points you to the right documents.
 You can start small. Nothing here requires expert knowledge.
 
 
-HOW THE PROJECT WORKS
+How the project works
 ---------------------
 Xymon is a community project. Everyone is welcome.
 
@@ -23,7 +23,7 @@ GitHub is used for hosting and tracking,
 but the mailing list remains the main place for discussion and support.
 
 
-WORKING WITH GITHUB
+Working with GitHub
 -------------------
 
 1. Make changes on your computer
@@ -33,7 +33,7 @@ WORKING WITH GITHUB
 That’s it.
 
 
-HOW CHANGES MOVE
+How changes move
 ----------------
 ```text
             +---------------------------------+
@@ -55,7 +55,7 @@ HOW CHANGES MOVE
 ```
 
 
-WHERE TO START
+Where to start
 --------------
 New here?
 
@@ -67,7 +67,7 @@ Need Git help?
 - [git-setup.md](git-setup.md)
 
 
-MORE DETAILS
+More details
 ------------
 How to contribute:
 
@@ -84,7 +84,7 @@ Working on CI?
 - [git-actions-personal-workflow.md](git-actions-personal-workflow.md)
 
 
-DOCUMENTATION FORMAT
+Documentation format
 --------------------
 When editing documentation, please follow:
 

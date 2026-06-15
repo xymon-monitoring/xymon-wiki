@@ -1,7 +1,7 @@
-GIT GOVERNANCE - CANONICAL RULES
+Git governance - canonical rules
 ================================
 
-GOVERNANCE INTENT
+Governance intent
 -----------------
 These rules protect baseline branches (`main`, `devel`)
 and the long-term health of the project.
@@ -11,7 +11,7 @@ or how contributors work in their own forks.
 
 All contributions are welcome via Pull Requests.
 
-SCOPE
+Scope
 -----
 
 - local development environments
@@ -19,18 +19,18 @@ SCOPE
 - safe contribution to the upstream repository
 
 
-REPOSITORY ROLES
+Repository roles
 ----------------
 UPSTREAM  : authoritative repository (read-only via git)
 PERSONAL  : contributor fork (integration, testing, CI)
 LOCAL     : developer working copy
 
 
-REFERENCE BASELINES
+Reference baselines
 -------------------
 When you sync, make sure `main` and `devel` match upstream.
 
-BASELINE PROTECTION
+Baseline protection
 -------------------
 `main` and `devel` are long-term reference branches.
 
@@ -41,7 +41,7 @@ and therefore requires explicit human validation.
 - `devel` is the active development baseline
 
 
-ACTION BRANCHES
+Action branches
 ---------------
 When used, `action/*` branches are the canonical location
 for GitHub Actions changes:
@@ -52,7 +52,7 @@ for GitHub Actions changes:
 - Promotion to `main` or `devel` happens via Pull Request
 
 
-REVIEW AND MERGE POLICY
+Review and merge policy
 -----------------------
 Integration into `main` or `devel` requires review by two people:
 
@@ -68,7 +68,7 @@ Allowed merge modes include:
 - merge commit
 - rebase
 
-HARD RULES
+Hard rules
 ----------
 
 - Upstream is fetch-only; make all changes in PERSONAL or LOCAL
@@ -77,7 +77,7 @@ HARD RULES
 - Any divergence from baselines must be intentional
 
 
-DOCUMENT AUTHORITY
+Document authority
 ------------------
 This document is the authoritative reference for Git governance
 in this project.
