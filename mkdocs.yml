@@ -33,6 +33,9 @@ theme:
 plugins:
   - search
 
+extra_css:
+  - stylesheets/xymon.css
+
 markdown_extensions:
   - admonition
   - attr_list
