@@ -50,8 +50,8 @@ body[data-md-color-scheme="slate"]::before {
   left: 0;
   bottom: 0;
   width: 125px;
-  background: linear-gradient(to right, #15c215, rgba(0, 0, 0, 0));
-  opacity: 0.5;
+  background: linear-gradient(to right, #18d018 0%, #0f9e0f 30%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0.95;
   pointer-events: none;
   z-index: 1000;
 }
