@@ -1,6 +1,7 @@
 # Files
 
 The following files are required:
+
 * Nssm.exe
 * XymonClient.ps1
 * Xymonclient_config.xml
@@ -58,6 +59,7 @@ The main differences between BBWin and XymonPSClient concern how scripts are def
 Defining scripts is done via the new ‘external’ directive for client-local.cfg. This allows you to define, deploy and update from the server rather than having to deploy to each client manually.
 
 Unlike BBWin, XymonPSClient does not allow you to schedule a script to be run periodically, rather it offers two scheduling options:
+
 * Run every scan (every 300 seconds by default – set by XML configuration item ‘loopinterval’)
 * Run every ‘slow’ scan (every 6 hours by default – set by XML configuration items ‘loopinterval’ and ‘slowscanrate’)
 
@@ -73,6 +75,7 @@ Care should be taken with potentially long running scripts. Do not run long runn
 For more details, see the ‘external’ directive below.
 
 If you need finer control of when your script is run, there are two options:
+
 * Use Windows Task Scheduler to execute the script, but have your script write external data results to the externaldatalocation or localdatalocation. XymonPSClient will pick it up.
 * Write your script so that it writes a small data file containing the date/time it last sent results (you could use the file modified timestamp for this). Then only send new results if your desired interval has expired.
 
@@ -83,6 +86,7 @@ Some scripts (e.g. those supplied with BBWin) use registry keys to determine the
 # Returning data to Xymon
 
 There are a number of options for returning data from external scripts to Xymon:
+
 * Write a file to externaldatalocation – results in a ‘status’ message back to Xymon
 * Write a file to localdatalocation – results in the file content being contained in the core ‘client’ message back to Xymon
 * Send a message back to Xymon directly (e.g. using ‘xymon.ps1’ available from the XymonPSClient svn repository as a basis)
