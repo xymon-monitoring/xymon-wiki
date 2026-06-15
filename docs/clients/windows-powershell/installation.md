@@ -12,18 +12,18 @@ Any other files are legacy from older versions and can be deleted. In particular
 
 ## Before installing
 
-The script is designed to be installed as a Windows service. In the original script, a renamed srvany.exe was used (XymonPSClient.exe). 
+The script is designed to be installed as a Windows service. In the original script, a renamed srvany.exe was used (XymonPSClient.exe).
 
 In more recent versions, the decision has been made to switch to use NSSM (http://nssm.cc/). This is a public domain service manager very similar to srvany. It offers the feature of restarting the script if it is stopped for any reason – for example, if a user kills the PowerShell process. It also allows the use of 64-bit processes on 64-bit operating systems.
 
-Note that the version of NSSM supplied in this repository is for x64 systems. If you are running an x86 (32-bit) system, please download the 32-bit bit nssm.exe from http://nssm.cc/. 
+Note that the version of NSSM supplied in this repository is for x64 systems. If you are running an x86 (32-bit) system, please download the 32-bit bit nssm.exe from http://nssm.cc/.
 
 You may need to “unblock” execution of the downloaded scripts and files depending on your Windows settings. To do this, right-click each file and select Properties. If you see the option to unblock, please click the Unblock button.
- 
+
 ## Installation steps
 
 Installation of the client is straightforward:
- 
+
 1. Review xymonclient_config.xml and at the least, set the Xymon server address.
 1. Copy the following files to a directory on the target server (e.g. c:\program files\xymon)
    * `Xymonclient.ps1`
@@ -45,7 +45,7 @@ In step 3 above, if the PowerShell execution policy has not been set then you wi
 ## Uninstallation
 
 1. Sop the XymonPSClient service - run the following commands to uninstall the service from a PowerShell prompt (may need to be an administrative prompt):
-   * `cd "c:\program files\xymon"` (substitute the installation location) 
+   * `cd "c:\program files\xymon"` (substitute the installation location)
    * `.\xymonclient.ps1 stop`
    * `.\xymonclient.ps1 uninstall`
 2. You can then delete all files from the installation directory. There may also be two log files (by default in the c:\ directory), xymonclient.log and xymon-lastcollect.txt which can also be deleted.
@@ -56,14 +56,15 @@ As of version 2.1, XymonPSClient supports external scripts. Along with external 
 
 XymonPSClient will look for and install scripts in the ‘externalscriptlocation’ XML configuration parameter, which defaults to the ‘ext’ subdirectory of the installation directory.
 
-The main differences between BBWin and XymonPSClient concern how scripts are defined, scheduling and automatic deployment and update. 
+The main differences between BBWin and XymonPSClient concern how scripts are defined, scheduling and automatic deployment and update.
 
 Defining scripts is done via the new ‘external’ directive for client-local.cfg. This allows you to define, deploy and update from the server rather than having to deploy to each client manually.
 
-Unlike BBWin, XymonPSClient does not allow you to schedule a script to be run periodically, rather it offers two scheduling options:
+Unlike BBWin, XymonPSClient does not allow you to schedule a script to be run periodically, rather it offers three scheduling options:
 
 * Run every scan (every 300 seconds by default – set by XML configuration item ‘loopinterval’)
 * Run every ‘slow’ scan (every 6 hours by default – set by XML configuration items ‘loopinterval’ and ‘slowscanrate’)
+* Run every N'th scans,  set by using `scan,N` as the SCHEDULE value in the ‘external’ directive, where N is the number of scans between runs (e.g. `scan,12` with the default ‘loopinterval’ of 300 seconds runs the script approximately every hour)
 
 Additionally, XymonPSClient offers two execution methods:
 
@@ -97,7 +98,7 @@ There are a number of options for returning data from external scripts to Xymon:
 
 For external data, XymonPSClient supports the same file format as BBWin. XymonPSClient will always look for external data in the location specified by the XML configuration ‘externaldatalocation’ – by default, the ‘tmp’ subdirectory in the installation directory. This data collection occurs if the directory exists, regardless of whether any external scripts are defined. This allows you to use completely external scripts / processes e.g. via Windows Task Scheduler and still have the results reported back to Xymon.
 
-The BBWin format is a text file, named for the test – i.e. the name of the file controls the name of the test that will be shown on the dashboard. 
+The BBWin format is a text file, named for the test – i.e. the name of the file controls the name of the test that will be shown on the dashboard.
 Any files with ‘.’ in the filename are ignored – this is in line with BBWin functionality. Therefore, filenames with extensions (e.g. testname.txt) will be ignored.
 
 The filename can be used to send test data as if it has come from a different host. In this case, the filename should be TESTNAME^HOSTNAME. This is useful if you are running external scripts on a server but want the results to appear in Xymon separately (for example, for monitoring a SAN).
@@ -113,7 +114,7 @@ The contents of the file should be as follows:
 For example, the external script fsmon supplied with the BBWin source writes external files with the following contents:
 
 ```
-green 14/01/2016 14:37:07 [SERVER1] 
+green 14/01/2016 14:37:07 [SERVER1]
 
 &green checking directory extdirtest 'c:\temp' - Rules are <50 and <100 - Actually 5 file(s)
 ```

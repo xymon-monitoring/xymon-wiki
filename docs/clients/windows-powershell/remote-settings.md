@@ -19,7 +19,7 @@ Only one eventlogswanted statement can be processed. If you are using config mer
 
 * PRIORITY – optional – used to specify which eventlogswanted statement is used, in case config merging means multiple eventlogswanted statements appear. The statement with the highest priority will be used. If omitted, priority for the statement will be zero.
 * LIST_OF_EVENT_LOGS – a comma delimited list of event logs to retrieve data from; can use wildcards (* = match any character)
-* MAX_SIZE – the maximum amount of data to be returned 
+* MAX_SIZE – the maximum amount of data to be returned
 * REQUIRED_LEVELS – optional – the levels that should be returned, comma separated. Allowed values: Information, Warning, Critical, Error, Verbose. By default, all are returned.
 
 **Examples**
@@ -40,9 +40,9 @@ The eventlog directive works in one of two ways:
 * Exclude mode: including all events except specified – use ignore
 * Include mode: ignore all events except specified – use include
 
-The directive should be followed by either one or more ignore directives or one or more include directives. 
+The directive should be followed by either one or more ignore directives or one or more include directives.
 
-Include mode takes priority - if there are any “include” entries, include mode will be used. All ignore entries will be disregarded. 
+Include mode takes priority - if there are any “include” entries, include mode will be used. All ignore entries will be disregarded.
 
 Ignore / Include configure which event log entries should be ignored or included. If the event log provider or message match an ignore or include pattern, the event log entry will filtered appropriately.
 
@@ -138,7 +138,7 @@ For each servicecheck directive, the client will track the last time it saw the 
 
 Checks if a specified Windows Service servicecheck exists and suppresses it during the specified maintenance window. Window can span multiple days, as specified by Duration, but would terminate if script is restarted after initiation day/hour.
 
-* SERVICENAME – name of the service to check for a ‘servicecheck’ statement. 
+* SERVICENAME – name of the service to check for a ‘servicecheck’ statement.
 * DAYOFWEEK – numeric day of the week, where Sunday = 0, Monday = 1, etc.
 * STARTHOUR – hour to start the maintenance window, 0 for midnight up to 23 (24 hour clock)
 * DURATION – how long in hours the maintenance window should last
@@ -287,8 +287,8 @@ You can optionally specify one or more ‘trigger’ statements that will contro
 
 repeattest parameters:
 
-* TEST – the test to repeat (e.g. disk, cpu, svcs) – this must be the name of a section in the data sent to Xymon 
-* DESTINATION TEST – the test name the repeated data will be sent as. 
+* TEST – the test to repeat (e.g. disk, cpu, svcs) – this must be the name of a section in the data sent to Xymon
+* DESTINATION TEST – the test name the repeated data will be sent as.
 
 trigger parameters:
 
@@ -319,7 +319,7 @@ Please note that the delimiters for this directive are slightly different - the 
 external allows you to specify external scripts to run periodically to provide additional data. Scripts compatible with BBWin should work with a minimum of changes. External scripts return data back to Xymon by writing results to an external data file – see the section above in the main document.
 
 * PRIORITY – optional – value 0-99. If specifying multiple externals, they will be executed in priority order, lower values first. If values match, async externals will be executed before sync. If priority is not specified, the lowest priority will be allocated (99).
-* SCHEDULE – possible values everyscan or slowscan - when to run the external script
+* SCHEDULE – possible values everyscan, slowscan or scan,N - when to run the external script. scan,N runs the script every N scans (e.g. scan,12 runs the script every 12th scan with the default ‘loopinterval’ of 300 seconds, that is approximately every hour)
 * METHOD – possible values sync or async – run the script synchronously (XymonPSClient waits for the script to finish before proceeding) or asynchronously (the script runs in the background)
 * SCRIPT – the name of the script without path (if it exists in the externalscriptlocation and you do not wish to use update functions) or the location (UNC path or http/https/bb url) from which it can be copied / downloaded
 * HASH – optional - possible values MD5, SHA1 or SHA256 - specify a hashing algorithm to check the script matches the expected HASHVALUE
@@ -329,7 +329,7 @@ external allows you to specify external scripts to run periodically to provide a
 
 If the externalscriptlocation directory does not exist and the external directive is used, XymonPSClient will attempt to create it.
 
-If a hash algorithm and value is specified, XymonPSClient will calculate the hash of the script currently on the server and will not execute the script if the values do not match. If the script does not exist or the hash check fails, XymonPSClient will attempt to copy or download the script from the location specified by SCRIPT. 
+If a hash algorithm and value is specified, XymonPSClient will calculate the hash of the script currently on the server and will not execute the script if the values do not match. If the script does not exist or the hash check fails, XymonPSClient will attempt to copy or download the script from the location specified by SCRIPT.
 
 The optional PROCESS and ARGUMENTS parameters allow a process to be called to call the script, e.g. and interpreter. If PROCESS is used, HASH, HASHVALUE and ARGUMENTS must be specified. The text {script} in the ARGUMENTS parameter will be replaced with the full path and filename of the script. For example, if the external script is a Powershell script, powershell.exe would be used for the PROCESS and –file “{script}” for the ARGUMENTS.
 Care should be taken with potentially long running scripts. Do not run long running scripts synchronously as that will cause the XymonPSClient to pause until the script finishes and may well cause purple alerts. Likewise, do not run long-running scripts asynchronously on every scan, as that will cause multiple copies of the script to run.
@@ -342,15 +342,19 @@ This will run fsmon.vbs (supplied with BBWin source) every scan (300 seconds by 
 
 `external:everyscan:sync:http://server1/XymonPS/script.ps1|MD5|536476abc234c3c1|powershell.exe|-executionpolicy remotesigned –file "{script}"`
 
-This will run script.ps1 every scan, synchronously. If the script does not exist or if the existing script does not match the MD5 hash 536476abc234c3c1, it will be downloaded from http://server1/XymonPS/script.ps1. If the downloaded script does not match the hash value, it will not be executed. When it is executed, a powershell.exe process will be created with the arguments specified. 
+This will run script.ps1 every scan, synchronously. If the script does not exist or if the existing script does not match the MD5 hash 536476abc234c3c1, it will be downloaded from http://server1/XymonPS/script.ps1. If the downloaded script does not match the hash value, it will not be executed. When it is executed, a powershell.exe process will be created with the arguments specified.
 
 `external:slowscan:async:http://server1/XymonPS/script.ps1|MD5|536476abc234c3c1|powershell.exe|-executionpolicy remotesigned –file "{script}"`
 
-As above, but this will run every slow scan, asynchronously. 
+As above, but this will run every slow scan, asynchronously.
 
 `external:2:everyscan:sync:bb://jmxstat.tcl|SHA1|85f0062a1fddb3add40872ce18141db9426a44fb|U:\Apps\java\jre1.8.0_144\bin\java.exe|-jar "U:\Apps\WinPSClient\ext\jmxsh-R5.jar" "U:\Apps\WinPSClient\ext\jmxstat.tcl" -J "mytomcat"`
 
 This will run jmxstat.tcl every scan, synchronously. If the script does not exist or if the existing script does not match the SHA1 hash 85f0062a1fddb3add40872ce18141db9426a44fb, it will be downloaded from the download directory of the Xymon server.  If the downloaded script does not match the hash value, it will not be executed. When it is executed, a java.exe process will be created with the arguments specified.
+
+`external:scan,12:sync:fsmon.vbs`
+
+This will run fsmon.vbs every 12th scan, synchronously. With the default ‘loopinterval’ of 300 seconds, this is approximately once per hour. The script will not be checked against a hash and therefore will not be automatically updated if it changes.
 
 ## xymonlogsend
 
