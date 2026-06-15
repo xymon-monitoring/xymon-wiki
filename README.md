@@ -1,89 +1,11 @@
 # xymon-wiki
 
-Collaborative knowledge space maintained by the community.  
-Contains HOWTOs, troubleshooting notes, deployment examples, platform-specific information, and practical experience not tied to a specific release.
+Collaborative knowledge base for the Xymon monitoring ecosystem.
 
----
+### 📖 Read it online → **<https://xymon-monitoring.github.io/xymon-wiki/>**
 
-## Purpose
+The content lives as Markdown under [`docs/`](docs/) and is published automatically
+(MkDocs Material → GitHub Pages) on every push to `main`.
 
-This repository and website serve as a central, searchable entry point for operational and technical knowledge related to the Xymon ecosystem.  
-The objective is to reduce repetition and avoid divergent or contradictory guidance across scattered threads.
-
----
-
-## Access the Wiki Website
-
-- Website (public, indexed):  
-  [https://xymon-monitoring.github.io/xymon-wiki/](https://xymon-monitoring.github.io/xymon-wiki/)
-  
-Key pages (canonical Markdown sources):
-- [C coding contribution guidelines](docs/contributing/c-coding-contribution-guidelines.md)
-- [AI agent contribution directives](docs/contributing/ai-agent-contribution-directives.md)
-
-- Source repository:  
-  [https://github.com/xymon-monitoring/xymon-wiki](https://github.com/xymon-monitoring/xymon-wiki)
-
----
-
-## Knowledge base
-
-General:
-- [How to compile Xymon](docs/guides/how-to-compile-xymon.md)
-- [Client / Server communication](docs/guides/client-server-communication.md)
-- [History of Xymon](docs/guides/history-of-xymon.md)
-
-Windows PowerShell client (XymonPSClient) — the official Xymon client for Windows (all modern versions):
-- [Overview](docs/clients/windows-powershell/index.md)
-- [Installation and usage](docs/clients/windows-powershell/installation.md)
-- [Local settings](docs/clients/windows-powershell/local-settings.md)
-- [Remote settings](docs/clients/windows-powershell/remote-settings.md)
-
-For very old Windows versions, use [bbwin](https://bbwin.sourceforge.net/).
-
----
-
-## Primary Repositories
-
-- [https://github.com/xymon-monitoring/xymon](https://github.com/xymon-monitoring/xymon)  
-  Main source code, active development, server and client components.
-
-- [https://github.com/xymon-monitoring/xymon-svn-mirror](https://github.com/xymon-monitoring/xymon-svn-mirror)  
-  Preserved legacy history.
-
-- [https://github.com/xymon-monitoring/xymon-client-windows-powershell](https://github.com/xymon-monitoring/xymon-client-windows-powershell)  
-  Modern client implementation for Windows environments.
-
-- [https://github.com/xymon-monitoring/xymon-problems](https://github.com/xymon-monitoring/xymon-problems)  
-  Repository intended for issues/topics that are not strictly code problems (cleanup pending).
-
----
-
-## Work Tracking
-
-- [https://github.com/xymon-monitoring/xymon/issues](https://github.com/xymon-monitoring/xymon/issues)  
-  Structured tracking of active work, bug reports, design discussions, and tasks. Key topics may be pinned to remain visible.
-
-- Index Issue (recommended)  
-  A single pinned "index" issue can be used to track and link to the current key topics so context remains discoverable over time.
-
----
-
-## Mailing List
-
-- [https://mailman.xymon.com/postorius/lists/xymon.xymon.com/](https://mailman.xymon.com/postorius/lists/xymon.xymon.com/)  
-  Primary forum for user questions, troubleshooting, and long-form discussions.
-
-- Alternative subscription by email: `xymon-subscribe@xymon.com`
-
-- Archives (three views of the same list):
-  - [Pipermail](https://lists.xymon.com/xymon/) — original historical archive, 2005 → mid-2024 (post-2024 superseded by HyperKitty).
-  - [HyperKitty](https://mailman.xymon.com/hyperkitty/list/xymon@xymon.com/) — current Mailman 3 web archive, 2024-07 → present.
-  - [Merged mirror](https://xymon-monitoring.github.io/xymon-discussion-public/) — Pipermail + HyperKitty combined, deduped and searchable, 2005 → present.
-
----
-
-## Communication Channels
-
-- [https://github.com/xymon-monitoring/private](https://github.com/xymon-monitoring/private)  
-  Private coordination repository used to reserve channel names and keep internal notes related to future Telegram and Signal channels.
+**Contributing** — edit a page under `docs/` and open a pull request; see the
+[AI agent contribution directives](docs/contributing/ai-agent-contribution-directives.md).
