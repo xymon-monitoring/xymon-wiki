@@ -17,6 +17,10 @@
   --xymon-link-teal:  #00ffaa; /* classic Xymon link colour */
   --xymon-yellow:     #ebeb77; /* xymon.com menu highlight */
 
+  /* Left green band: 5% of the viewport width, recalculated on resize.
+     Text is indented by half the band so it starts where the green has faded. */
+  --xymon-band-width: 5vw;
+
   /* Code font: Material's default Roboto Mono renders box-drawing glyphs
      (─ │ ┌ ┐ └ ┘ ► ▼) at a different advance width than ASCII, which breaks
      the right edge of the ASCII workflow diagrams. Use the OS monospace stack
@@ -58,17 +62,16 @@ body::before {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 125px;
+  width: var(--xymon-band-width);
   background: linear-gradient(to right, #18d018 0%, #0f9e0f 30%, rgba(0, 0, 0, 0) 100%);
   opacity: 0.95;
   pointer-events: none;
   z-index: 1000;
 }
 
-/* Band stays full-width; keep all text — left navigation AND page content —
-   out of its green half, starting at ~50% of the band (62px) where the
-   gradient has faded. */
+/* Keep all text — left navigation AND page content — out of the band's green
+   half: start it at 50% of the band, which rescales with the viewport. */
 .md-sidebar--primary,
 .md-content {
-  padding-left: 62px;
+  padding-left: calc(var(--xymon-band-width) / 2);
 }
