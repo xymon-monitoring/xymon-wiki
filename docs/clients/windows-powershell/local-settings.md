@@ -21,6 +21,9 @@ The XML file is a standard XML file comprising XML elements. An example is shown
 
 If a setting is not supplied in the config file or registry, then the default value is used. The minimum configuration would be to supply just the `<servers>` element in `<XymonSettings>` elements and use defaults for all other settings.
 
+!!! note
+    The configuration file is read once at startup. Changes to `xymonclient_config.xml` (or the registry) are **not** picked up while the service is running — the XymonPSClient service must be restarted for any changes to take effect.
+
 | Option | Default | Description |
 |--------|---------|-------------|
 | clientname | (none) | Override the client name reported to the server. By default, the client name is obtained from the networking properties of the OS, or the COMPUTERNAME environment variable. If this setting has a value, it will override any value obtained from the OS.|
