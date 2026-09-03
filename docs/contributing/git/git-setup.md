@@ -97,10 +97,31 @@ Phase 3 - declare upstream (fetch-only)
 --------------------------------------
 The upstream remote represents the authoritative repository and is
 intentionally configured as fetch-only.
+
+If you cloned with `gh`, the `upstream` remote already exists: `gh repo clone`
+adds the parent of a fork as `upstream`, and also makes the parent the default
+repository for every later `gh` command. Skip the `remote add` and point `gh`
+back at your fork:
+```
+git remote set-url --push upstream DISABLED
+gh repo set-default <your-github-username>/xymon
+```
+
+If you cloned with `git`, add the remote first:
 ```
 git remote add upstream https://github.com/xymon-monitoring/xymon.git
 git remote set-url --push upstream DISABLED
 ```
+
+Either way, make the fork the default push target:
+```
+git config remote.pushDefault origin
+```
+
+Why all three: with push rights on the upstream repository, `gh pr create`
+pushes an unpushed branch to the *default* repository without asking, and a
+branch that tracks `upstream/main` pushes to upstream. The disabled push URL
+is the guard that holds whatever the defaults are.
 
 
 Phase 4 - verify remotes
@@ -119,7 +140,6 @@ so you see the authoritative state instead of your fork.
 ```
 git fetch upstream
 git diff main upstream/main
-git diff devel upstream/devel
 ```
 
 Expected result:

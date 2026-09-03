@@ -93,18 +93,16 @@ If your fork is behind, sync it in the GitHub UI:
 
 Step 3 - create a work branch
 -----------------------------
-Branch from `main` or `devel`:
+Branch from `main`:
 ```
 git checkout main
 git switch -c <branch>
 git push -u origin <branch>
 ```
 
-```
-git checkout devel
-git switch -c <branch>
-git push -u origin <branch>
-```
+`devel` is named as a second baseline in [git-rules.md](git-rules.md), but it
+has not moved since 2023 and every open Pull Request targets `main`. Branch
+from `main` unless a maintainer asks otherwise.
 
 
 Step 4 - make your change
@@ -147,7 +145,7 @@ Step 7 - open the upstream PR
 Open the upstream PR:
 ```
 <your-github-username>/xymon:<branch>
--> xymon-monitoring/xymon:main (or devel)
+-> xymon-monitoring/xymon:main
 ```
 
 Step 7a - Accidental upstream Pull Request

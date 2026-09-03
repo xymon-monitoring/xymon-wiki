@@ -3,6 +3,11 @@
 Scope
 
 - General directives for any AI-assisted contribution (patch generation, PR drafting, review assistance).
+- The `xymon` repository carries its own instructions for coding agents in
+  [`AGENTS.md`](https://github.com/xymon-monitoring/xymon/blob/main/AGENTS.md),
+  which tools load from the checkout. That file is authoritative for work in
+  that tree — attribution, what the test suite rejects, where things are — and
+  this page does not restate it.
 
 ## Mandatory Rules
 
