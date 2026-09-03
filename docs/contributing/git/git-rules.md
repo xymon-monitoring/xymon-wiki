@@ -63,11 +63,8 @@ Repositories that do not say otherwise may be pushed to directly.
 If an exception is needed, it must be clearly explained
 in the Pull Request.
 
-Allowed merge modes include:
-
-- squash
-- merge commit
-- rebase
+Allowed merge modes are set per repository as well. For `xymon` the ruleset
+permits squash and merge commit; rebase merges are refused.
 
 Hard rules
 ----------
