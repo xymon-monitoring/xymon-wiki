@@ -54,10 +54,11 @@ for GitHub Actions changes:
 
 Review and merge policy
 -----------------------
-Integration into `main` or `devel` requires review by two people:
-
-- one author
-- one independent reviewer
+How many people must have read a change before it is merged is set by each
+repository, in its `CONTRIBUTING.md`. For `xymon` every change lands through a
+Pull Request merged by someone other than its author — see
+[CONTRIBUTING.md](https://github.com/xymon-monitoring/xymon/blob/main/CONTRIBUTING.md).
+Repositories that do not say otherwise may be pushed to directly.
 
 If an exception is needed, it must be clearly explained
 in the Pull Request.
