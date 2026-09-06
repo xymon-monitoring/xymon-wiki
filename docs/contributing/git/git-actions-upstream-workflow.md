@@ -48,9 +48,9 @@ When used, these branches:
 
 - should contain only `.github/` content,
 - can serve as the canonical source for Actions,
-- are promoted into `main` and/or `devel` via controlled merges.
+- are promoted into `main` via controlled merges.
 
-If not used, Actions live directly on `main` and `devel`.
+If not used, Actions live directly on `main`.
 
 
 Authoritative action flow (ASCII)
@@ -69,7 +69,7 @@ STEP 1
   │ xymon-monitoring/xymon        │
   └───────────────┬───────────────┘
                   │ Sync fork (GitHub UI)
-                  │ main / devel / action/*
+                  │ main / action/*
                   ▼
   ┌───────────────────────────────┐
   │ PERSONAL FORK                 │
@@ -84,7 +84,7 @@ STEP 2
   ┌───────────────────────────────┐
   │ ACTION WORK BRANCH            │
   │ action-<topic>                │
-  │ from main / devel / action/*  │
+  │ from main / action/*          │
   └───────────────┬───────────────┘
                   │ modify .github/
                   │ git commit / git push
@@ -107,11 +107,11 @@ STEP 5 (IF USED)
   └───────────────┬───────────────┘
 
 STEP 6 (IF USED)
-                  │ promotion to main/devel
+                  │ promotion to main
                   ▼
   ┌───────────────────────────────┐
   │ UPSTREAM INTEGRATION          │
-  │ main / devel                  │
+  │ main                          │
   └───────────────┬───────────────┘
 
 STEP 7
@@ -134,11 +134,10 @@ any GitHub Actions work.
 On GitHub (personal fork UI):
 
 - Sync branch `main`
-- Sync branch `devel`
 - Sync relevant `action/*` branches (if used)
 
 important:
-Do not sync if you have commits on `main`, `devel`, or `action/*`.
+Do not sync if you have commits on `main` or `action/*`.
 Move any work in progress to a dedicated branch first.
 These branches must remain clean.
 
@@ -147,19 +146,12 @@ Step 2 - create an action work branch
 ------------------------------------
 Create a dedicated branch for Actions changes.
 
-`main`, `devel`, and `action/*` are **baseline bases**.
+`main` and `action/*` are **baseline bases**.
 Direct commits are allowed but strongly discouraged.
 
 From `main`:
 ```
 git checkout main
-git switch -c action-<topic>
-git push -u origin action-<topic>
-```
-
-From `devel`:
-```
-git checkout devel
 git switch -c action-<topic>
 git push -u origin action-<topic>
 ```
@@ -178,11 +170,11 @@ Modify GitHub Actions or related automation
 (typically under `.github/`).
 
 Upstream workflows should keep branch filters restricted to integration
-targets, typically `main` and `devel`.
+targets, typically `main`.
 
 Example:
 ```yaml
-branches: [ main, devel ]
+branches: [ main ]
 ```
 
 Upstream `workflow_dispatch` should be restricted to maintainers only.
@@ -193,7 +185,7 @@ Example:
 on:
   workflow_dispatch:
   push:
-    branches: [ main, devel ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -224,12 +216,10 @@ If using `action/*` branches for reuse or long-term maintenance:
 - Maintain the Action independently from application code.
 
 
-Step 6 - promote to main / devel
---------------------------------
-If using `action/*`, promote from `action/<name>` into `main` and/or `devel`
+Step 6 - promote to main
+------------------------
+If using `action/*`, promote from `action/<name>` into `main`
 via controlled upstream Pull Requests.
-
-`devel` semantics follow [git-rules.md](git-rules.md).
 
 
 Step 7 - cleanup
@@ -252,5 +242,5 @@ Key principles
 
 - Upstream is the authoritative truth source.
 - `action/*` branches are canonical when used.
-- `main` is the stable integration target; `devel` is the active development baseline.
+- `main` is the stable integration target.
 - Any step not described here follows [git-contribution-flow.md](git-contribution-flow.md).

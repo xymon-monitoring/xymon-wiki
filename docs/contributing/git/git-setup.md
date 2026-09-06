@@ -53,8 +53,7 @@ Rules
 - Origin (personal fork) is a writable mirror used only as a sync and PR source.
 - Upstream is fetch-only and modified only via Pull Requests.
 - Push is allowed only to the personal fork.
-- main  = stable / release
-- devel = active development baseline
+- main = stable / release
 
 
 Phase 0 - prerequisites

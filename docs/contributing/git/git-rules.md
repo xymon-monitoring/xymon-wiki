@@ -3,7 +3,7 @@ Git governance - canonical rules
 
 Governance intent
 -----------------
-These rules protect baseline branches (`main`, `devel`)
+These rules protect the baseline branch (`main`)
 and the long-term health of the project.
 
 They do not restrict who may contribute
@@ -28,17 +28,16 @@ local     : developer working copy
 
 Reference baselines
 -------------------
-When you sync, make sure `main` and `devel` match upstream.
+When you sync, make sure `main` matches upstream.
 
 Baseline protection
 -------------------
-`main` and `devel` are long-term reference branches.
+`main` is the long-term reference branch.
 
 Any change reaching a baseline branch is considered high-impact
 and therefore requires explicit human validation.
 
 - `main` represents a production-quality state
-- `devel` is the active development baseline
 
 
 Action branches
@@ -49,7 +48,7 @@ for GitHub Actions changes:
 - `action/*` branches should contain only `.github/` content
 - Work branches may be created from `action/*`
 - Direct commits are discouraged to keep changes reviewable
-- Promotion to `main` or `devel` happens via Pull Request
+- Promotion to `main` happens via Pull Request
 
 
 Review and merge policy
@@ -70,7 +69,7 @@ Hard rules
 ----------
 
 - Upstream is fetch-only; make all changes in personal or local
-- Treat `main` and `devel` the same way: branch from them and avoid direct commits
+- Branch from `main` and avoid direct commits on it
 - Use work branches for non-trivial changes
 - Any divergence from baselines must be intentional
 

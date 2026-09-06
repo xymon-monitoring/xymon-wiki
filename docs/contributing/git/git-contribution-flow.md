@@ -74,8 +74,8 @@ Rules
 - Upstream is the authoritative truth source.
 - All verification is done against upstream.
 - All writes go to the personal fork.
-- Direct development on `main` and `devel` is allowed but strongly discouraged.
-- `main` and `devel` are preferred as branching bases and merge targets.
+- Direct development on `main` is allowed but strongly discouraged.
+- `main` is the branching base and merge target.
 - All upstream changes happen via Pull Requests only.
 
 
@@ -100,10 +100,6 @@ git switch -c <branch>
 git push -u origin <branch>
 ```
 
-`devel` is named as a second baseline in [git-rules.md](git-rules.md), but it
-has not moved since 2023 and every open Pull Request targets `main`. Branch
-from `main` unless a maintainer asks otherwise.
-
 
 Step 4 - make your change
 -------------------------
@@ -124,13 +120,13 @@ If it is, sync it using the GitHub UI:
 - Choose "Update branch"
 
 important:
-`main` and `devel` are moving targets: they advance as upstream evolves.
+`main` is a moving target: it advances as upstream evolves.
 
-Do not sync if you have commits on `main` or `devel`.
+Do not sync if you have commits on `main`.
 GitHub will warn that syncing will overwrite those changes.
 
 Move any work in progress to a dedicated branch first.
-This is why committing directly on `main` or `devel` is strongly discouraged.
+This is why committing directly on `main` is strongly discouraged.
 
 
 Step 6 - optional (recommended): open a fork PR

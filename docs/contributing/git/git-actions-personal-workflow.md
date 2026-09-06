@@ -151,7 +151,7 @@ Upstream workflows often restrict execution to specific branches.
 For personal use, remove or relax branch filters such as:
 
 ```yaml
-branches: [ main, devel ]
+branches: [ main ]
 ```
 
 Options:
