@@ -82,10 +82,3 @@ Working on CI?
 
 - [git-actions-upstream-workflow.md](git-actions-upstream-workflow.md)
 - [git-actions-personal-workflow.md](git-actions-personal-workflow.md)
-
-
-Documentation format
---------------------
-When editing documentation, please follow:
-
-- [documentation-format.md](documentation-format.md)
