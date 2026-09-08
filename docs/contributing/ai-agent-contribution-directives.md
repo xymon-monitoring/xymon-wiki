@@ -8,24 +8,25 @@ Scope
   which tools load from the checkout. That file is authoritative for work in
   that tree — attribution, what the test suite rejects, where things are — and
   this page does not restate it.
+- The rules every contributor follows apply to AI-assisted work as well, and
+  they are in each repository's `CONTRIBUTING.md` — for `xymon`,
+  [CONTRIBUTING.md](https://github.com/xymon-monitoring/xymon/blob/main/CONTRIBUTING.md):
+  one change per pull request, and say what you verified and how. This page is
+  what an AI-assisted contribution needs on top of that.
 
 ## Mandatory Rules
 
-1) No unverified claims
-- Do not state "tested", "validated", "fixed", "works on X" without evidence.
-
-2) No scope creep
+1) No scope creep
 - Do not add unrelated changes (formatting, refactors, opportunistic cleanups).
-- One issue per PR; if multiple issues are detected, split the work.
 
-3) Preserve behavior unless explicitly requested
+2) Preserve behavior unless explicitly requested
 - Do not change defaults, semantics, or feature gates beyond what is required.
 
-4) Minimize diff and surface area
+3) Minimize diff and surface area
 - Prefer local changes.
 - Avoid new files/layers/frameworks unless explicitly required.
 
-5) Maintain reviewer ergonomics
+4) Maintain reviewer ergonomics
 - Changes must be easy to review, easy to revert, and logically grouped.
 - Avoid mechanical churn.
 
