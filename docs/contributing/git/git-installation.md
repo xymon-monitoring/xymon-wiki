@@ -1,13 +1,10 @@
-Git installation and auth
-=========================
+# Git installation and auth
 
-Purpose
--------
+## Purpose
 This document covers Git and GitHub CLI installation and login.
 
 
-Installation
-------------
+## Installation
 Recommended environment: Linux or WSL (same as CI).
 
 Linux / WSL:
@@ -30,8 +27,7 @@ choco install git gh
 ```
 
 
-Authenticate gh (once, browser-based)
--------------------------------------
+## Authenticate gh (once, browser-based)
 Run:
 ```
 gh auth login
@@ -49,8 +45,7 @@ Verify:
 gh auth status
 ```
 
-Verify / configure Git identity
-------------------------------
+## Verify / configure Git identity
 
 After authentication, verify that a Git identity is configured.
 

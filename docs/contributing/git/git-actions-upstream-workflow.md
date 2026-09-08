@@ -1,8 +1,6 @@
-Git actions upstream workflow
-============================
+# Git actions upstream workflow
 
-Purpose
--------
+## Purpose
 This document defines the **upstream, authoritative workflow** for
 developing, maintaining, and promoting GitHub Actions.
 
@@ -19,8 +17,7 @@ This document specifies **how GitHub Actions evolve upstream**.
 It does not redefine governance.
 
 
-Scope
------
+## Scope
 This workflow applies to:
 
 - GitHub Actions under `.github/`,
@@ -39,8 +36,7 @@ It does not cover:
 - Action yaml design details.
 
 
-Action branch model (optional)
-------------------------------
+## Action branch model (optional)
 Some GitHub Actions may be maintained in **dedicated upstream Action branches**
 (e.g. `action/build`, `action/test`, `action/release`).
 
@@ -53,8 +49,7 @@ When used, these branches:
 If not used, Actions live directly on `main`.
 
 
-Authoritative action flow (ASCII)
----------------------------------
+## Authoritative action flow (ASCII)
 
 This diagram shows **Action-specific lifecycle steps**.
 All standard operations (branching, committing, PR rules) follow
@@ -123,11 +118,9 @@ STEP 7
 ```
 
 
-Workflow steps
---------------
+## Workflow steps
 
-Step 1 - ensure baselines are synced (UI)
------------------------------------------
+## Step 1 - ensure baselines are synced (UI)
 Ensure your personal fork is aligned with upstream before starting
 any GitHub Actions work.
 
@@ -142,8 +135,7 @@ Move any work in progress to a dedicated branch first.
 These branches must remain clean.
 
 
-Step 2 - create an action work branch
-------------------------------------
+## Step 2 - create an action work branch
 Create a dedicated branch for Actions changes.
 
 `main` and `action/*` are **baseline bases**.
@@ -164,8 +156,7 @@ git push -u origin action-<topic>
 ```
 
 
-Step 3 - apply action changes
------------------------------
+## Step 3 - apply action changes
 Modify GitHub Actions or related automation
 (typically under `.github/`).
 
@@ -199,8 +190,7 @@ git push
 ```
 
 
-Step 4 - optional: fork-side validation
----------------------------------------
+## Step 4 - optional: fork-side validation
 When possible, validate behavior in the personal fork
 (e.g. via fork-side PRs or Action runs).
 
@@ -208,22 +198,19 @@ Fork-side validation is non-authoritative and informational only.
 Promotion to upstream is always manual.
 
 
-Step 5 - promote to upstream action branch (if used)
-----------------------------------------------------
+## Step 5 - promote to upstream action branch (if used)
 If using `action/*` branches for reuse or long-term maintenance:
 
 - Submit a Pull Request to the appropriate `action/<name>` branch.
 - Maintain the Action independently from application code.
 
 
-Step 6 - promote to main
-------------------------
+## Step 6 - promote to main
 If using `action/*`, promote from `action/<name>` into `main`
 via controlled upstream Pull Requests.
 
 
-Step 7 - cleanup
-----------------
+## Step 7 - cleanup
 Remove temporary Action branches after completion.
 
 Locally:
@@ -237,8 +224,7 @@ git push origin --delete action-<topic>
 ```
 
 
-Key principles
---------------
+## Key principles
 
 - Upstream is the authoritative truth source.
 - `action/*` branches are canonical when used.

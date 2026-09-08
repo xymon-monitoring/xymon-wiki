@@ -1,8 +1,6 @@
-Git governance - canonical rules
-================================
+# Git governance - canonical rules
 
-Governance intent
------------------
+## Governance intent
 These rules protect the baseline branch (`main`)
 and the long-term health of the project.
 
@@ -11,27 +9,23 @@ or how contributors work in their own forks.
 
 All contributions are welcome via Pull Requests.
 
-Scope
------
+## Scope
 
 - local development environments
 - personal GitHub forks
 - safe contribution to the upstream repository
 
 
-Repository roles
-----------------
+## Repository roles
 upstream  : authoritative repository (read-only via git)
 personal  : contributor fork (integration, testing, CI)
 local     : developer working copy
 
 
-Reference baselines
--------------------
+## Reference baselines
 When you sync, make sure `main` matches upstream.
 
-Baseline protection
--------------------
+## Baseline protection
 `main` is the long-term reference branch.
 
 Any change reaching a baseline branch is considered high-impact
@@ -40,8 +34,7 @@ and therefore requires explicit human validation.
 - `main` represents a production-quality state
 
 
-Action branches
----------------
+## Action branches
 When used, `action/*` branches are the canonical location
 for GitHub Actions changes:
 
@@ -51,8 +44,7 @@ for GitHub Actions changes:
 - Promotion to `main` happens via Pull Request
 
 
-Review and merge policy
------------------------
+## Review and merge policy
 How many people must have read a change before it is merged is set by each
 repository, in its `CONTRIBUTING.md`. For `xymon` every change lands through a
 Pull Request merged by someone other than its author — see
@@ -65,8 +57,7 @@ in the Pull Request.
 Allowed merge modes are set per repository as well. For `xymon` the ruleset
 permits squash and merge commit; rebase merges are refused.
 
-Hard rules
-----------
+## Hard rules
 
 - Upstream is fetch-only; make all changes in personal or local
 - Branch from `main` and avoid direct commits on it
@@ -74,8 +65,7 @@ Hard rules
 - Any divergence from baselines must be intentional
 
 
-Document authority
-------------------
+## Document authority
 This document is the authoritative reference for Git governance
 in this project.
 

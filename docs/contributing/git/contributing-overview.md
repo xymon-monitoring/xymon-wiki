@@ -1,16 +1,13 @@
-Contributing overview
-=====================
+# Contributing overview
 
-Welcome
--------
+## Welcome
 Want to contribute? You are in the right place.
 
 This page gives a quick overview and points you to the right documents.
 You can start small. Nothing here requires expert knowledge.
 
 
-How the project works
----------------------
+## How the project works
 Xymon is a community project. Everyone is welcome.
 
 All kinds of help are appreciated, from small fixes to larger contributions.
@@ -23,8 +20,7 @@ GitHub is used for hosting and tracking,
 but the mailing list remains the main place for discussion and support.
 
 
-Working with GitHub
--------------------
+## Working with GitHub
 
 1. Make changes on your computer
 2. Push them to your own GitHub fork
@@ -33,8 +29,7 @@ Working with GitHub
 That’s it.
 
 
-How changes move
-----------------
+## How changes move
 ```text
             +---------------------------------+
             |  UPSTREAM (main project)        |
@@ -55,8 +50,7 @@ How changes move
 ```
 
 
-Where to start
---------------
+## Where to start
 New here?
 
 - Start with [first-contribution.md](first-contribution.md)
@@ -67,8 +61,7 @@ Need Git help?
 - [git-setup.md](git-setup.md)
 
 
-More details
-------------
+## More details
 How to contribute:
 
 - [git-contribution-flow.md](git-contribution-flow.md)

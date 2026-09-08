@@ -1,15 +1,12 @@
-Git contribution flow - local -> personal -> upstream
-====================================================
+# Git contribution flow - local -> personal -> upstream
 
-Welcome
--------
+## Welcome
 This guide shows a simple and safe way to contribute.
 If you have not set up your fork and remotes yet, start with
 [git-setup.md](git-setup.md).
 
 
-Authoritative flow (step-based)
--------------------------------
+## Authoritative flow (step-based)
 
 ```text
 STEP 1
@@ -68,8 +65,7 @@ STEP 8            │ cleanup
 ```
 
 
-Rules
------
+## Rules
 
 - Upstream is the authoritative truth source.
 - All verification is done against upstream.
@@ -79,20 +75,17 @@ Rules
 - All upstream changes happen via Pull Requests only.
 
 
-Step 1 - check upstream status
-------------------------------
+## Step 1 - check upstream status
 Use the baseline verification in [git-setup.md](git-setup.md) (phase 5).
 
-Step 2 - sync your personal fork (if needed)
---------------------------------------------
+## Step 2 - sync your personal fork (if needed)
 If your fork is behind, sync it in the GitHub UI:
 
 - Click "Sync fork"
 - Choose "Update branch"
 
 
-Step 3 - create a work branch
------------------------------
+## Step 3 - create a work branch
 Branch from `main`:
 ```
 git checkout main
@@ -101,8 +94,7 @@ git push -u origin <branch>
 ```
 
 
-Step 4 - make your change
--------------------------
+## Step 4 - make your change
 ```
 git add <files>
 git commit -m "<message>"
@@ -110,8 +102,7 @@ git push
 ```
 
 
-Step 5 - sync your fork and local with upstream (recommended)
----------------------------------------------------
+## Step 5 - sync your fork and local with upstream (recommended)
 Before opening any PR, make sure your fork and local branches are not behind upstream.
 
 If it is, sync it using the GitHub UI:
@@ -129,23 +120,20 @@ Move any work in progress to a dedicated branch first.
 This is why committing directly on `main` is strongly discouraged.
 
 
-Step 6 - optional (recommended): open a fork PR
-----------------------------------------------
+## Step 6 - optional (recommended): open a fork PR
 It is recommended to open a Pull Request in your fork first,
 in order to run CI and validate changes before opening
 the upstream PR.
 
 
-Step 7 - open the upstream PR
------------------------------
+## Step 7 - open the upstream PR
 Open the upstream PR:
 ```
 <your-github-username>/xymon:<branch>
 -> xymon-monitoring/xymon:main
 ```
 
-Step 7a - Accidental upstream Pull Request
------------------------------------------
+## Step 7a - Accidental upstream Pull Request
 If a Pull Request is opened to upstream by mistake:
 
 - Open the Pull Request
@@ -154,8 +142,7 @@ If a Pull Request is opened to upstream by mistake:
   "Closed – PR opened by mistake, branch preserved in personal fork."
 
 
-Step 8 - clean up
------------------
+## Step 8 - clean up
 After merge:
 ```
 git branch -d <branch>
