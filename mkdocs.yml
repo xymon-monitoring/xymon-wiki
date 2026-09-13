@@ -75,6 +75,7 @@ nav:
       - Rules: contributing/git/git-rules.md
       - Guidelines: contributing/git/git-guidelines.md
       - C coding guidelines: contributing/c-coding-contribution-guidelines.md
+      - Shortening text: contributing/text-shortening-guidelines.md
       - AI agent directives: contributing/ai-agent-contribution-directives.md
   - Development:
       - Legacy SourceForge/SVN guide: development/developer-guide-legacy-sourceforge-svn.md
