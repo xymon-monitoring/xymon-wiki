@@ -18,7 +18,7 @@ e-mail, SMS or pager. See it live at **[xymon.com](https://www.xymon.com/)** or 
 - [Xymon server documentation](guides/server-documentation.md)
 - [Windows PowerShell client](clients/windows-powershell/index.md) — the official Windows client (for very old Windows, see [bbwin](https://bbwin.sourceforge.net/))
 - [Compile Xymon](guides/how-to-compile-xymon.md)
-- [Contributing](contributing/ai-agent-contribution-directives.md)
+- [Contributing](contributing/git/contributing-overview.md)
 
 Repositories, extensions, work tracking, the mailing list and archives, and community
 links are on the **[Project & community](about/project-and-community.md)** page — and the
