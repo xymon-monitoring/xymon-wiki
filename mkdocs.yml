@@ -74,7 +74,7 @@ nav:
           - GitHub Actions — personal: contributing/git/git-actions-personal-workflow.md
       - Rules: contributing/git/git-rules.md
       - Guidelines: contributing/git/git-guidelines.md
-      - External references: contributing/c-coding-contribution-guidelines.md
+      - External references: contributing/external-references.md
       - AI agent directives: contributing/ai-agent-contribution-directives.md
   - Development:
       - Legacy SourceForge/SVN guide: development/developer-guide-legacy-sourceforge-svn.md
