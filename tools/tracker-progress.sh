@@ -97,7 +97,10 @@ if [ "$check" = 1 ]; then
 	awk -F'\t' '$1=="[x]" && $4!="superseded" { print $3 "\t" $5 }' "$tmp/items" |
 	while IFS="$(printf '\t')" read -r id line; do
 		pr=""
-		for n in $(printf '%s\n' "$line" | grep -o -E '#[0-9]{2,}' | tr -d '#'); do
+		# the carrier is written in bold (**PR #N** or **#N**); fall back to
+		# the first PR number on the line
+		for n in $(printf '%s\n' "$line" | grep -o -E '\*\*(PR )?#[0-9]{2,}\*\*' | grep -o -E '[0-9]+') \
+		         $(printf '%s\n' "$line" | grep -o -E '#[0-9]{2,}' | tr -d '#'); do
 			[ "$n" = "$sibling" ] && continue
 			[ "$n" = "$issue" ] && continue
 			pr=$n; break
