@@ -42,7 +42,7 @@ trap 'rm -rf "$tmp"' EXIT
 gh api "repos/$repo/issues/$issue" --jq .body > "$tmp/body"
 
 # One record per item line: box<TAB>icon<TAB>id<TAB>kind<TAB>line
-#   kind: pointer | take | drop | superseded | undecided
+#   kind: pointer | take | drop | downstream | superseded | undecided
 # A line is an item when it starts with "- ", optionally a box and an icon,
 # then a backquoted id, and carries a verdict or a delegation marker. Lines in
 # fenced code blocks are not items.
@@ -63,6 +63,7 @@ awk '
 		kind = ""
 		if (line ~ /\*\*take as is\*\*|\*\*take, not as written/) kind = "take"
 		else if (line ~ /\*\*drop — superseded\*\*/) kind = "superseded"
+		else if (line ~ /\*\*drop — downstream:/) kind = "downstream"
 		else if (line ~ /\*\*drop — /) kind = "drop"
 		else if (line ~ /\*\*undecided\*\*/) kind = "undecided"
 		else if (line ~ /delegated → #[0-9]+/) kind = "pointer"
@@ -78,10 +79,11 @@ wanted=$(count '$4=="take"')
 landed=$(count '$4=="take" && $2=="green"')
 inpr=$(count '$4=="take" && $1=="[x]" && $2!="green"')
 nopr=$(count '$4=="take" && $1=="[ ]"')
-dropped=$(count '$4=="drop" || $4=="superseded"')
+dropped=$(count '$4=="drop" || $4=="superseded" || $4=="downstream"')
+downstream=$(count '$4=="downstream"')
 undecided=$(count '$4=="undecided"')
 
-block="**Progress** (generated $(date +%Y-%m-%d) by \`tracker-progress\`): $lines lines · $pointers pointers · wanted $wanted — landed $landed · in a PR $inpr · without a PR $nopr · dropped $dropped · undecided $undecided"
+block="**Progress** (generated $(date +%Y-%m-%d) by \`tracker-progress\`): $lines lines · $pointers pointers · wanted $wanted — landed $landed · in a PR $inpr · without a PR $nopr · dropped $dropped, for downstream $downstream · undecided $undecided"
 echo "$block"
 
 status=0
