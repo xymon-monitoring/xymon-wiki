@@ -80,7 +80,10 @@ for prose.
    its own lines by a script (the wiki's `tools/tracker-progress.sh`) and never
    edited by hand, that names its date and the script. It counts: lines ·
    pointers · wanted (`take …`) and, of those, landed (🟢) · in a PR (`[x]`,
-   no 🟢) · without a PR (`[ ]`) · downstream · dropped · undecided.
+   no 🟢) · without a PR (`[ ]`) · downstream · dropped · undecided — headed by
+   two shares of the tracker's own lines (pointers left out): **settled**, owing
+   nothing more (landed, downstream or dropped), and **decided** (any verdict but
+   `undecided`). It sits first in the issue, above the profile.
 9. **Analysis goes where its subject is.** A line's analysis answers the goal's
    questions about its source change — do we want it, in which form (twin,
    coverage, what is not taken and why), is it there, what is owed. How a PR's
@@ -91,7 +94,8 @@ for prose.
    unnecessary is exempt.
 10. **Lines are grouped by subject** (the part of Xymon they touch). A heading
     says only what is true of every line under it.
-11. **The profile** opens the tracker, under `### Rule`, links to this page, and
+11. **The profile** opens the tracker, after the progress block if there is one,
+    under `### Rule`; it links to this page, and
     holds everything true of that tracker alone:
     - **Goal** — this tracker's version of the goal above;
     - **Source** — what is tracked, the snapshot it came from, and how
@@ -125,6 +129,10 @@ tracker that uses them says so in its profile's **Extra marks**.
 An invented tracker, issue #9001, with deliberately fake ids:
 
 ```
+Progress (generated 2026-01-10 by tracker-progress): settled 3 of 6 (50%) ·
+decided 6 of 6 (100%) — 6 lines · 0 pointers · wanted 4 — landed 1 · in a PR 1 ·
+without a PR 2 · downstream 1 · dropped 1 · undecided 0
+
 ### Rule
 
 This tracker follows the backport tracker rules (link). Profile:
@@ -137,10 +145,6 @@ This tracker follows the backport tracker rules (link). Profile:
 - Downstreams: example-distro packaging, via its issue #9003.
 - Layout: Next · Later · Settled.
 - Extra marks: none.
-
-Progress (generated 2026-01-10 by tracker-progress): 6 lines · 0 pointers ·
-wanted 4 — landed 1 · in a PR 1 · without a PR 2 · downstream 1 · dropped 1 ·
-undecided 0
 
 ### Next
 

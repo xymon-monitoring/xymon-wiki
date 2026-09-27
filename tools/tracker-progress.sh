@@ -12,8 +12,8 @@
 #   --check    also verify, for every line whose box is [x], that the PR it
 #              links names the change back in its title (rule 9); a line whose
 #              verdict is "drop — superseded" is exempt
-#   --apply    write the block into the issue body, replacing an earlier one,
-#              or inserting it after the profile if there is none
+#   --apply    write the block at the top of the issue body, replacing an
+#              earlier one wherever it stands
 #
 # Needs: gh (authenticated), awk, grep, sed.
 
@@ -82,8 +82,13 @@ nopr=$(count '$4=="take" && $1=="[ ]"')
 dropped=$(count '$4=="drop" || $4=="superseded"')
 downstream=$(count '$4=="downstream"')
 undecided=$(count '$4=="undecided"')
+# the headline counts only this tracker's own lines: a pointer is decided elsewhere
+own=$((lines - pointers))
+settled=$((landed + downstream + dropped))
+decided=$((own - undecided))
+pct() { if [ "$2" -gt 0 ]; then echo $(( ($1 * 100 + $2 / 2) / $2 )); else echo 0; fi; }
 
-block="**Progress** (generated $(date +%Y-%m-%d) by \`tracker-progress\`): $lines lines · $pointers pointers · wanted $wanted — landed $landed · in a PR $inpr · without a PR $nopr · downstream $downstream · dropped $dropped · undecided $undecided"
+block="**Progress** (generated $(date +%Y-%m-%d) by \`tracker-progress\`): **settled $settled of $own ($(pct $settled $own)%)** · decided $decided of $own ($(pct $decided $own)%) — $lines lines · $pointers pointers · wanted $wanted — landed $landed · in a PR $inpr · without a PR $nopr · downstream $downstream · dropped $dropped · undecided $undecided"
 echo "$block"
 
 status=0
@@ -121,13 +126,10 @@ if [ "$check" = 1 ]; then
 fi
 
 if [ "$apply" = 1 ]; then
-	if grep -q -E '^\*\*Progress\*\* \(generated ' "$tmp/body"; then
-		# replace the earlier block
-		awk -v block="$block" '/^\*\*Progress\*\* \(generated / { print block; next } { print }' "$tmp/body" > "$tmp/new"
-	else
-		# insert it after the profile's last field
-		awk -v block="$block" '{ print } /^- \*\*Extra marks:\*\*/ && !ins { print ""; print block; ins = 1 }' "$tmp/body" > "$tmp/new"
-	fi
+	# drop an earlier block (and the blank line after it), then write the new
+	# one first: the block opens the tracker, above the profile (rule 8)
+	awk '/^\*\*Progress\*\* \(generated / { skip = 1; next } skip && /^$/ { skip = 0; next } { skip = 0; print }' "$tmp/body" > "$tmp/rest"
+	{ printf '%s\n\n' "$block"; sed '/./,$!d' "$tmp/rest"; } > "$tmp/new"
 	grep -q -F "$block" "$tmp/new" || { echo "apply: could not place the block" >&2; exit 1; }
 	# no trailing newlines: each upload would otherwise add an empty line
 	printf '%s' "$(cat "$tmp/new")" > "$tmp/upload"
