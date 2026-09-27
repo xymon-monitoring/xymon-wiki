@@ -96,6 +96,18 @@ for prose.
 
     A field that does not apply says *none*.
 
+## Optional: kind tags
+
+A tracker may tag each line with the kind of change, to help reading. They
+decide nothing — the verdict, box and icon do — so they are not a rule; a
+tracker that uses them says so in its profile's **Extra marks**.
+
+- `[feature]` — a new capability
+- `[fix]` — corrects a bug
+- `[perf]` — makes something faster or cheaper
+- `[enh]` — improves existing behaviour (logging, output, compatibility)
+- `[cleanup]` — removes dead or obsolete code
+
 ## Example
 
 An invented tracker, issue #9001, with deliberately fake ids:
