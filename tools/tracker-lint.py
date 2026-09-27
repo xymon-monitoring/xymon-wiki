@@ -102,7 +102,7 @@ def lint(body, sibling_body=None):
         vd = verdicts[0] if verdicts else ""
         if "compare and take the best" in vd:
             add(2, where, "the reason is the generic tail, not this change's reason")
-        if "a different version exists elsewhere" in vd and not re.search(r"\*\*(fully|partly)\*\*|\b(fully|partly)\b", line):
+        if ("a different version exists elsewhere" in vd or "a better version exists" in vd) and not re.search(r"\*\*(fully|partly)\*\*|\b(fully|partly)\b", line):
             add(2, where, "another version is named without saying fully or partly")
         if "only part of it is wanted" in vd and not re.search(r"(?i)not wanted|unwanted|is not wanted|excluded", line):
             add(2, where, "\"only part of it is wanted\" but the line names no unwanted part")
