@@ -30,7 +30,7 @@ for prose.
 1. **Every change has one line.** One change per line, and every change in the
    source gets one; the profile says how completeness is counted. The profile may
    exclude a set of changes, with its reason, in its **Out of scope** field —
-   excluded changes need no line.
+   excluded changes have no line, and a change that has a line is in scope.
 2. **Each line has one verdict:**
    - `take as is` — port it as written;
    - `take, not as written — <reason>` — we want the change, not this form. If
@@ -73,9 +73,10 @@ for prose.
    only points: its commit id, its target, and at most the commit's subject as
    its name; everything else about the change — verdict, form, measurements,
    what is owed — is on the twin it points to. Those two
-   ids are the only way either line refers to the other tracker: a line does not
-   describe the other tracker's lines, verdicts or sections, because such a copy
-   goes stale as soon as the other line changes, and nothing shows it.
+   ids are the only way either line refers to the other tracker, and a line
+   cites any other tracker only by an item's id: a line does not describe
+   another tracker's lines, verdicts or sections, because such a copy goes stale
+   as soon as that line changes, and nothing shows it.
    `tracker-progress --check` verifies that every pointer's target names the
    pointer's change back. A pointer names every line that claims the change;
    where only part of a change has a twin, the line points for that part and
@@ -105,14 +106,17 @@ for prose.
    `undecided`). It sits first in the issue, above the profile.
 9. **Analysis goes where its subject is.** A line's analysis answers the goal's
    questions about its source change — do we want it, in which form (twin,
-   coverage, what is not taken and why), is it there, what is owed. How a PR's
-   change works, and how it is sequenced against other PRs, belongs in that PR's
-   description. The line and its carrier name each other: the line links the
+   coverage, what is not taken and why), is it there, what is owed. When a PR
+   carries the change, the line may name what the PR leaves out or does
+   differently from the change, as far as that decides the verdict (fully or
+   partly, and what is missing); how the PR's code does it, and how it is
+   sequenced against other PRs, belongs in that PR's description. The line and its carrier name each other: the line links the
    PR, and the PR's title names the change in its trailing parenthesis, in the
    tracker's citation form (the profile's **Ids**). A PR that only makes a change
    unnecessary is exempt.
 10. **Lines are grouped by subject** (the part of Xymon they touch). A heading
-    says only what is true of every line under it.
+    says only what is true of every line under it, and so may one sentence
+    opening a section; anything more belongs on the lines.
 11. **The profile** opens the tracker, after the progress block if there is one,
     under `### Rule`; it links to this page, and
     holds everything true of that tracker alone:
