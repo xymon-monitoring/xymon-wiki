@@ -44,8 +44,9 @@ for prose.
      verdict is dated (rule 7);
    - `drop — <reason>` — wanted nowhere;
    - `undecided` — not triaged yet.
-3. **The box says whether a PR is involved.** `[ ]` a PR is still needed ·
-   `[x]` a PR, linked on the line, carries the change or made it unnecessary —
+3. **The box says whether a PR is involved.** `[ ]` a PR is still needed —
+   an `undecided` line carries `[ ]` until it is decided · `[x]` a PR, linked
+   on the line, carries the change or made it unnecessary —
    merged or not · no box when no PR is involved (a drop or a downstream verdict
    on our own judgement, or a pointer).
 4. **The icon says where it is.** 🟢 it is on `main`, naming the evidence — a
@@ -53,10 +54,11 @@ for prose.
    `main` in another form: a PR that delivers the same feature counts, and the
    verdict is then `take, not as written` (covered fully by that PR).
    `drop — superseded` is only for a change whose need a PR removed without
-   delivering it. 🟡 part of it is; say which part
-   is missing. No icon: not on `main`.
-5. **Order is `needs <id>`.** It names what must land first, and nothing else
-   expresses order.
+   delivering it. 🟡 part of it is; say which part is missing. No icon: not on
+   `main`.
+5. **Dependency order is `needs <id>`.** It names what must land first.
+   Priority — the order among changes free to land — is the profile's
+   **Layout**; nothing else expresses order.
 6. **One change, one decision.** When two trackers hold the same change, their
    profiles name the owner. A line names its twin on the other tracker, or writes
    *none* once that has been measured. The other tracker's line only points —
@@ -76,9 +78,9 @@ for prose.
    written that can be read elsewhere — a PR's state, another line's verdict.
    One exception: a tracker may carry a single **progress block**, generated from
    its own lines by a script (the wiki's `tools/tracker-progress.sh`) and never
-   edited by hand, that names its date and the script. It counts: lines · pointers · wanted (`take …`) and, of those,
-   landed (🟢) · in a PR (`[x]`, no 🟢) · without a PR (`[ ]`) · downstream ·
-   dropped · undecided.
+   edited by hand, that names its date and the script. It counts: lines ·
+   pointers · wanted (`take …`) and, of those, landed (🟢) · in a PR (`[x]`,
+   no 🟢) · without a PR (`[ ]`) · downstream · dropped · undecided.
 9. **Analysis goes where its subject is.** A line's analysis answers the goal's
    questions about its source change — do we want it, in which form (twin,
    coverage, what is not taken and why), is it there, what is owed. How a PR's
@@ -92,7 +94,8 @@ for prose.
 11. **The profile** opens the tracker, under `### Rule`, links to this page, and
     holds everything true of that tracker alone:
     - **Goal** — this tracker's version of the goal above;
-    - **Source** — what is tracked, and the snapshot it came from;
+    - **Source** — what is tracked, the snapshot it came from, and how
+      completeness is counted;
     - **Out of scope** — the sets of changes deliberately not tracked, each with
       its reason;
     - **Ids** — how a line names its change, and how it is cited elsewhere;
@@ -150,8 +153,8 @@ undecided 0
 
 - [x] 🟢 `9` typo.patch — take as is — PR #9050, on main as `deadbee`
 - `10` solaris8.patch — drop — dead platform; twin: none (measured 2026-01-10)
-- `12` distro-paths.patch — downstream — example-distro, which installs
-  under `/opt`; main keeps the configurable prefix — offered in #9003
+- `12` distro-paths.patch — downstream — example-distro (2026-01-10), which
+  installs under `/opt`; main keeps the configurable prefix — offered in #9003
 ```
 
 The PR carrying `8` names it back in its title — `long-names: keep full host
@@ -172,5 +175,5 @@ What each line shows:
 | `8` | another form, located and "fully" (2); the PR carries it (3), and names it back (9) |
 | `9` | on `main`, with its evidence (4); its PR has merged, still `[x]` (3) |
 | `10` | a reasoned drop, no PR involved so no box (2, 3); no twin, measured (6) |
-| `12` | a downstream verdict, with where it was offered (1, 2) |
+| `12` | a downstream verdict, dated, with where it was offered; no PR, so no box (2, 3, 7) |
 | `cafe123` | a pointer to the owner, no verdict of its own (6) |
