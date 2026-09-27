@@ -63,7 +63,7 @@ awk '
 		kind = ""
 		if (line ~ /\*\*take as is\*\*|\*\*take, not as written/) kind = "take"
 		else if (line ~ /\*\*drop — superseded\*\*/) kind = "superseded"
-		else if (line ~ /\*\*drop — downstream:/) kind = "downstream"
+		else if (line ~ /\*\*downstream — /) kind = "downstream"
 		else if (line ~ /\*\*drop — /) kind = "drop"
 		else if (line ~ /\*\*undecided\*\*/) kind = "undecided"
 		else if (line ~ /delegated → #[0-9]+/) kind = "pointer"
@@ -79,11 +79,11 @@ wanted=$(count '$4=="take"')
 landed=$(count '$4=="take" && $2=="green"')
 inpr=$(count '$4=="take" && $1=="[x]" && $2!="green"')
 nopr=$(count '$4=="take" && $1=="[ ]"')
-dropped=$(count '$4=="drop" || $4=="superseded" || $4=="downstream"')
+dropped=$(count '$4=="drop" || $4=="superseded"')
 downstream=$(count '$4=="downstream"')
 undecided=$(count '$4=="undecided"')
 
-block="**Progress** (generated $(date +%Y-%m-%d) by \`tracker-progress\`): $lines lines · $pointers pointers · wanted $wanted — landed $landed · in a PR $inpr · without a PR $nopr · dropped $dropped, for downstream $downstream · undecided $undecided"
+block="**Progress** (generated $(date +%Y-%m-%d) by \`tracker-progress\`): $lines lines · $pointers pointers · wanted $wanted — landed $landed · in a PR $inpr · without a PR $nopr · downstream $downstream · dropped $dropped · undecided $undecided"
 echo "$block"
 
 status=0

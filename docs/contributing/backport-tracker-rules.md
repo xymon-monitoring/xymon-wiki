@@ -37,17 +37,17 @@ for prose.
      the reason is that a better version exists (on `main`, in a PR, on the other
      tracker), say where, and whether it covers the change fully or partly — and
      if partly, which part is missing;
-   - `drop — <reason>` — not for `main`. When the change is useful to a packager
-     or an OS instead, the reason is `downstream: <who>`, and the line may link
-     where it was offered; nobody's adoption of it is tracked here. Where the
-     line between the two runs is set in
+   - `downstream — <who>` — not for `main`, but useful to a packager or an OS;
+     the line may link where it was offered, and nobody's adoption of it is
+     tracked here. Where the line between the two runs is set in
      [Downstream repositories](downstream-repositories.md), and it moves, so the
      verdict is dated (rule 7);
+   - `drop — <reason>` — wanted nowhere;
    - `undecided` — not triaged yet.
 3. **The box says whether a PR is involved.** `[ ]` a PR is still needed ·
    `[x]` a PR, linked on the line, carries the change or made it unnecessary —
-   merged or not · no box when no PR is involved (a drop on our own judgement, or
-   a pointer).
+   merged or not · no box when no PR is involved (a drop or a downstream verdict
+   on our own judgement, or a pointer).
 4. **The icon says where it is.** 🟢 it is on `main`, naming the evidence — a
    commit, a merged PR, or a file and function. 🟡 part of it is; say which part
    is missing. No icon: not on `main`.
@@ -68,8 +68,8 @@ for prose.
    One exception: a tracker may carry a single **progress block**, generated from
    its own lines by a script (the wiki's `tools/tracker-progress.sh`) and never
    edited by hand, that names its date and the script. It counts: lines · pointers · wanted (`take …`) and, of those,
-   landed (🟢) · in a PR (`[x]`, no 🟢) · without a PR (`[ ]`) · dropped, and of
-   those for downstream · undecided.
+   landed (🟢) · in a PR (`[x]`, no 🟢) · without a PR (`[ ]`) · downstream ·
+   dropped · undecided.
 9. **Analysis goes where its subject is.** A line's analysis answers the goal's
    questions about its source change — do we want it, in which form (twin,
    coverage, what is not taken and why), is it there, what is owed. How a PR's
@@ -127,7 +127,7 @@ This tracker follows the backport tracker rules (link). Profile:
 - Extra marks: none.
 
 Progress (generated 2026-01-10 by tracker-progress): 6 lines · 0 pointers ·
-wanted 4 — landed 1 · in a PR 1 · without a PR 2 · dropped 2, for downstream 1 ·
+wanted 4 — landed 1 · in a PR 1 · without a PR 2 · downstream 1 · dropped 1 ·
 undecided 0
 
 ### Next
@@ -141,7 +141,7 @@ undecided 0
 
 - [x] 🟢 `9` typo.patch — take as is — PR #9050, on main as `deadbee`
 - `10` solaris8.patch — drop — dead platform; twin: none (measured 2026-01-10)
-- `12` distro-paths.patch — drop — downstream: example-distro, which installs
+- `12` distro-paths.patch — downstream — example-distro, which installs
   under `/opt`; main keeps the configurable prefix — offered in #9003
 ```
 
@@ -163,5 +163,5 @@ What each line shows:
 | `8` | another form, located and "fully" (2); the PR carries it (3), and names it back (9) |
 | `9` | on `main`, with its evidence (4); its PR has merged, still `[x]` (3) |
 | `10` | a reasoned drop, no PR involved so no box (2, 3); no twin, measured (6) |
-| `12` | not for `main`, useful downstream, with where it was offered (1, 2) |
+| `12` | a downstream verdict, with where it was offered (1, 2) |
 | `cafe123` | a pointer to the owner, no verdict of its own (6) |
