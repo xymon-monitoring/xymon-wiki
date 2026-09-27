@@ -59,8 +59,8 @@ for prose.
 8. **A fact is written once.** Prose does not repeat a mark, and nothing is
    written that can be read elsewhere — a PR's state, another line's verdict.
    One exception: a tracker may carry a single **progress block**, generated from
-   its own lines by a script and never edited by hand, that names its date and
-   the script. It counts: lines · pointers · wanted (`take …`) and, of those,
+   its own lines by a script (the wiki's `tools/tracker-progress.sh`) and never
+   edited by hand, that names its date and the script. It counts: lines · pointers · wanted (`take …`) and, of those,
    landed (🟢) · in a PR (`[x]`, no 🟢) · without a PR (`[ ]`) · dropped ·
    undecided.
 9. **Analysis goes where its subject is.** A line's analysis answers the goal's
