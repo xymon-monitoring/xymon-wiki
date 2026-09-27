@@ -118,7 +118,7 @@ for prose.
     says only what is true of every line under it, and so may one sentence
     opening a section; anything more belongs on the lines.
 11. **The profile** opens the tracker, after the progress block if there is one,
-    under `### Rule`; it links to this page, and
+    under `### Rule`; it links to this page at the commit whose rules it follows, and
     holds everything true of that tracker alone:
     - **Goal** — this tracker's version of the goal above;
     - **Source** — what is tracked, the snapshot it came from, and how
@@ -134,6 +134,13 @@ for prose.
     - **Extra marks** — any mark this tracker adds, with its meaning.
 
     A field that does not apply says *none*.
+
+## Stability
+
+A tracker is stable when `tools/tracker-lint.py` reports nothing. Its profile
+names the rules commit it follows; a rules change moves that commit and is
+re-linted as a whole, and a batch of edits is applied only if it lowers the
+violation count and adds none.
 
 ## Optional: kind tags
 
