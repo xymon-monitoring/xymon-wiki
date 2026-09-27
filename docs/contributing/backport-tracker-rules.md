@@ -49,7 +49,11 @@ for prose.
    merged or not · no box when no PR is involved (a drop or a downstream verdict
    on our own judgement, or a pointer).
 4. **The icon says where it is.** 🟢 it is on `main`, naming the evidence — a
-   commit, a merged PR, or a file and function. 🟡 part of it is; say which part
+   commit, a merged PR, or a file and function. 🟢 also when the change reached
+   `main` in another form: a PR that delivers the same feature counts, and the
+   verdict is then `take, not as written` (covered fully by that PR).
+   `drop — superseded` is only for a change whose need a PR removed without
+   delivering it. 🟡 part of it is; say which part
    is missing. No icon: not on `main`.
 5. **Order is `needs <id>`.** It names what must land first, and nothing else
    expresses order.
