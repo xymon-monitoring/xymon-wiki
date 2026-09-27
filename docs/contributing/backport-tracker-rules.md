@@ -7,13 +7,15 @@ tracker.
 
 ## Goal
 
-A backport tracker answers four questions for every change in its source —
+A backport tracker answers five questions for every change in its source —
 **once each, with evidence**:
 
 1. **Do we want it** on `main`?
 2. **In which form** — as written, or another version?
 3. **Is it there** yet?
 4. **What is still owed**, and after what?
+5. **Which comes next** — the order we intend to land the owed changes in, by
+   priority, not by date.
 
 A rule belongs on this page only if, without it, a tracker would answer one of
 those questions wrongly, twice, or without evidence. Anything else is not a rule.
@@ -63,7 +65,8 @@ for prose.
     - **Source** — what is tracked, and the snapshot it came from;
     - **Ids** — how a line names its change, and how it is cited elsewhere;
     - **Owner** — which tracker decides a change two trackers hold;
-    - **Layout** — the top-level sections, and which holds settled lines;
+    - **Layout** — the top-level sections, in priority order, and which holds
+      settled lines;
     - **Extra marks** — any mark this tracker adds, with its meaning.
 
     A field that does not apply says *none*.
