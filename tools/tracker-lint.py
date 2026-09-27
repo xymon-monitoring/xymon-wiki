@@ -126,7 +126,7 @@ def lint(body, sibling_body=None):
         if box == "[x]" and not prs:
             add(3, where, "[x] but no PR is linked")
         # rule 4 — the icon
-        if icon == "🟢" and not (HASH.search(line) or prs):
+        if icon == "🟢" and not (HASH.search(line) or prs or re.search(r"`\w+\(\)` in `[\w./-]+`", line)):
             add(4, where, "🟢 without a commit or PR as evidence")
         if icon == "🟢" and vd.startswith("drop — already in"):
             add(4, where, "already on main means wanted and landed: take + 🟢 — or no line, if the profile excludes it (rule 1)")
