@@ -84,7 +84,8 @@ for prose.
    been measured.
 7. **Claims can be checked.** A measurement says when, and against which commit
    or snapshot (a patch set is measured against a named release of it).
-   Code is cited by file and function (a line number may be added); commits and
+   Code is cited by file and function — or by the symbol, for code outside any
+   function (a line number may be added); commits and
    PRs by their id. For a patch set, "is it there" is checked against the
    patch's added lines in `main`'s files. A reverse dry-run proves only a
    floor, and only when forced (without `--force`, GNU `patch` silently

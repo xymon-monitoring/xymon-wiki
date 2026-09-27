@@ -149,7 +149,7 @@ def lint(body, sibling_body=None):
         # rule 7 — checkable claims
         if "date unknown" in line:
             add(7, where, "a measurement without a date")
-        if re.search(r"`[\w./-]+\.[ch]`(,? L\d+| line \d+)|`[\w./-]+\.[ch]:\d+`", line) and not re.search(r"`?\w+\(\)`?", line):
+        if re.search(r"`[\w./-]+\.[ch]`(,? L\d+| line \d+)|`[\w./-]+\.[ch]:\d+`", line) and not re.search(r"`?\w+\(\)`?|`\w+\[\]`", line):   # a function, or a file-scope symbol
             add(7, where, "a line number without the function it is in")
         # rule 8 — a fact once: each PR and each commit named once per line
         unneeded = re.sub(r"needs (?:(?:`[^`]+`|#\d+)[ ,/]*)+", "", line)   # a `needs <id>` is not a repeat
