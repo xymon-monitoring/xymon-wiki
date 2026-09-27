@@ -66,7 +66,10 @@ for prose.
 6. **One change, one decision.** When two trackers hold the same change, their
    profiles name the owner. The owner's line names its twin by id, and how much
    of it matches, measured; the other tracker's line only points —
-   `delegated → #<owner> <id>` — and carries no verdict of its own. Those two
+   `delegated → #<owner> <id>` — and carries no verdict of its own. A pointer
+   only points: its commit id, its target, and at most the commit's subject as
+   its name; everything else about the change — verdict, form, measurements,
+   what is owed — is on the twin it points to. Those two
    ids are the only way either line refers to the other tracker: a line does not
    describe the other tracker's lines, verdicts or sections, because such a copy
    goes stale as soon as the other line changes, and nothing shows it.
