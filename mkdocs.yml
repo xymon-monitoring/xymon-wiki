@@ -75,6 +75,7 @@ nav:
       - Rules: contributing/git/git-rules.md
       - Guidelines: contributing/git/git-guidelines.md
       - Backport tracker rules: contributing/backport-tracker-rules.md
+      - Downstream repositories: contributing/downstream-repositories.md
       - External references: contributing/external-references.md
       - AI agent directives: contributing/ai-agent-contribution-directives.md
   - Development:
