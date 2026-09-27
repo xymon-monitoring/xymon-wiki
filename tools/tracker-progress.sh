@@ -60,6 +60,8 @@ awk '
 		icon = ""
 		if (index(rest, "🟢 ") == 1) { icon = "green"; rest = substr(rest, length("🟢 ") + 1) }
 		else if (index(rest, "🟡 ") == 1) { icon = "yellow"; rest = substr(rest, length("🟡 ") + 1) }
+		# a leading kind tag (`[fix]` …) is not the id; the id follows it
+		if (rest ~ /^`\[[a-z]+\]` `/) rest = substr(rest, index(rest, "` `") + 2)
 		if (rest !~ /^`[^`]+`/) next
 		id = rest; sub(/^`/, "", id); sub(/`.*/, "", id); sub(/ .*/, "", id)
 		kind = ""
