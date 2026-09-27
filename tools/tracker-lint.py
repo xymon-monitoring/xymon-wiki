@@ -152,9 +152,10 @@ def lint(body, sibling_body=None):
         if re.search(r"`[\w./-]+\.[ch]`(,? L\d+| line \d+)|`[\w./-]+\.[ch]:\d+`", line) and not re.search(r"`?\w+\(\)`?", line):
             add(7, where, "a line number without the function it is in")
         # rule 8 — a fact once: each PR and each commit named once per line
+        unneeded = re.sub(r"needs (?:(?:`[^`]+`|#\d+)[ ,/]*)+", "", line)   # a `needs <id>` is not a repeat
         for ref, k in __import__("collections").Counter(
-                ["#" + p for p in PR.findall(line) if p != sibling]
-                + [h[:7] for h in HASH.findall(line)]).items():
+                ["#" + p for p in PR.findall(unneeded) if p != sibling]
+                + [h[:7] for h in HASH.findall(unneeded)]).items():
             if k > 1:
                 add(8, where, f"{ref} is named {k} times on the line")
         # rule 8 — no PR state

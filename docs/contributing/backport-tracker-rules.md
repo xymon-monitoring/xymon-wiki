@@ -94,7 +94,8 @@ for prose.
 8. **A fact is written once.** Prose does not repeat a mark, and nothing is
    written that can be read elsewhere — a PR's state, another line's verdict.
    A line names each PR and each commit once: later text on the same line refers
-   to it as "that PR" or "that commit".
+   to it as "that PR" or "that commit". A `needs <id>` always names its id, and
+   is not counted as a repeat.
    The issue body is the tracker: everything the goal asks is answered there,
    and nothing only in a comment. A comment may discuss; whatever it decides
    moves into the body.
