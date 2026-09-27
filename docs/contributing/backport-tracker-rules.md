@@ -59,13 +59,17 @@ for prose.
    verdict is then `take, not as written` (covered fully by that PR).
    `drop — superseded` is only for a change whose need a PR removed without
    delivering it. 🟡 part of it is; say which part is missing. No icon: not on
-   `main`.
+   `main`. 🟢 and 🟡 rest on code: a commit, a PR, or the part found in a file
+   and function; a count of matching lines is a measurement (rule 7) and sets no
+   icon.
 5. **Dependency order is `needs <id>`.** It names what must land first.
    Priority — the order among changes free to land — is the profile's
    **Layout**, and a section may give it as a milestone (the release its
    changes are aimed at, not a date); nothing else expresses order. A line may
    say which group will carry it — `carried with <group>` — until a PR carries
-   it; from then on it names that PR instead (rule 9).
+   it; from then on it names that PR instead (rule 9). A `needs` names a line —
+   the change this one depends on — never a PR; the PR that carries that line
+   is found on the line itself.
 6. **One change, one decision.** When two trackers hold the same change, their
    profiles name the owner. The owner's line names its twin by id, and how much
    of it matches, measured; the other tracker's line only points —
@@ -133,8 +137,10 @@ for prose.
     - **Owner** — which tracker decides a change two trackers hold;
     - **Downstreams** — the downstream repositories a change may be offered to,
       and where to reach each;
-    - **Layout** — the top-level sections, in priority order, and which holds
-      settled lines;
+    - **Layout** — the top-level sections, and which holds settled lines; and
+      the priority, given either by the order of the sections or by one stated
+      criterion that orders every line (for example its kind tag, then its
+      risk);
     - **Extra marks** — any mark this tracker adds, with its meaning.
 
     A field that does not apply says *none*.

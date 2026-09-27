@@ -86,6 +86,7 @@ def lint(body, sibling_body=None):
     downstreams = prof.get("Downstreams", "")
     down_names = set(re.findall(r"\b([A-Z][A-Za-z]+)\b", downstreams)) - {"The", "See", "Downstream"}
     uses_kinds = "kind tags" in marks
+    kind_priority = bool(re.search(r"(?i)priority:[^.]*`\[(fix|feature)\]`", prof.get("Layout", "")))
     cond_values = set(re.findall(r"\*([^*]+?)\*", marks.split("never our decision")[0])) if "_(cond:" in marks else set()
 
     its = items(body)
@@ -134,6 +135,10 @@ def lint(body, sibling_body=None):
             t = m.group(1).strip("`")
             if not t.startswith("#") and t not in ids and not re.fullmatch(r"[0-9a-f]{7,40}", t):
                 add(5, where, f"needs `{t}`, which is not a line here")
+        if re.search(r"\bneeds (\*\*)?#\d+", line):
+            add(5, where, "a `needs` names a line, never a PR")
+        if kind_priority and not ptr and not re.search(r"`\[(feature|fix|perf|enh|cleanup)\]`", line):
+            add(11, where, "Layout orders by kind tag, and this line has none")
         if re.search(r"(?i)\b(prereq for|pairs? with|port it first|sequence (it )?after|apply in phase order)\b", line):
             add(5, where, "order written as prose, not as `needs`")
         # rule 6 — pointers only point; no description of another tracker
