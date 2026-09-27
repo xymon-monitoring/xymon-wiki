@@ -29,7 +29,8 @@ for prose.
 
 1. **Every change has one line.** One change per line, and every change in the
    source gets one; the profile says how completeness is counted. The profile may
-   exclude a set of changes, with its reason — excluded changes need no line.
+   exclude a set of changes, with its reason, in its **Out of scope** field —
+   excluded changes need no line.
 2. **Each line has one verdict:**
    - `take as is` — port it as written;
    - `take, not as written — <reason>` — we want the change, not this form. If
@@ -83,6 +84,8 @@ for prose.
     holds everything true of that tracker alone:
     - **Goal** — this tracker's version of the goal above;
     - **Source** — what is tracked, and the snapshot it came from;
+    - **Out of scope** — the sets of changes deliberately not tracked, each with
+      its reason;
     - **Ids** — how a line names its change, and how it is cited elsewhere;
     - **Owner** — which tracker decides a change two trackers hold;
     - **Downstreams** — the packagers or OS maintainers a change may be offered
@@ -103,8 +106,8 @@ An invented tracker, issue #9001, with deliberately fake ids:
 This tracker follows the backport tracker rules (link). Profile:
 - Goal: decide each of the 40 patches in example-pkg 1.2, and land every
   wanted one on main once, in its best form.
-- Source: example-pkg 1.2 patch set; its test-suite patches are excluded (not
-  shipped code).
+- Source: example-pkg 1.2 patch set.
+- Out of scope: its test-suite patches (not shipped code).
 - Ids: the patch number, cited elsewhere as `EX N`.
 - Owner: this tracker owns every change it shares with #9002.
 - Downstreams: example-distro packaging, via its issue #9003.
