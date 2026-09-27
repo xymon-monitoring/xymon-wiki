@@ -2,7 +2,7 @@
 
 For any issue that tracks code to be backported into `xymon` from one source — a
 downstream patch set, or a branch. Adopting these rules is optional: a tracker
-adopts them by linking here from its profile (rule 10). This page names no
+adopts them by linking here from its profile (rule 11). This page names no
 tracker.
 
 ## Goal
@@ -52,14 +52,28 @@ for prose.
    `delegated → #<owner> <id>` — and carries no verdict of its own. A pointer
    names every line that claims the change; where only part of a change has a
    twin, the line points for that part and keeps a verdict for the rest.
-7. **Claims can be checked.** A measurement says when, and against which commit.
+7. **Claims can be checked.** A measurement says when, and against which commit
+   or snapshot (a patch set is measured against a named release of it).
    Code is cited by file and function (a line number may be added); commits and
    PRs by their id.
 8. **A fact is written once.** Prose does not repeat a mark, and nothing is
    written that can be read elsewhere — a PR's state, another line's verdict.
-9. **Lines are grouped by subject** (the part of Xymon they touch). A heading
-   says only what is true of every line under it.
-10. **The profile** opens the tracker, under `### Rule`, links to this page, and
+   One exception: a tracker may carry a single **progress block**, generated from
+   its own lines by a script and never edited by hand, that names its date and
+   the script. It counts: lines · pointers · wanted (`take …`) and, of those,
+   landed (🟢) · in a PR (`[x]`, no 🟢) · without a PR (`[ ]`) · dropped ·
+   undecided.
+9. **Analysis goes where its subject is.** A line's analysis answers the goal's
+   questions about its source change — do we want it, in which form (twin,
+   coverage, what is not taken and why), is it there, what is owed. How a PR's
+   change works, and how it is sequenced against other PRs, belongs in that PR's
+   description. The line and its carrier name each other: the line links the
+   PR, and the PR's title names the change in its trailing parenthesis, in the
+   tracker's citation form (the profile's **Ids**). A PR that only makes a change
+   unnecessary is exempt.
+10. **Lines are grouped by subject** (the part of Xymon they touch). A heading
+    says only what is true of every line under it.
+11. **The profile** opens the tracker, under `### Rule`, links to this page, and
     holds everything true of that tracker alone:
     - **Goal** — this tracker's version of the goal above;
     - **Source** — what is tracked, and the snapshot it came from;
@@ -88,6 +102,9 @@ This tracker follows the backport tracker rules (link). Profile:
 - Layout: Next · Later · Settled.
 - Extra marks: none.
 
+Progress (generated 2026-01-10 by tracker-progress): 5 lines · 0 pointers ·
+wanted 4 — landed 1 · in a PR 1 · without a PR 2 · dropped 1 · undecided 0
+
 ### Next
 
 - [ ] `7` fix-null-deref.patch — take as is — crash on an empty hostname; twin
@@ -101,6 +118,9 @@ This tracker follows the backport tracker rules (link). Profile:
 - `10` solaris8.patch — drop — dead platform; twin: none (measured 2026-01-10)
 ```
 
+The PR carrying `8` names it back in its title — `long-names: keep full host
+names in the status line (EX 8)` — so the line and the PR point at each other.
+
 A line on the sibling tracker #9002, whose change has a twin here:
 
 ```
@@ -113,7 +133,7 @@ What each line shows:
 |---|---|
 | `7` | a verdict (2); a PR still owed (3); its twin, with a checkable measurement (6, 7) |
 | `11` | order through `needs` (5) |
-| `8` | another form, located and "fully" (2); the PR carries it (3) |
+| `8` | another form, located and "fully" (2); the PR carries it (3), and names it back (9) |
 | `9` | on `main`, with its evidence (4); its PR has merged, still `[x]` (3) |
 | `10` | a reasoned drop, no PR involved so no box (2, 3); no twin, measured (6) |
 | `cafe123` | a pointer to the owner, no verdict of its own (6) |
