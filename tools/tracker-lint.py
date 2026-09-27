@@ -154,6 +154,11 @@ def lint(body, sibling_body=None):
         # rule 7 — checkable claims
         if "date unknown" in line:
             add(7, where, "a measurement without a date")
+        for m in re.finditer(r"\b(measured|traced|verified|checked|analysed)\b", line):
+            clause = re.split(r"[·;)]", line[m.start():])[0]
+            if not DATE.search(clause) and not DATE.search(line[max(0, m.start() - 30):m.start()]):
+                add(7, where, f"\"{m.group(1)}\" without a date in its clause")
+                break
         if re.search(r"`[\w./-]+\.[ch]`(,? L\d+| line \d+)|`[\w./-]+\.[ch]:\d+`", line) and not re.search(r"`?\w+\(\)`?|`\w+\[\]`", line):   # a function, or a file-scope symbol
             add(7, where, "a line number without the function it is in")
         # rule 8 — a fact once: each PR and each commit named once per line
