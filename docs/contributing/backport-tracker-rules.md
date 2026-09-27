@@ -66,7 +66,12 @@ for prose.
 7. **Claims can be checked.** A measurement says when, and against which commit
    or snapshot (a patch set is measured against a named release of it).
    Code is cited by file and function (a line number may be added); commits and
-   PRs by their id.
+   PRs by their id. For a patch set, "is it there" is checked against the
+   patch's added lines in `main`'s files. A reverse dry-run proves only a
+   floor, and only when forced (without `--force`, GNU `patch` silently
+   un-reverses `-R` and every test matches): a change ported by hand does not
+   reverse-apply, and one whose removed line survives elsewhere reverse-applies
+   without being there.
 8. **A fact is written once.** Prose does not repeat a mark, and nothing is
    written that can be read elsewhere — a PR's state, another line's verdict.
    One exception: a tracker may carry a single **progress block**, generated from
