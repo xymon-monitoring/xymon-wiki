@@ -36,7 +36,10 @@ for prose.
    - `take, not as written — <reason>` — we want the change, not this form. If
      the reason is that a better version exists (on `main`, in a PR, on the other
      tracker), say where, and whether it covers the change fully or partly — and
-     if partly, which part is missing;
+     if partly, which part is missing. Only part of a change is wanted when the
+     line names the part that is not, and why; a change whose better version
+     sits inside a larger commit is wanted whole, and the line says that commit
+     covers it fully;
    - `downstream — <who>` — not for `main`, but useful to a downstream
      repository, one that packages Xymon for a platform
      ([Downstream repositories](downstream-repositories.md)); `<who>` names it.
