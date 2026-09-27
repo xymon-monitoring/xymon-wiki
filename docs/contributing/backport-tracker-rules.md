@@ -10,8 +10,8 @@ tracker.
 A backport tracker answers five questions for every change in its source —
 **once each, with evidence**:
 
-1. **Where does it belong** — on `main`, downstream (a packager or an OS, and
-   why not `main`), or nowhere?
+1. **Where does it belong** — on `main`, downstream (a repository that packages
+   Xymon for a platform, and why not `main`), or nowhere?
 2. **In which form** — as written, or another version?
 3. **Is it there** yet?
 4. **What is still owed**, and after what?
@@ -37,11 +37,12 @@ for prose.
      the reason is that a better version exists (on `main`, in a PR, on the other
      tracker), say where, and whether it covers the change fully or partly — and
      if partly, which part is missing;
-   - `downstream — <who>` — not for `main`, but useful to a packager or an OS;
-     the line may link where it was offered, and nobody's adoption of it is
-     tracked here. Where the line between the two runs is set in
-     [Downstream repositories](downstream-repositories.md), and it moves, so the
-     verdict is dated (rule 7);
+   - `downstream — <who>` — not for `main`, but useful to a downstream
+     repository, one that packages Xymon for a platform
+     ([Downstream repositories](downstream-repositories.md)); `<who>` names it.
+     The line may link where it was offered, and nobody's adoption of it is
+     tracked here. Where the line between the two runs is set on that page, and
+     it moves, so the verdict is dated (rule 7);
    - `drop — <reason>` — wanted nowhere;
    - `undecided` — not triaged yet.
 3. **The box says whether a PR is involved.** `[ ]` a PR is still needed —
@@ -58,7 +59,10 @@ for prose.
    `main`.
 5. **Dependency order is `needs <id>`.** It names what must land first.
    Priority — the order among changes free to land — is the profile's
-   **Layout**; nothing else expresses order.
+   **Layout**, and a section may give it as a milestone (the release its
+   changes are aimed at, not a date); nothing else expresses order. A line may
+   say which group will carry it — `carried with <group>` — until a PR carries
+   it; from then on it names that PR instead (rule 9).
 6. **One change, one decision.** When two trackers hold the same change, their
    profiles name the owner. A line names its twin on the other tracker, or writes
    *none* once that has been measured. The other tracker's line only points —
@@ -104,8 +108,8 @@ for prose.
       its reason;
     - **Ids** — how a line names its change, and how it is cited elsewhere;
     - **Owner** — which tracker decides a change two trackers hold;
-    - **Downstreams** — the packagers or OS maintainers a change may be offered
-      to, and where to reach each;
+    - **Downstreams** — the downstream repositories a change may be offered to,
+      and where to reach each;
     - **Layout** — the top-level sections, in priority order, and which holds
       settled lines;
     - **Extra marks** — any mark this tracker adds, with its meaning.
