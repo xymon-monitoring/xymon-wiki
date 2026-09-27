@@ -64,11 +64,17 @@ for prose.
    say which group will carry it — `carried with <group>` — until a PR carries
    it; from then on it names that PR instead (rule 9).
 6. **One change, one decision.** When two trackers hold the same change, their
-   profiles name the owner. A line names its twin on the other tracker, or writes
-   *none* once that has been measured. The other tracker's line only points —
-   `delegated → #<owner> <id>` — and carries no verdict of its own. A pointer
-   names every line that claims the change; where only part of a change has a
-   twin, the line points for that part and keeps a verdict for the rest.
+   profiles name the owner. The owner's line names its twin by id, and how much
+   of it matches, measured; the other tracker's line only points —
+   `delegated → #<owner> <id>` — and carries no verdict of its own. Those two
+   ids are the only way either line refers to the other tracker: a line does not
+   describe the other tracker's lines, verdicts or sections, because such a copy
+   goes stale as soon as the other line changes, and nothing shows it.
+   `tracker-progress --check` verifies that every pointer's target names the
+   pointer's change back. A pointer names every line that claims the change;
+   where only part of a change has a twin, the line points for that part and
+   keeps a verdict for the rest. A line with no twin writes *none* once that has
+   been measured.
 7. **Claims can be checked.** A measurement says when, and against which commit
    or snapshot (a patch set is measured against a named release of it).
    Code is cited by file and function (a line number may be added); commits and
@@ -181,10 +187,10 @@ What each line shows:
 
 | line | rules |
 |---|---|
-| `7` | a verdict (2); a PR still owed (3); its twin, with a checkable measurement (6, 7) |
+| `7` | a verdict (2); a PR still owed (3); its twin, with a checkable measurement — the only reference to the other tracker (6, 7) |
 | `11` | order through `needs` (5) |
 | `8` | another form, located and "fully" (2); the PR carries it (3), and names it back (9) |
 | `9` | on `main`, with its evidence (4); its PR has merged, still `[x]` (3) |
 | `10` | a reasoned drop, no PR involved so no box (2, 3); no twin, measured (6) |
 | `12` | a downstream verdict, dated, with where it was offered; no PR, so no box (2, 3, 7) |
-| `cafe123` | a pointer to the owner, no verdict of its own (6) |
+| `cafe123` | a pointer to the owner, no verdict of its own — the only reference to the other tracker (6) |

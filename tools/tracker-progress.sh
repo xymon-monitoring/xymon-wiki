@@ -11,7 +11,9 @@
 #   (default)  print the progress block computed from the issue's lines
 #   --check    also verify, for every line whose box is [x], that the PR it
 #              links names the change back in its title (rule 9); a line whose
-#              verdict is "drop — superseded" is exempt
+#              verdict is "drop — superseded" is exempt; and, for every pointer,
+#              that its target line exists on the owning tracker and names the
+#              pointer's commit back (rule 6)
 #   --apply    write the block at the top of the issue body, replacing an
 #              earlier one wherever it stands
 #
@@ -29,7 +31,7 @@ while [ $# -gt 0 ]; do
 		--repo) repo="$2"; shift 2 ;;
 		--check) check=1; shift ;;
 		--apply) apply=1; shift ;;
-		-h|--help) sed -n '3,17p' "$0"; exit 0 ;;
+		-h|--help) sed -n '3,19p' "$0"; exit 0 ;;
 		-*) echo "unknown option: $1" >&2; exit 2 ;;
 		*) issue="$1"; shift ;;
 	esac
@@ -123,6 +125,29 @@ if [ "$check" = 1 ]; then
 		fi
 	done > "$tmp/check"
 	if [ -s "$tmp/check" ]; then cat "$tmp/check"; status=1; else echo "check: every carrier names its line back"; fi
+
+	# Rule 6: a pointer's target line must exist on the owning tracker and
+	# name the pointer's change back (one of the commit ids on the pointer).
+	awk -F'\t' '$4=="pointer" { print $5 }' "$tmp/items" > "$tmp/pointers"
+	if [ -s "$tmp/pointers" ]; then
+		for owner in $(grep -o -E 'delegated → #[0-9]+' "$tmp/pointers" | grep -o -E '[0-9]+' | sort -u); do
+			gh api "repos/$repo/issues/$owner" --jq .body > "$tmp/owner$owner"
+		done
+		while IFS= read -r line; do
+			owner=$(printf '%s\n' "$line" | grep -o -E 'delegated → #[0-9]+' | head -1 | grep -o -E '[0-9]+')
+			targets=$(printf '%s\n' "$line" | sed -n 's/.*delegated → #[0-9]* \(\(`[^`]*`\/\{0,1\}\)*\).*/\1/p' | grep -o -E '`[^`]+`' | tr -d '`')
+			ids=$(printf '%s\n' "$line" | grep -o -E '`[0-9a-f]{7,40}`' | tr -d '`' | cut -c1-7 | sort -u)
+			[ -n "$ids" ] || { echo "check: pointer names no commit id: $(printf '%s' "$line" | cut -c1-80)"; continue; }
+			for t in $targets; do
+				tl=$(grep -E "^[[:space:]]*- (\[[ x]\] )?(🟢 |🟡 )?\`$t[\` ]" "$tmp/owner$owner" | head -1)
+				if [ -z "$tl" ]; then echo "check: #$issue points to #$owner $t, which has no line there"; continue; fi
+				back=0
+				for h in $ids; do printf '%s' "$tl" | grep -q "$h" && back=1; done
+				[ "$back" = 1 ] || echo "check: #$owner $t does not name back $(printf '%s' "$ids" | tr '\n' ' ' | sed 's/ $//') (pointed to from #$issue)"
+			done
+		done < "$tmp/pointers" > "$tmp/twins"
+		if [ -s "$tmp/twins" ]; then cat "$tmp/twins"; status=1; else echo "check: every pointer's target names its change back"; fi
+	fi
 fi
 
 if [ "$apply" = 1 ]; then
