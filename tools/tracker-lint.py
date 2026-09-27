@@ -151,7 +151,13 @@ def lint(body, sibling_body=None):
             add(7, where, "a measurement without a date")
         if re.search(r"`[\w./-]+\.[ch]`(,? L\d+| line \d+)|`[\w./-]+\.[ch]:\d+`", line) and not re.search(r"`?\w+\(\)`?", line):
             add(7, where, "a line number without the function it is in")
-        # rule 8 — a fact once: no PR state
+        # rule 8 — a fact once: each PR and each commit named once per line
+        for ref, k in __import__("collections").Counter(
+                ["#" + p for p in PR.findall(line) if p != sibling]
+                + [h[:7] for h in HASH.findall(line)]).items():
+            if k > 1:
+                add(8, where, f"{ref} is named {k} times on the line")
+        # rule 8 — no PR state
         if re.search(r"\*\*?(PR )?#\d+\*\*? \((merged|draft|ready)\)|#\d+ \((merged|draft|ready)\)|PR-ready", line):
             add(8, where, "a PR's state is read on the PR, not written here")
         # rule 11 — ids, marks
