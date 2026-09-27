@@ -25,7 +25,8 @@ for prose.
 ## Rules
 
 1. **Every change has one line.** One change per line, and every change in the
-   source gets one; the profile says how completeness is counted.
+   source gets one; the profile says how completeness is counted. The profile may
+   exclude a set of changes, with its reason — excluded changes need no line.
 2. **Each line has one verdict:**
    - `take as is` — port it as written;
    - `take, not as written — <reason>` — we want the change, not this form. If
@@ -44,7 +45,8 @@ for prose.
 5. **Order is `needs <id>`.** It names what must land first, and nothing else
    expresses order.
 6. **One change, one decision.** When two trackers hold the same change, their
-   profiles name the owner. The other tracker's line only points —
+   profiles name the owner. A line names its twin on the other tracker, or writes
+   *none* once that has been measured. The other tracker's line only points —
    `delegated → #<owner> <id>` — and carries no verdict of its own. A pointer
    names every line that claims the change; where only part of a change has a
    twin, the line points for that part and keeps a verdict for the rest.
@@ -76,7 +78,8 @@ An invented tracker, issue #9001, with deliberately fake ids:
 This tracker follows the backport tracker rules (link). Profile:
 - Goal: decide each of the 40 patches in example-pkg 1.2, and land every
   wanted one on main once, in its best form.
-- Source: example-pkg 1.2 patch set.
+- Source: example-pkg 1.2 patch set; its test-suite patches are excluded (not
+  shipped code).
 - Ids: the patch number, cited elsewhere as `EX N`.
 - Owner: this tracker owns every change it shares with #9002.
 - Layout: Next · Later · Settled.
@@ -84,14 +87,15 @@ This tracker follows the backport tracker rules (link). Profile:
 
 ### Next
 
-- [ ] `7` fix-null-deref.patch — take as is — crash on an empty hostname
+- [ ] `7` fix-null-deref.patch — take as is — crash on an empty hostname; twin
+  `cafe123` on #9002 (all its lines, measured 2026-01-10 against `beef001`)
 - [ ] `11` new-option.patch — take as is — needs `7`
 - [x] `8` long-names.patch — take, not as written — PR #9100 covers it fully (a rewrite)
 
 ### Settled
 
 - [x] 🟢 `9` typo.patch — take as is — PR #9050, on main as `deadbee`
-- `10` solaris8.patch — drop — dead platform
+- `10` solaris8.patch — drop — dead platform; twin: none (measured 2026-01-10)
 ```
 
 A line on the sibling tracker #9002, whose change has a twin here:
@@ -104,9 +108,9 @@ What each line shows:
 
 | line | rules |
 |---|---|
-| `7` | a verdict (2); a PR still owed (3) |
+| `7` | a verdict (2); a PR still owed (3); its twin, with a checkable measurement (6, 7) |
 | `11` | order through `needs` (5) |
 | `8` | another form, located and "fully" (2); the PR carries it (3) |
 | `9` | on `main`, with its evidence (4); its PR has merged, still `[x]` (3) |
-| `10` | a reasoned drop, no PR involved so no box (2, 3) |
+| `10` | a reasoned drop, no PR involved so no box (2, 3); no twin, measured (6) |
 | `cafe123` | a pointer to the owner, no verdict of its own (6) |
