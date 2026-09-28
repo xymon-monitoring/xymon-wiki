@@ -28,8 +28,9 @@ for prose.
 ## Rules
 
 1. **Every change has one line.** One change per line, and every change in the
-   source gets one; the profile says how completeness is counted. The profile may
-   exclude a set of changes, with its reason, in its **Out of scope** field —
+   source gets one; the profile's **Source** says how completeness is counted.
+   The profile may exclude a set of changes, with its reason, in its **Out of
+   scope** field —
    excluded changes have no line, and a change that has a line is in scope.
    A change is excluded as already on `main` only once its code is found there:
    the same patch-id, every added line present, or the rest of it found on
@@ -38,12 +39,12 @@ for prose.
 2. **Each line has one verdict:**
    - `take as is` — port it as written;
    - `take, not as written — <reason>` — we want the change, not this form. If
-     the reason is that a better version exists (on `main`, in a PR, on the other
-     tracker), say where, and whether it covers the change fully or partly — and
-     if partly, which part is missing. Only part of a change is wanted when the
-     line names the part that is not, and why; a change whose better version
-     sits inside a larger commit is wanted whole, and the line says that commit
-     covers it fully;
+     the reason is that a better version exists (on `main`, in a PR, or in
+     another commit), say where, and whether it covers the change fully or
+     partly — and if partly, which part is missing. Only part of a change is
+     wanted when the line names the part that is not, and why; a change whose
+     better version sits inside a larger commit is wanted whole, and the line
+     says that commit covers it fully;
    - `downstream — <who>` — not for `main`, but useful to a downstream
      repository, one that packages Xymon for a platform
      ([Downstream repositories](downstream-repositories.md)); `<who>` is that
@@ -82,10 +83,9 @@ for prose.
    another tracker's section or heading (rule 6). The commits, by id, are those
    that carry this change — its twin among them — the one carrying its feature
    first; a commit it only depends on is a `needs`, not a carrier. Once a PR
-   carries the line, it names that PR instead (rule 9). A `needs`
-   names a line — the change this one depends on — never a PR; the PR that
-   carries that line
-   is found on the line itself.
+   carries the line, it names that PR instead (rule 9). A `needs` names a
+   line — the change this one depends on — never a PR; the PR that carries
+   that line is found on the line itself.
 6. **One change, one decision.** When two trackers hold the same change, their
    profiles name the owner. The owner's line names its twin by id, and how much
    of it matches, measured; the other tracker's line only points —
@@ -118,10 +118,10 @@ for prose.
    written that can be read elsewhere — a PR's state, another line's verdict.
    A line names each PR and each commit once: later text on the same line refers
    to it as "that PR" or "that commit". A `needs <id>` or a `carried with`
-   always names its ids, and is not counted as a repeat. A measurement's date and commit are its
-   citation, not a separate fact: each line that states a measurement names
-   them, even when every line in a section was measured the same day against
-   the same commit.
+   always names its ids, and is not counted as a repeat. A measurement's date
+   and commit are its citation, not a separate fact: each line that states a
+   measurement names them, even when every line in a section was measured the
+   same day against the same commit.
    The issue body is the tracker: everything the goal asks is answered there,
    and nothing only in a comment. A comment may discuss; whatever it decides
    moves into the body.
@@ -210,7 +210,7 @@ This tracker follows the backport tracker rules (link). Profile:
 - Ids: the patch number, cited elsewhere as `EX N`.
 - Owner: this tracker owns every change it shares with #9002.
 - Downstreams: `example/example-distro`.
-- Layout: Next · Later · Settled.
+- Layout: Next · Later · Settled (settled lines); priority in that order.
 - Extra marks: none.
 
 ### Next
