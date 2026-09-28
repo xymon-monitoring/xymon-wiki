@@ -72,10 +72,13 @@ for prose.
    Priority — the order among changes free to land — is the profile's
    **Layout**, and a section may give it as a milestone (the release its
    changes are aimed at, not a date); nothing else expresses order. A line may
-   say which group will carry it — `carried with <commit>`, naming by id one
-   commit that group ports — until a PR carries it; from then on it names that
-   PR instead (rule 9). A group is never named by another tracker's section or
-   heading (rule 6): a heading can be renamed, a commit id cannot. A `needs`
+   say which group will carry it, until a PR does — `carried with <group>
+   (<commit>, …)`. The group is the Xymon feature the group delivers, named in
+   Xymon's terms and the same way on every line that names it — never by
+   another tracker's section or heading (rule 6). The commits, by id, are those
+   that carry this change — its twin among them — the one carrying its feature
+   first; a commit it only depends on is a `needs`, not a carrier. Once a PR
+   carries the line, it names that PR instead (rule 9). A `needs`
    names a line — the change this one depends on — never a PR; the PR that
    carries that line
    is found on the line itself.
@@ -110,8 +113,8 @@ for prose.
 8. **A fact is written once.** Prose does not repeat a mark, and nothing is
    written that can be read elsewhere — a PR's state, another line's verdict.
    A line names each PR and each commit once: later text on the same line refers
-   to it as "that PR" or "that commit". A `needs <id>` always names its id, and
-   is not counted as a repeat. A measurement's date and commit are its
+   to it as "that PR" or "that commit". A `needs <id>` or a `carried with`
+   always names its ids, and is not counted as a repeat. A measurement's date and commit are its
    citation, not a separate fact: each line that states a measurement names
    them, even when every line in a section was measured the same day against
    the same commit.

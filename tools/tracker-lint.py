@@ -149,8 +149,8 @@ def lint(body, sibling_body=None):
             add(11, where, "Layout orders by kind tag, and this line has none")
         if re.search(r"(?i)\b(prereq for|pairs? with|port it first|sequence (it )?after|apply in phase order|rides (the|that)|lands with|arrives with|launches with|comes with the)\b", line):
             add(5, where, "order written as prose, not as `needs` or `carried with <commit>`")
-        for m in re.finditer(r"carried with (?!(devel )?`[0-9a-f]{7,40}`|that commit)\S+", line):
-            add(5, where, "`carried with` names a commit by id, not a group")
+        for m in re.finditer(r"(?i)carried with (?![^(`·;]{1,60} \((devel )?`[0-9a-f]{7,40}`)", line):
+            add(5, where, "`carried with` names its group, then the commits that carry it by id")
         # rule 6 — pointers only point; no description of another tracker
         if ptr and not verdicts:
             tail = line[ptr.end():]
@@ -186,6 +186,7 @@ def lint(body, sibling_body=None):
             add(7, where, "a line number without the function it is in")
         # rule 8 — a fact once: each PR and each commit named once per line
         unneeded = re.sub(r"needs (?:(?:`[^`]+`|#\d+)[ ,/]*)+", "", line)   # a `needs <id>` is not a repeat
+        unneeded = re.sub(r"(?i)carried with [^(]{1,60}\([^)]*\)", "", unneeded)   # nor is a `carried with`
         for ref, k in __import__("collections").Counter(
                 ["#" + p for p in PR.findall(unneeded) if p != sibling]
                 + [h[:7] for h in HASH.findall(unneeded)]).items():
