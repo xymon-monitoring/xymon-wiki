@@ -72,9 +72,12 @@ for prose.
    Priority — the order among changes free to land — is the profile's
    **Layout**, and a section may give it as a milestone (the release its
    changes are aimed at, not a date); nothing else expresses order. A line may
-   say which group will carry it — `carried with <group>` — until a PR carries
-   it; from then on it names that PR instead (rule 9). A `needs` names a line —
-   the change this one depends on — never a PR; the PR that carries that line
+   say which group will carry it — `carried with <commit>`, naming by id one
+   commit that group ports — until a PR carries it; from then on it names that
+   PR instead (rule 9). A group is never named by another tracker's section or
+   heading (rule 6): a heading can be renamed, a commit id cannot. A `needs`
+   names a line — the change this one depends on — never a PR; the PR that
+   carries that line
    is found on the line itself.
 6. **One change, one decision.** When two trackers hold the same change, their
    profiles name the owner. The owner's line names its twin by id, and how much
@@ -90,7 +93,9 @@ for prose.
    `tracker-progress --check` verifies that every pointer's target names the
    pointer's change back. A pointer names every line that claims the change;
    where only part of a change has a twin, the line points for that part and
-   keeps a verdict for the rest. A line with no twin writes *none* once that has
+   keeps a verdict for the rest. A part pointer names its part by file,
+   function or hunk, and nothing else — no measurement and no verdict; those
+   are on the owner's line. A line with no twin writes *none* once that has
    been measured.
 7. **Claims can be checked.** A measurement says when, and against which commit
    or snapshot (a patch set is measured against a named release of it).
@@ -106,7 +111,10 @@ for prose.
    written that can be read elsewhere — a PR's state, another line's verdict.
    A line names each PR and each commit once: later text on the same line refers
    to it as "that PR" or "that commit". A `needs <id>` always names its id, and
-   is not counted as a repeat.
+   is not counted as a repeat. A measurement's date and commit are its
+   citation, not a separate fact: each line that states a measurement names
+   them, even when every line in a section was measured the same day against
+   the same commit.
    The issue body is the tracker: everything the goal asks is answered there,
    and nothing only in a comment. A comment may discuss; whatever it decides
    moves into the body.

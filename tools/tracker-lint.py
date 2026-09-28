@@ -147,8 +147,10 @@ def lint(body, sibling_body=None):
             add(5, where, "a `needs` names a line, never a PR")
         if kind_priority and not ptr and not re.search(r"`\[(feature|fix|perf|enh|cleanup)\]`", line):
             add(11, where, "Layout orders by kind tag, and this line has none")
-        if re.search(r"(?i)\b(prereq for|pairs? with|port it first|sequence (it )?after|apply in phase order)\b", line):
-            add(5, where, "order written as prose, not as `needs`")
+        if re.search(r"(?i)\b(prereq for|pairs? with|port it first|sequence (it )?after|apply in phase order|rides (the|that)|lands with|arrives with|launches with|comes with the)\b", line):
+            add(5, where, "order written as prose, not as `needs` or `carried with <commit>`")
+        for m in re.finditer(r"carried with (?!(devel )?`[0-9a-f]{7,40}`|that commit)\S+", line):
+            add(5, where, "`carried with` names a commit by id, not a group")
         # rule 6 — pointers only point; no description of another tracker
         if ptr and not verdicts:
             tail = line[ptr.end():]
@@ -161,7 +163,18 @@ def lint(body, sibling_body=None):
         if sibling:
             for m in re.finditer(rf"#{sibling}\b(?! `[^`]+`)", line):
                 add(6, where, f"cites #{sibling} other than by an item's id: \"{line[max(0, m.start() - 30):m.end() + 30]}\"")
+        # rule 6 — a part pointer names its part and nothing else
+        if ptr and verdicts:
+            seg = line[:ptr.start()]
+            seg = seg[max(seg.rfind("·"), seg.rfind(";")) + 1:] + line[ptr.end():].split(";")[0].split("·")[0]
+            if re.search(r"\d+ of (its|that|this)\b|\d+%|\bmeasured\b", seg):
+                add(6, where, "a part pointer carries a measurement; it belongs on the owner's line")
         # rule 7 — checkable claims
+        for m in re.finditer(r"\bmeasured 20\d\d-\d\d-\d\d(?!,? (against|across|at) )", line):
+            clause = line[:m.start()]
+            clause = clause[max(clause.rfind("·"), clause.rfind(";"), clause.rfind(" — ")) + 1:]
+            if not HASH.search(clause):
+                add(7, where, "a measurement names its date but not the commit or snapshot it was taken against")
         if "date unknown" in line:
             add(7, where, "a measurement without a date")
         for m in re.finditer(r"\b(measured|traced|verified|checked|analysed)\b", line):
