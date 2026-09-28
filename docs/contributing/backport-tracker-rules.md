@@ -169,14 +169,21 @@ violation count and adds none.
 ## Optional: kind tags
 
 A tracker may tag each line with the kind of change, to help reading. They
-decide nothing — the verdict, box and icon do — so they are not a rule; a
-tracker that uses them says so in its profile's **Extra marks**.
+decide no verdict, box or icon, so they are not a rule; a tracker that uses
+them says so in its profile's **Extra marks**, and its **Layout** may use them
+as its priority criterion (rule 11).
 
 - `[feature]` — a new capability
 - `[fix]` — corrects a bug
 - `[perf]` — makes something faster or cheaper
 - `[enh]` — improves existing behaviour (logging, output, compatibility)
 - `[cleanup]` — removes dead or obsolete code
+
+## Optional: the warning mark
+
+A tracker may mark a line `⚠` for a risk or a condition to know before acting
+on it. Like the kind tags it decides nothing, and a tracker that uses it says so
+in its profile's **Extra marks**.
 
 ## Example
 
@@ -190,13 +197,12 @@ without a PR 2 · downstream 1 · dropped 1 · undecided 0
 ### Rule
 
 This tracker follows the backport tracker rules (link). Profile:
-- Goal: decide each of the 40 patches in example-pkg 1.2, and land every
-  wanted one on main once, in its best form.
+- Goal: every patch example-pkg 1.2 applies.
 - Source: example-pkg 1.2 patch set.
 - Out of scope: its test-suite patches (not shipped code).
 - Ids: the patch number, cited elsewhere as `EX N`.
 - Owner: this tracker owns every change it shares with #9002.
-- Downstreams: example-distro packaging, via its issue #9003.
+- Downstreams: `example/example-distro`.
 - Layout: Next · Later · Settled.
 - Extra marks: none.
 
@@ -210,9 +216,10 @@ This tracker follows the backport tracker rules (link). Profile:
 ### Settled
 
 - [x] 🟢 `9` typo.patch — take as is — PR #9050, on main as `deadbee`
-- `10` solaris8.patch — drop — dead platform; twin: none (measured 2026-01-10)
-- `12` distro-paths.patch — downstream — example-distro (2026-01-10), which
-  installs under `/opt`; main keeps the configurable prefix — offered in #9003
+- `10` solaris8.patch — drop — dead platform; twin: none (measured 2026-01-10
+  against `beef001`)
+- `12` distro-paths.patch — downstream — `example/example-distro` — installs
+  under `/opt` (2026-01-10); main keeps the configurable prefix — not carried yet
 ```
 
 The PR carrying `8` names it back in its title — `long-names: keep full host
@@ -233,5 +240,5 @@ What each line shows:
 | `8` | another form, located and "fully" (2); the PR carries it (3), and names it back (9) |
 | `9` | on `main`, with its evidence (4); its PR has merged, still `[x]` (3) |
 | `10` | a reasoned drop, no PR involved so no box (2, 3); no twin, measured (6) |
-| `12` | a downstream verdict, dated, with where it was offered; no PR, so no box (2, 3, 7) |
+| `12` | a downstream verdict naming its repository, dated, saying whether it is carried there; no PR, so no box (2, 3, 7) |
 | `cafe123` | a pointer to the owner, no verdict of its own — the only reference to the other tracker (6) |
