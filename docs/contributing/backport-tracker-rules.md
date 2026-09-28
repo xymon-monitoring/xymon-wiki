@@ -76,7 +76,9 @@ for prose.
 5. **Dependency order is `needs <id>`.** It names what must land first.
    Priority — the order among changes free to land — is the profile's
    **Layout**, and a section may give it as a milestone (the release its
-   changes are aimed at, not a date); nothing else expresses order. A line may
+   changes are aimed at, not a date); a group whose lines are aimed at more
+   than one milestone is split under a subtitle for each, the earliest first.
+   Nothing else expresses order. A line may
    say which group will carry it, until a PR does — `carried with <group>
    (<commit>, …)`. The group is the Xymon feature the group delivers, named in
    Xymon's terms and the same way on every line that names it — never by
