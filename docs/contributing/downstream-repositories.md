@@ -12,8 +12,17 @@ policy.** Xymon's behaviour, its build and what `make install` produces are
 upstream. What a package installs, requires, starts, migrates or labels — and
 any choice only a distribution can make — is downstream.
 
-Two consequences hold for every downstream:
+Three consequences hold for every downstream:
 
+- **Upstream serves every platform, not only those with a downstream listed
+  here.** A sample a platform needs to run Xymon — a service unit or init
+  script for each init system, a logrotate, sysctl or firewall snippet — is
+  mechanism: upstream ships it under `tools/`, whether or not a listed
+  downstream uses it, and a downstream only installs and enables it. Package
+  format and init system vary independently — RPM systems with SysV init
+  exist, as do non-RPM systems with systemd — so the format never decides
+  which samples exist. A sample does not go in upstream's `rpm/`, which
+  `xymon-rpm` does not build from.
 - **A downstream may compensate for an upstream gap** until upstream fixes it,
   as long as the compensation names the upstream pull request that will remove
   it. Without that, the workaround becomes a permanent divergence nobody
