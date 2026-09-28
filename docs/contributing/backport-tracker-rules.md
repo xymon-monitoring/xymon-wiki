@@ -146,7 +146,9 @@ for prose.
    A move is lossless: each fact goes with its citation, is added to the PR's
    description only if missing there (checked against the PR's head), and
    changes no verdict. A fact both sides need — which change the PR carries,
-   and what it still lacks — is kept on both.
+   and what it still lacks — is kept on both. Once the change is on `main`,
+   nothing moves: what the merged PR's description or the code already holds
+   is removed from the line, and the rest stays.
 
    *Nowhere:* the PR's state (rule 8), and records of what is not a carrier or
    of a disproven twin.
