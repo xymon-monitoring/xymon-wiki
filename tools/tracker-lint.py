@@ -216,12 +216,18 @@ def lint(body, sibling_body=None):
         m = re.match(r"^\*\*(.*?)\((\d+)\)\*\*\s*$", l) or re.match(r"^\*\*.*— \*group of (\d+) (?:commits|patches)", l)
         if m:
             want = int(m.groups()[-1])
-            mem, started = 0, False
-            for x in lines[k + 1:]:
+            mem, started, sub = 0, False, False
+            rest = lines[k + 1:]
+            for j, x in enumerate(rest):
+                subtitle = x.startswith("*") and not x.startswith("**")
                 if re.match(r"^\s*- ", x):
-                    mem, started = mem + 1, True
-                elif started and x.strip() == "":
-                    break
+                    mem, started, sub = mem + 1, True, False
+                elif subtitle:
+                    sub = True   # a milestone subtitle (rule 5) continues the group
+                elif started and x.strip() == "" and not sub:
+                    nxt = next((y for y in rest[j + 1:] if y.strip()), "")
+                    if not (nxt.startswith("*") and not nxt.startswith("**")):
+                        break
                 elif not started and x.strip() and not x.startswith("*"):
                     break
             if mem != want:
