@@ -65,11 +65,12 @@ awk '
 		if (rest !~ /^`[^`]+`/) next
 		id = rest; sub(/^`/, "", id); sub(/`.*/, "", id); sub(/ .*/, "", id)
 		kind = ""
+		# a split line counts by its upstream verdict: a downstream part settles nothing while the rest is open
 		if (line ~ /\*\*take as is\*\*|\*\*take, not as written/) kind = "take"
+		else if (line ~ /\*\*undecided\*\*/) kind = "undecided"
 		else if (line ~ /\*\*drop — superseded\*\*/) kind = "superseded"
 		else if (line ~ /\*\*downstream — /) kind = "downstream"
 		else if (line ~ /\*\*drop — /) kind = "drop"
-		else if (line ~ /\*\*undecided\*\*/) kind = "undecided"
 		else if (line ~ /delegated → #[0-9]+/) kind = "pointer"
 		if (kind == "") next
 		printf "%s\t%s\t%s\t%s\t%s\n", box, icon, id, kind, line
