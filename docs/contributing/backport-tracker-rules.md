@@ -42,12 +42,18 @@ for prose.
      covers it fully;
    - `downstream — <who>` — not for `main`, but useful to a downstream
      repository, one that packages Xymon for a platform
-     ([Downstream repositories](downstream-repositories.md)); `<who>` names it.
-     The line may link where it was offered, and nobody's adoption of it is
-     tracked here. Where the line between the two runs is set on that page, and
-     it moves, so the verdict is dated (rule 7);
+     ([Downstream repositories](downstream-repositories.md)); `<who>` is that
+     repository's name, as the profile's **Downstreams** field gives it. The
+     line names what carries it there — a PR in that repository, or, when none
+     can be named, the file — or says it is not carried yet. Where the line
+     between the two runs is set on that page, and it moves, so the verdict is
+     dated (rule 7);
    - `drop — <reason>` — wanted nowhere;
    - `undecided` — not triaged yet.
+
+   *Exception:* a change with an upstream part and a downstream part carries one
+   verdict for each, each naming its part — for example `take as is` for the
+   code and `downstream — <who>` for its packaging file.
 3. **The box says whether a PR is involved.** `[ ]` a PR is still needed —
    an `undecided` line carries `[ ]` until it is decided · `[x]` a PR, linked
    on the line, carries the change or made it unnecessary —

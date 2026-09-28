@@ -84,7 +84,7 @@ def lint(body, sibling_body=None):
     sibling = next(iter(PR.findall(prof.get("Owner", ""))), None)
     marks = prof.get("Extra marks", "")
     downstreams = prof.get("Downstreams", "")
-    down_names = set(re.findall(r"\b([A-Z][A-Za-z]+)\b", downstreams)) - {"The", "See", "Downstream"}
+    down_names = set(re.findall(r"`([\w.-]+/[\w.-]+)`", downstreams))
     uses_kinds = "kind tags" in marks
     kind_priority = bool(re.search(r"(?i)priority:[^.]*`\[(fix|feature)\]`", prof.get("Layout", "")))
     cond_values = set(re.findall(r"\*([^*]+?)\*", marks.split("never our decision")[0])) if "_(cond:" in marks else set()
@@ -98,9 +98,11 @@ def lint(body, sibling_body=None):
         verdicts = VERDICT.findall(line)
         ptr = POINTER.search(line)
         # rule 2 — one verdict, of an allowed form
-        if len(verdicts) > 1:
+        # the one exception: an upstream part and a downstream part, one verdict each
+        if len(verdicts) > 1 and not (len(verdicts) == 2 and verdicts[1].startswith("downstream — ")):
             add(2, where, "more than one verdict")
         vd = verdicts[0] if verdicts else ""
+        dv = next((x for x in verdicts if x.startswith("downstream — ")), "")
         if "compare and take the best" in vd:
             add(2, where, "the reason is the generic tail, not this change's reason")
         if ("a different version exists elsewhere" in vd or "a better version exists" in vd) and not re.search(r"\*\*(fully|partly)\*\*|\b(fully|partly)\b", line):
@@ -109,12 +111,18 @@ def lint(body, sibling_body=None):
             add(2, where, "\"only part of it is wanted\" but the line names no unwanted part")
         if vd.startswith("drop — out of scope"):
             add(1, where, "an out-of-scope change has no line (rule 1); \"out of scope\" is not a drop reason")
+        if dv:
+            vd_save, vd = vd, dv
         if vd.startswith("downstream — "):
             if not DATE.search(line):
                 add(2, where, "a downstream verdict is dated (rule 7)")
+            if not re.search(r"carried in|not carried|/pull/\d+|[\w-]+#\d+", line):
+                add(2, where, "a downstream verdict names what carries it there, or says it is not carried yet")
             who = vd[len("downstream — "):]
             if down_names and not any(d in who for d in down_names):
                 add(2, where, f"downstream \"{who[:40]}\" names no repository from the Downstreams field")
+        if dv:
+            vd = vd_save
         # rule 3 — the box
         if ptr and not verdicts and box and "split" not in line.lower():
             add(3, where, "a pointer carries no box")
