@@ -29,7 +29,7 @@ FIELDS = ["Goal", "Source", "Out of scope", "Ids", "Owner", "Downstreams", "Layo
 KINDS = {"[feature]", "[fix]", "[perf]", "[enh]", "[cleanup]"}
 VERDICT = re.compile(r"\*\*(take as is|take, not as written — [^*]+|downstream — [^*]+|drop — [^*]+|undecided)\*\*")
 POINTER = re.compile(r"\*\*delegated → #(\d+) ((?:`[^`]+`/?)+)\*\*")
-ITEM = re.compile(r"^\s*- (\[[ x]\] )?(🟢 |🟡 )?`([^`]+)`")
+ITEM = re.compile(r"^\s*- (\[[ x]\] )?(🟢 |🟡 )?(?:`\[[a-z]+\]` )?`([^`]+)`")
 HASH = re.compile(r"`([0-9a-f]{7,40})`")
 DATE = re.compile(r"20\d\d-\d\d-\d\d")
 PR = re.compile(r"#(\d{2,})")
@@ -157,8 +157,10 @@ def lint(body, sibling_body=None):
                 add(6, where, "a pointer starts with its commit id and nothing else")
             if "·" in tail or DATE.search(tail) or VERDICT.search(tail):
                 add(6, where, "a pointer carries only its id, target and subject")
-        if sibling and re.search(rf"#{sibling} ?§|#{sibling} Part|tracked on #{sibling}|its #{sibling} line|via #{sibling}\b|#{sibling} (delegates|leaves|marks)", line):
-            add(6, where, f"describes #{sibling} instead of citing an id")
+        # the other tracker is cited only as `#N <id>`: anything else describes it
+        if sibling:
+            for m in re.finditer(rf"#{sibling}\b(?! `[^`]+`)", line):
+                add(6, where, f"cites #{sibling} other than by an item's id: \"{line[max(0, m.start() - 30):m.end() + 30]}\"")
         # rule 7 — checkable claims
         if "date unknown" in line:
             add(7, where, "a measurement without a date")
