@@ -135,15 +135,25 @@ for prose.
    two shares of the tracker's own lines (pointers left out): **settled**, owing
    nothing more (landed, downstream or dropped), and **decided** (any verdict but
    `undecided`). It sits first in the issue, above the profile.
-9. **Analysis goes where its subject is.** A line's analysis answers the goal's
-   questions about its source change — do we want it, in which form (twin,
-   coverage, what is not taken and why), is it there, what is owed. When a PR
-   carries the change, the line may name what the PR leaves out or does
-   differently from the change, as far as that decides the verdict (fully or
-   partly, and what is missing); how the PR's code does it, and how it is
-   sequenced against other PRs, belongs in that PR's description. The line and its carrier name each other: the line links the
-   PR, and the PR's title names the change in its trailing parenthesis, in the
-   tracker's citation form (the profile's **Ids**). A PR that only makes a change
+9. **A line tracks; a PR explains.** Once a PR carries a change, a sentence on
+   the line about that PR moves into the PR's description only if it describes
+   the PR itself — how it works, why, what it adds, how it is sequenced against
+   other PRs, what it still lacks on its own terms (a missing manual entry).
+   What compares the PR with the change — what it leaves out or does
+   differently, the parts not wanted, the twin and its measurement — stays on
+   the line: it is the tracker's decision, and the PR is not the place for it.
+
+   A move is lossless: each fact goes with its citation, is added to the PR's
+   description only if missing there (checked against the PR's head), and
+   changes no verdict. A fact both sides need — which change the PR carries,
+   and what it still lacks — is kept on both.
+
+   *Nowhere:* the PR's state (rule 8), and records of what is not a carrier or
+   of a disproven twin.
+
+   The line and its carrier name each other: the line links the PR, and the
+   PR's title names the change in its trailing parenthesis, in the tracker's
+   citation form (the profile's **Ids**). A PR that only makes a change
    unnecessary is exempt.
 10. **Lines are grouped by subject** (the part of Xymon they touch). A heading
     says only what is true of every line under it, and so may one sentence
