@@ -31,6 +31,10 @@ for prose.
    source gets one; the profile says how completeness is counted. The profile may
    exclude a set of changes, with its reason, in its **Out of scope** field —
    excluded changes have no line, and a change that has a line is in scope.
+   A change is excluded as already on `main` only once its code is found there:
+   the same patch-id, every added line present, or the rest of it found on
+   `main` by reading the code. A share of lines alone does not exclude it; it
+   keeps a line, 🟡 with the part found and the part missing (rule 4).
 2. **Each line has one verdict:**
    - `take as is` — port it as written;
    - `take, not as written — <reason>` — we want the change, not this form. If
