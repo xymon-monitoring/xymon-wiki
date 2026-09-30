@@ -1,0 +1,43 @@
+name: Project activity page
+
+# Regenerates docs/about/project-activity.md once a month from the GitHub API.
+# A push made with GITHUB_TOKEN does not start other workflows, so this one
+# starts the docs deployment itself.
+
+on:
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: project-activity
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ORG_READ_TOKEN (read:org) is needed for the groups table; without it
+      # the page is still written and says that table is unavailable.
+      - name: Generate the page
+        env:
+          GH_TOKEN: ${{ secrets.ORG_READ_TOKEN || github.token }}
+        run: tools/project-activity.sh
+
+      - name: Commit and deploy if it changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -n "$(git status --porcelain -- docs/about/project-activity.md)" ] || { echo "no change"; exit 0; }
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/about/project-activity.md
+          git commit -m "about: regenerate the project activity page"
+          git push
+          gh workflow run docs.yml --ref main
