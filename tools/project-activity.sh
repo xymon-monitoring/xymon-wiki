@@ -102,7 +102,7 @@ fi
 # ---- compute and write -----------------------------------------------------
 
 jq -s -r --arg now "$now" --arg since "$since" --arg rule "$rule_date" \
-	--slurpfile G "$work/groups.json" -f /dev/stdin "$work/prs.jsonl" > "$out" <<'JQ'
+	--slurpfile G "$work/groups.json" -f /dev/stdin "$work/prs.jsonl" > "$work/page.md" <<'JQ'
 def h(a;b): (((b|fromdateiso8601)-(a|fromdateiso8601))/3600);
 def d(a;b): (h(a;b)/24);
 def med: sort | if length==0 then null else .[(length/2|floor)] end;
@@ -119,6 +119,16 @@ def component: (.title | capture("^(?<c>[A-Za-z0-9_.+/-]+):").c) // "";
 def is_docs: (component | test("^(docs|README|RELEASING|CONTRIBUTING|AGENTS)$|\\.[1578]$"));
 def is_build: (component | test("^(build|ci|tests|tools)$"));
 def row: "| " + join(" | ") + " |";
+# light(good; bad): 🟢 when the good test holds, 🔴 when the bad one does, 🟡 between.
+def light(good; bad): if good then "🟢" elif bad then "🔴" else "🟡" end;
+def qlist: map("\"\(.)\"") | join(", ");
+def nlist: map(tostring) | join(", ");
+def ymax: (max // 0) as $m | if $m < 5 then 5 else ((($m*1.15)/5|ceil)*5) end;
+def palette: "%%{init: {\"themeVariables\": {\"xyChart\": {\"plotColorPalette\": \"#3b6fd8, #e07b2a\"}}}}%%";
+def mm_bar_o(orient; title; ylabel; labels; values):
+  "```mermaid", palette, "xychart-beta\(orient)", "    title \"\(title)\"", "    x-axis [\(labels|qlist)]",
+  "    y-axis \"\(ylabel)\" 0 --> \(values|ymax)", "    bar [\(values|nlist)]", "```";
+def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; values);
 
 [ .[] | select(.createdAt >= $since) | . as $p
   | . + {fr: first_ready($p), ap: approved_at($p), rv: others($p)} ] as $all
@@ -165,6 +175,8 @@ def row: "| " + join(" | ") + " |";
   (["Reviewers needed to keep up (estimate)", "\($needed // "—")\(if $needed and $needed > $active_rev then " — about \($needed - $active_rev) missing" else "" end)"] | row),
   (["Pull request authors in the last three months / of them new", "\($q_authors|length) / \($q_new)"] | row),
   "",
+  ( if $needed then mm_bar("Reviewers in a month: active and needed"; "Reviewers"; ["active", "needed"]; [$active_rev, $needed]) else empty end ),
+  "",
   "How to help:",
   "",
   "- **Review** one of the pull requests waiting longest, listed under [Waiting for review](#waiting-for-review): read it, try it if you can, and approve it or say what is wrong. A review from someone who runs Xymon in production is worth as much as one from a developer.",
@@ -175,13 +187,19 @@ def row: "| " + join(" | ") + " |";
   "",
   "## Summary",
   "",
-  "| Question | Value |",
-  "|---|---|",
-  (["Does review keep up with what arrives? (`xymon`, window)", "\($x|map(select(.fr))|length) became ready · \($x|map(select(.ap))|length) approved"] | row),
-  (["Ready pull requests waiting more than 30 days", "\($wait|map(select(d(.fr;$now)>30))|length) of \($wait|length) waiting"] | row),
-  (["People doing 80% of the reviews", "\($p80) (busiest: \(pct($ranks[0]//0; $rtotal)) of all reviews)"] | row),
-  (["Code merged in `xymon` without an approval since the review rule (\($rule))", "\($code_noappr|map(select(.mergedAt >= $rule))|length)"] | row),
-  (["Distinct pull request authors", "\($all|map(.author.login)|unique|length)"] | row),
+  ( ($recent | map(. as $m | $x | map(select(.fr and .fr[0:7]==$m)) | length) | add // 0) as $r_in
+    | ($recent | map(. as $m | $x | map(select(.ap and .ap[0:7]==$m)) | length) | add // 0) as $r_ap
+    | ($wait|map(select(d(.fr;$now)>30))|length) as $w30
+    | ($code_noappr|map(select(.mergedAt >= $rule))|length) as $cna
+    | "| | Question | Value | 🟢 when | 🔴 when |",
+      "|---|---|---|---|---|",
+      ([ light($r_in==0 or $r_ap >= 0.9*$r_in; $r_ap < 0.6*$r_in), "Does review keep up with what arrives? (`xymon`, last four whole months)", "\($r_in) became ready · \($r_ap) approved (\(pct($r_ap;$r_in)))", "≥ 90% approved", "< 60%" ] | row),
+      ([ light($w30 <= 5; $w30 > 20), "Ready pull requests waiting more than 30 days", "\($w30) of \($wait|length) waiting", "≤ 5", "> 20" ] | row),
+      ([ light($p80 >= 6; $p80 <= 3), "People doing 80% of the reviews", "\($p80) (busiest: \(pct($ranks[0]//0; $rtotal)) of all reviews)", "≥ 6", "≤ 3" ] | row),
+      ([ light($cna == 0; $cna > 0), "Code merged in `xymon` without an approval since the review rule (\($rule))", "\($cna)", "0", "≥ 1" ] | row),
+      ([ light($q_new >= 3; $q_new == 0), "New pull request authors in the last three months", "\($q_new) (of \($q_authors|length) authors)", "≥ 3", "0" ] | row) ),
+  "",
+  "The thresholds are this page's own, chosen to make a change visible; they are not project rules.",
   "",
   ( if $G[0] == null then
       "## Groups\n\nUnavailable: reading team membership needs a token with `read:org`."
@@ -205,6 +223,10 @@ def row: "| " + join(" | ") + " |";
         "\($g|map(select(.mergedAt and .author.login==.mergedBy.login))|length)",
         "\($g|map(select(.state=="CLOSED"))|length)", "\($g|map(select(.state=="OPEN"))|length)" ] | row ),
   "",
+  ( ( [ $all | group_by(.repo)[] | select(map(select(.mergedAt))|length > 0)
+      | {r:.[0].repo, n:(map(select(.mergedAt))|length), a:(map(select(.mergedAt and .ap))|length)} ] | sort_by(-.n) ) as $rp
+  | mm_bar_o(" horizontal"; "Share of merges that had an approval, by repository"; "% of merges"; ($rp|map(.r)); ($rp|map((.a*100/.n)|round)))),
+  "",
   "## Review in `xymon`",
   "",
   "| Measure | Value |",
@@ -219,6 +241,14 @@ def row: "| " + join(" | ") + " |";
   "",
   "## By month (`xymon`)",
   "",
+  "Bars: pull requests that became ready for review. Line: approvals. The gap between them is review that did not happen.",
+  "",
+  ( ($months | map(. as $m | $x | map(select(.fr and .fr[0:7]==$m)) | length)) as $rd
+    | ($months | map(. as $m | $x | map(select(.ap and .ap[0:7]==$m)) | length)) as $apm
+    | "```mermaid", palette, "xychart-beta", "    title \"Review requests and approvals, by month\"",
+      "    x-axis [\($months|qlist)]", "    y-axis \"Pull requests\" 0 --> \(($rd + $apm)|ymax)",
+      "    bar [\($rd|nlist)]", "    line [\($apm|nlist)]", "```" ),
+  "",
   "| Month | Became ready | Approved | Merged | Merged without an approval | Reviews | Reviewers |",
   "|---|---|---|---|---|---|---|",
   ( $months[] as $m
@@ -228,7 +258,11 @@ def row: "| " + join(" | ") + " |";
   "",
   "## Who reviews",
   "",
-  "Reviews submitted, by rank; each column is one person.",
+  "Reviews submitted, by rank; each slice and each column is one person.",
+  "",
+  ( if ($ranks|length)==0 then empty else
+    "```mermaid", "pie showData title Share of all reviews, by reviewer rank",
+    ( $ranks | to_entries[] | "    \"#\(.key+1)\" : \(.value)" ), "```" end ),
   "",
   ( if ($ranks|length)==0 then "No reviews in the window." else
     ("| Rank | " + ([range(1; ($ranks|length)+1)] | map(tostring) | join(" | ")) + " |"),
@@ -243,6 +277,11 @@ def row: "| " + join(" | ") + " |";
   (["Waiting: median / mean / longest", "\($wait|map(d(.fr;$now))|med|fmt_d) / \($wait|map(d(.fr;$now))|mean|fmt_d) / \($wait|map(d(.fr;$now))|max|fmt_d)"] | row),
   (["More than 30 / 90 days", "\($wait|map(select(d(.fr;$now)>30))|length) / \($wait|map(select(d(.fr;$now)>90))|length)"] | row),
   "",
+  ( ($wait | map(d(.fr;$now))) as $ages
+    | mm_bar("Ready pull requests waiting, by time waited"; "Pull requests"; ["under 7 days", "7 to 30 days", "30 to 90 days", "over 90 days"];
+        [ ($ages|map(select(. < 7))|length), ($ages|map(select(. >= 7 and . < 30))|length),
+          ($ages|map(select(. >= 30 and . < 90))|length), ($ages|map(select(. >= 90))|length) ]) ),
+  "",
   "Waiting longest, oldest first — a reviewer is welcome on any of them:",
   "",
   ( $wait | sort_by(.fr)[0:5][] | "- [\(.repo)#\(.number)](\(.url)) — \(.title) (\(d(.fr;$now)|fmt_d))" ),
@@ -252,4 +291,5 @@ def row: "| " + join(" | ") + " |";
   "Discussion on the mailing list and in chat; reviews given as plain comments; an owner's administrative work; changes pushed without a pull request, which is how most wiki pages are written."
 JQ
 
+mv "$work/page.md" "$out"
 echo "wrote $out ($(wc -l < "$out") lines)" >&2
