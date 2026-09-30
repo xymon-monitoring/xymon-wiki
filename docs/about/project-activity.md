@@ -47,14 +47,7 @@ The thresholds are this page's own, chosen to make a change visible; they are no
 
 ## Groups
 
-What each group grants and expects is on [Project organisation](project-organisation.md).
-
-| Group | Holders | Reviewed others' pull requests (≥1) | (≥5) | Opened a pull request (≥1) | Neither |
-|---|---|---|---|---|---|
-| maintainers | 10 | 7 | 5 | 6 | 2 |
-| contributors | 10 | 3 | 0 | 3 | 6 |
-
-Organisation owners: 13. Their activity is not published here: how many administrator accounts are idle is a security question, and it is tracked where access is managed.
+Unavailable: reading team membership needs a token with `read:org`.
 
 ## Pull requests by repository
 
@@ -142,7 +135,7 @@ pie showData title Share of all reviews, by reviewer rank
 | Measure | Value |
 |---|---|
 | Waiting now | 62 |
-| Waiting: median / mean / longest | 38.3 days / 48.9 days / 252.2 days |
+| Waiting: median / mean / longest | 38.4 days / 48.9 days / 252.2 days |
 | More than 30 / 90 days | 43 / 12 |
 
 ```mermaid
