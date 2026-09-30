@@ -47,7 +47,14 @@ The thresholds are this page's own, chosen to make a change visible; they are no
 
 ## Groups
 
-Unavailable: reading team membership needs a token with `read:org`.
+What each group grants and expects is on [Project organisation](project-organisation.md).
+
+| Group | Holders | Reviewed others' pull requests (≥1) | (≥5) | Opened a pull request (≥1) | Neither |
+|---|---|---|---|---|---|
+| maintainers | 10 | 7 | 5 | 6 | 2 |
+| contributors | 10 | 3 | 0 | 3 | 6 |
+
+Organisation owners: 13. Their activity is not published here: how many administrator accounts are idle is a security question, and it is tracked where access is managed.
 
 ## Pull requests by repository
 
@@ -150,7 +157,7 @@ xychart-beta
 Waiting longest, oldest first — a reviewer is welcome on any of them:
 
 - [xymon#36](https://github.com/xymon-monitoring/xymon/pull/36) — ci: build on FreeBSD, OpenBSD, NetBSD and in Debian and RPM containers (252.2 days)
-- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (124.7 days)
+- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (124.8 days)
 - [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: integrate SNMP into the configure framework (consistent, off by default) (122 days)
 - [xymon#138](https://github.com/xymon-monitoring/xymon/pull/138) — build: drop bundled c-ares 1.15.0, build against system c-ares (121.1 days)
 - [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — snmpcollect: don't fail over to the next IP on NOSUCHNAME (fixes #137) (111.8 days)
