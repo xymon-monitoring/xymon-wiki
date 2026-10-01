@@ -1,6 +1,6 @@
 # Project activity
 
-Generated 2026-09-30 by `tools/project-activity.sh`, from the GitHub API. Window: pull requests opened since 2025-09-30, in the organisation's public repositories. No person is named here; the numbers are counts.
+Generated 2026-10-01 by `tools/project-activity.sh`, from the GitHub API. Window: pull requests opened since 2025-10-01, in the organisation's public repositories. No person is named here; the numbers are counts.
 
 **Waiting for review** means ready (not a draft), still open, and without an approval from someone other than its author; it is measured from the first time the pull request was ready. A **review** is a GitHub review by someone other than the author; a plain comment is not one.
 
@@ -14,7 +14,7 @@ Review is the project's bottleneck, and everyone is welcome to help fill the gap
 | Approvals one active reviewer gives in a month (median, same months) | 5.2 |
 | Reviewers active in a month (median, same months) | 5 |
 | Reviewers needed to keep up (estimate) | 10 — about 5 missing |
-| Pull request authors in the last three months / of them new | 6 / 3 |
+| Pull request authors in the last three months / of them new | 6 / 2 |
 
 ```mermaid
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
@@ -37,11 +37,11 @@ The estimate divides the arrivals by one reviewer's pace; it is a range read fro
 
 | | Question | Value | 🟢 when | 🔴 when |
 |---|---|---|---|---|
-| 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 263 became ready · 149 approved (57%) | ≥ 90% approved | < 60% |
-| 🔴 | Ready pull requests waiting more than 30 days | 43 of 62 waiting | ≤ 5 | > 20 |
+| 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 279 became ready · 144 approved (52%) | ≥ 90% approved | < 60% |
+| 🔴 | Ready pull requests waiting more than 30 days | 42 of 63 waiting | ≤ 5 | > 20 |
 | 🟡 | People doing 80% of the reviews | 4 (busiest: 37% of all reviews) | ≥ 6 | ≤ 3 |
 | 🟢 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 0 | 0 | ≥ 1 |
-| 🟢 | New pull request authors in the last three months | 3 (of 6 authors) | ≥ 3 | 0 |
+| 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 | 0 |
 
 The thresholds are this page's own, chosen to make a change visible; they are not project rules.
 
@@ -60,7 +60,7 @@ Organisation owners: 13. Their activity is not published here: how many administ
 
 | Repository | Opened | Merged | Merged with an approval | Merged without | Merged by their own author | Closed unmerged | Open |
 |---|---|---|---|---|---|---|---|
-| `xymon` | 356 | 198 | 174 | 24 | 125 | 74 | 84 |
+| `xymon` | 359 | 200 | 174 | 26 | 127 | 74 | 85 |
 | `xymon-rpm` | 79 | 71 | 0 | 71 | 70 | 2 | 6 |
 | `xymon-wiki` | 27 | 27 | 0 | 27 | 27 | 0 | 0 |
 | `homebrew-xymon` | 18 | 18 | 0 | 18 | 18 | 0 | 0 |
@@ -74,7 +74,7 @@ xychart-beta horizontal
     title "Share of merges that had an approval, by repository"
     x-axis ["xymon", "xymon-rpm", "xymon-wiki", "homebrew-xymon", "xymon-discussion-public", "xymon-plugins", "xymon-client-windows-powershell"]
     y-axis "% of merges" 0 --> 105
-    bar [88, 0, 0, 0, 0, 0, 0]
+    bar [87, 0, 0, 0, 0, 0, 0]
 ```
 
 ## Review in `xymon`
@@ -82,10 +82,10 @@ xychart-beta horizontal
 | Measure | Value |
 |---|---|
 | Review verdicts | approved 177 · changes requested 3 · commented 41 · dismissed 14 |
-| Merged with an approval | 174 of 198 (88%) |
-| Merged without an approval: documentation / build, CI, tests / code | 14 / 4 / 6 |
+| Merged with an approval | 174 of 200 (87%) |
+| Merged without an approval: documentation / build, CI, tests / code | 15 / 5 / 6 |
 | Time from ready to first approval: median / mean / longest | 2.7 days / 12.9 days / 134.9 days |
-| Time from ready to merge: median / slowest tenth | 2.5 days / 40.2 days |
+| Time from ready to merge: median / slowest tenth | 2.5 days / 43.2 days |
 
 Classification by title: a title starting `docs:`, a manual page, `README:`, `RELEASING:`, `CONTRIBUTING:` or `AGENTS:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.
 
@@ -97,10 +97,10 @@ Bars: pull requests that became ready for review. Line: approvals. The gap betwe
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
 xychart-beta
     title "Review requests and approvals, by month"
-    x-axis ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09"]
+    x-axis ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"]
     y-axis "Pull requests" 0 --> 175
-    bar [22, 9, 2, 4, 22, 41, 52, 148, 38]
-    line [10, 9, 0, 2, 10, 17, 26, 96, 5]
+    bar [22, 9, 2, 4, 22, 41, 52, 148, 38, 3]
+    line [10, 9, 0, 2, 10, 17, 26, 96, 5, 0]
 ```
 
 | Month | Became ready | Approved | Merged | Merged without an approval | Reviews | Reviewers |
@@ -114,6 +114,7 @@ xychart-beta
 | 2026-07 | 52 | 26 | 30 | 0 | 30 | 5 |
 | 2026-08 | 148 | 96 | 108 | 12 | 111 | 4 |
 | 2026-09 | 38 | 5 | 14 | 9 | 5 | 4 |
+| 2026-10 | 3 | 0 | 2 | 2 | 0 | 0 |
 
 ## Who reviews
 
@@ -141,26 +142,26 @@ pie showData title Share of all reviews, by reviewer rank
 
 | Measure | Value |
 |---|---|
-| Waiting now | 62 |
-| Waiting: median / mean / longest | 38.4 days / 48.9 days / 252.2 days |
-| More than 30 / 90 days | 43 / 12 |
+| Waiting now | 63 |
+| Waiting: median / mean / longest | 37.6 days / 48.3 days / 253.1 days |
+| More than 30 / 90 days | 42 / 12 |
 
 ```mermaid
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
 xychart-beta
     title "Ready pull requests waiting, by time waited"
     x-axis ["under 7 days", "7 to 30 days", "30 to 90 days", "over 90 days"]
-    y-axis "Pull requests" 0 --> 40
-    bar [1, 18, 31, 12]
+    y-axis "Pull requests" 0 --> 35
+    bar [3, 18, 30, 12]
 ```
 
 Waiting longest, oldest first — a reviewer is welcome on any of them:
 
-- [xymon#36](https://github.com/xymon-monitoring/xymon/pull/36) — ci: build on FreeBSD, OpenBSD, NetBSD and in Debian and RPM containers (252.2 days)
-- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (124.8 days)
-- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: integrate SNMP into the configure framework (consistent, off by default) (122 days)
-- [xymon#138](https://github.com/xymon-monitoring/xymon/pull/138) — build: drop bundled c-ares 1.15.0, build against system c-ares (121.1 days)
-- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — snmpcollect: don't fail over to the next IP on NOSUCHNAME (fixes #137) (111.8 days)
+- [xymon#36](https://github.com/xymon-monitoring/xymon/pull/36) — ci: build on FreeBSD, OpenBSD, NetBSD and in Debian and RPM containers (253.1 days)
+- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (125.6 days)
+- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: integrate SNMP into the configure framework (consistent, off by default) (122.8 days)
+- [xymon#138](https://github.com/xymon-monitoring/xymon/pull/138) — build: drop bundled c-ares 1.15.0, build against system c-ares (122 days)
+- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — snmpcollect: don't fail over to the next IP on NOSUCHNAME (fixes #137) (112.6 days)
 
 ## Not counted
 
