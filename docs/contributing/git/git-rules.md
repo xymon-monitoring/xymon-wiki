@@ -46,8 +46,9 @@ for GitHub Actions changes:
 
 ## Review and merge policy
 How many people must have read a change before it is merged is set by each
-repository, in its `CONTRIBUTING.md`. For `xymon` every change lands through a
-Pull Request merged by someone other than its author — see
+repository, in its `CONTRIBUTING.md`. For `xymon` every change to `main` or
+`devel` lands through a Pull Request, and whether it also needs a review by
+someone other than its author depends on the kind of change — see
 [CONTRIBUTING.md](https://github.com/xymon-monitoring/xymon/blob/main/CONTRIBUTING.md).
 Repositories that do not say otherwise may be pushed to directly.
 
