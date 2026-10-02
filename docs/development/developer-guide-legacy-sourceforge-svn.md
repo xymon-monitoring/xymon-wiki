@@ -344,7 +344,7 @@ in following areas of R\&R.
 
 <!-- end list -->
 
-  - Francesco Duranti \<fduranti@q8.it\>
+  - Francesco Duranti
       - Ability to patch hobbit source code.
       - <http://www.hswn.dk/hobbiton/2006/10/msg00080.html>
 
