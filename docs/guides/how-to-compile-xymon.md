@@ -9,7 +9,7 @@ Download and extract the file in a temporarily directory.
 
 The libraries a server build needs, and one install command per system
 (Debian/Ubuntu, RHEL family, Fedora, openSUSE, Alpine, Arch, the BSDs,
-macOS), are in the "Installing on common systems" appendix of
+macOS), are in step 1, "Install the prerequisites", of
 `docs/install.html` in the Xymon source
 ([`docs/install.html.DIST`](https://github.com/xymon-monitoring/xymon/blob/main/docs/install.html.DIST)
 on GitHub).
