@@ -7,10 +7,10 @@ Generated 2026-10-29 by `tools/project-activity.sh`, from the GitHub API, over t
 | | Question | Value | 🟢 when | 🔴 when |
 |---|---|---|---|---|
 | 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 279 became ready · 144 approved (52%) | ≥ 90% approved | < 60% |
-| 🔴 | Ready pull requests waiting more than 30 days | 41 of 81 waiting | ≤ 5 | > 20 |
-| 🟡 | People doing 80% of the reviews | 4 (busiest: 33% of all reviews) | ≥ 6 | ≤ 3 |
-| 🔴 | Code merged in `xymon` without an approval | 1 since the review rule (2026-09-13) · 4 in the whole window | 0 since the rule | ≥ 1 |
-| 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 | 0 |
+| 🔴 | Ready pull requests that have waited more than 30 days | 41 of 81 waiting | ≤ 5 pull requests | > 20 pull requests |
+| 🟡 | People doing 80% of the reviews | 4 (busiest: 33% of all reviews) | ≥ 6 people | ≤ 3 people |
+| 🔴 | Code merged in `xymon` without an approval | 1 since the review rule (2026-09-13) · 4 in the whole window | 0 since the rule | ≥ 1 since the rule |
+| 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 new authors | none |
 
 The thresholds are this page's own, chosen to make a change visible; they are not project rules.
 
