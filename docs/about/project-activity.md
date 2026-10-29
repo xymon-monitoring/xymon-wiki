@@ -9,7 +9,7 @@ Each line is one question about the project, with a light: 🟢 fine, 🟡 watch
 - 🔴 **Review does not keep up with what arrives.** Of the 279 `xymon` pull requests that became ready for review since June, 144 were approved (52%).
 - 🔴 **Pull requests wait a long time.** 41 of the 81 now waiting for a first review have waited more than a month.
 - 🟡 **Review rests on few people.** 4 people do 80% of the reviewing; the busiest does 33% of it.
-- 🔴 **Code is merged without a review.** Since the review rule of 2026-09-13, 1 code change was merged in `xymon` without an approval; 4 in the whole window.
+- 🔴 **Code is merged without a review.** Since the review rule of 2026-09-13, 1 code change was merged in `xymon` without an approval; 2 in the whole window.
 - 🟡 **Few new contributors arrive.** 2 of the 6 people who opened a pull request in the last three months were new.
 
 ## Help wanted
@@ -55,7 +55,7 @@ xychart-beta
 | 2026-05 | 22 | 10 | 9 | 0 | 0 | 14 | 2 |
 | 2026-06 | 41 | 17 | 17 | 2 | 1 | 31 | 6 |
 | 2026-07 | 52 | 26 | 30 | 0 | 0 | 30 | 5 |
-| 2026-08 | 148 | 96 | 108 | 10 | 2 | 111 | 4 |
+| 2026-08 | 148 | 96 | 108 | 12 | 0 | 111 | 4 |
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
 | 2026-10 | 110 | 21 | 87 | 65 | 1 | 29 | 3 |
 
@@ -90,7 +90,7 @@ Waiting longest, oldest first — a reviewer is welcome on any of them:
 - [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (150.5 days)
 - [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (140.3 days)
 - [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (140.3 days)
-- [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (140.2 days)
+- [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (140.3 days)
 
 ## Pull requests by repository
 
@@ -116,7 +116,7 @@ A merge without an approval is **allowed** or **needing a review** by the files 
 |---|---|---|
 | documentation | under `docs/`, a manual page, a `.md` file, a configuration sample, `README*`, `RELEASENOTES`, `CREDITS` or `Changes` | yes — `CONTRIBUTING.md`'s merge table |
 | build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |
-| Solaris and macOS clients | the above, or `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |
+| AIX, Solaris and macOS clients | the above, or `client/xymonclient-aix.sh`, `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/aix.c`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |
 | code | anything else | no |
 
 The summary's lights are this page's own thresholds, chosen to make a change visible; they are not project rules:

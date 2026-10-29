@@ -97,13 +97,13 @@ def component: (.title | capture("^(?<c>[A-Za-z0-9_.+/-]+):").c) // "";
 def docs_path: test("^docs/|\\.(md|[1578]|cfg|cfg\\.DIST)$|^README|^(RELEASENOTES|CREDITS|Changes|COPYING)$");
 def build_path: test("^(build|tests|tools|\\.github)/|^configure|^Makefile");
 # This page's own allowance, not a project rule: until the first release that
-# ships them, nobody but their author can run the Solaris and macOS clients, so
-# a change to one is counted with what may merge unreviewed.
-def platform_path: test("^client/xymonclient-(darwin|sunos)\\.sh$|^xymond/client/(darwin|solaris|sunos)\\.c$");
+# ships them, nobody but their author can run the AIX, Solaris and macOS
+# clients, so a change to one is counted with what may merge unreviewed.
+def platform_path: test("^client/xymonclient-(aix|darwin|sunos)\\.sh$|^xymond/client/(aix|darwin|solaris|sunos)\\.c$");
 def paths: [.files.nodes[]?.path];
 def title_docs: (component | test("^(docs|README|RELEASING|CONTRIBUTING|AGENTS|RELEASENOTES|CREDITS|Changes)$|\\.(md|cfg|[1578])$"));
 def title_build: (component | test("^(build|ci|tests|tools)$"));
-def title_platform: (component | test("^(client|xymonclient-(darwin|sunos)|darwin|solaris|sunos)$")) and (.title | test("darwin|macos|solaris|sunos"; "i"));
+def title_platform: (component | test("^(client|xymonclient-(aix|darwin|sunos)|aix|darwin|solaris|sunos)$")) and (.title | test("aix|darwin|macos|solaris|sunos"; "i"));
 def is_docs: if (paths|length) > 0 then (paths | all(docs_path)) else title_docs end;
 def is_build: if (paths|length) > 0 then ((paths | all(docs_path or build_path)) and (is_docs|not)) else title_build end;
 def is_platform: if (paths|length) > 0 then ((paths | all(docs_path or build_path or platform_path)) and (is_docs|not) and (is_build|not)) else title_platform end;
@@ -254,7 +254,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "|---|---|---|",
   "| documentation | under `docs/`, a manual page, a `.md` file, a configuration sample, `README*`, `RELEASENOTES`, `CREDITS` or `Changes` | yes — `CONTRIBUTING.md`'s merge table |",
   "| build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |",
-  "| Solaris and macOS clients | the above, or `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |",
+  "| AIX, Solaris and macOS clients | the above, or `client/xymonclient-aix.sh`, `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/aix.c`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |",
   "| code | anything else | no |",
   "",
   "The summary's lights are this page's own thresholds, chosen to make a change visible; they are not project rules:",
