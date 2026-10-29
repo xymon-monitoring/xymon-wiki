@@ -1,6 +1,6 @@
 # Project activity
 
-Generated 2026-10-01 by `tools/project-activity.sh`, from the GitHub API. Window: pull requests opened since 2025-10-01, in the organisation's public repositories. No person is named here; the numbers are counts.
+Generated 2026-10-29 by `tools/project-activity.sh`, from the GitHub API. Window: pull requests opened since 2025-10-29, in the organisation's public repositories. No person is named here; the numbers are counts.
 
 **Waiting for review** means ready (not a draft), still open, and without an approval from someone other than its author; it is measured from the first time the pull request was ready. A **review** is a GitHub review by someone other than the author; a plain comment is not one.
 
@@ -38,9 +38,9 @@ The estimate divides the arrivals by one reviewer's pace; it is a range read fro
 | | Question | Value | 🟢 when | 🔴 when |
 |---|---|---|---|---|
 | 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 279 became ready · 144 approved (52%) | ≥ 90% approved | < 60% |
-| 🔴 | Ready pull requests waiting more than 30 days | 42 of 63 waiting | ≤ 5 | > 20 |
-| 🟡 | People doing 80% of the reviews | 4 (busiest: 37% of all reviews) | ≥ 6 | ≤ 3 |
-| 🟢 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 0 | 0 | ≥ 1 |
+| 🔴 | Ready pull requests waiting more than 30 days | 41 of 81 waiting | ≤ 5 | > 20 |
+| 🟡 | People doing 80% of the reviews | 4 (busiest: 33% of all reviews) | ≥ 6 | ≤ 3 |
+| 🔴 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 11 | 0 | ≥ 1 |
 | 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 | 0 |
 
 The thresholds are this page's own, chosen to make a change visible; they are not project rules.
@@ -60,10 +60,11 @@ Organisation owners: 13. Their activity is not published here: how many administ
 
 | Repository | Opened | Merged | Merged with an approval | Merged without | Merged by their own author | Closed unmerged | Open |
 |---|---|---|---|---|---|---|---|
-| `xymon` | 359 | 200 | 174 | 26 | 127 | 74 | 85 |
-| `xymon-rpm` | 79 | 71 | 0 | 71 | 70 | 2 | 6 |
-| `xymon-wiki` | 27 | 27 | 0 | 27 | 27 | 0 | 0 |
-| `homebrew-xymon` | 18 | 18 | 0 | 18 | 18 | 0 | 0 |
+| `xymon` | 465 | 285 | 195 | 90 | 212 | 79 | 101 |
+| `xymon-rpm` | 100 | 94 | 0 | 94 | 92 | 3 | 3 |
+| `xymon-wiki` | 29 | 29 | 0 | 29 | 29 | 0 | 0 |
+| `homebrew-xymon` | 20 | 20 | 0 | 20 | 20 | 0 | 0 |
+| `xymon-experimental` | 18 | 18 | 0 | 18 | 18 | 0 | 0 |
 | `xymon-discussion-public` | 4 | 4 | 0 | 4 | 4 | 0 | 0 |
 | `xymon-plugins` | 3 | 2 | 0 | 2 | 0 | 0 | 1 |
 | `xymon-client-windows-powershell` | 2 | 1 | 0 | 1 | 1 | 0 | 1 |
@@ -72,20 +73,20 @@ Organisation owners: 13. Their activity is not published here: how many administ
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
 xychart-beta horizontal
     title "Share of merges that had an approval, by repository"
-    x-axis ["xymon", "xymon-rpm", "xymon-wiki", "homebrew-xymon", "xymon-discussion-public", "xymon-plugins", "xymon-client-windows-powershell"]
-    y-axis "% of merges" 0 --> 105
-    bar [87, 0, 0, 0, 0, 0, 0]
+    x-axis ["xymon", "xymon-rpm", "xymon-wiki", "homebrew-xymon", "xymon-experimental", "xymon-discussion-public", "xymon-plugins", "xymon-client-windows-powershell"]
+    y-axis "% of merges" 0 --> 80
+    bar [68, 0, 0, 0, 0, 0, 0, 0]
 ```
 
 ## Review in `xymon`
 
 | Measure | Value |
 |---|---|
-| Review verdicts | approved 177 · changes requested 3 · commented 41 · dismissed 14 |
-| Merged with an approval | 174 of 200 (87%) |
-| Merged without an approval: documentation / build, CI, tests / code | 15 / 5 / 6 |
-| Time from ready to first approval: median / mean / longest | 2.7 days / 12.9 days / 134.9 days |
-| Time from ready to merge: median / slowest tenth | 2.5 days / 43.2 days |
+| Review verdicts | approved 199 · changes requested 4 · commented 47 · dismissed 14 |
+| Merged with an approval | 195 of 285 (68%) |
+| Merged without an approval: documentation / build, CI, tests / code | 26 / 47 / 17 |
+| Time from ready to first approval: median / mean / longest | 2.5 days / 13.6 days / 142.9 days |
+| Time from ready to merge: median / slowest tenth | 1.3 days / 40.1 days |
 
 Classification by title: a title starting `docs:`, a manual page, `README:`, `RELEASING:`, `CONTRIBUTING:` or `AGENTS:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.
 
@@ -99,8 +100,8 @@ xychart-beta
     title "Review requests and approvals, by month"
     x-axis ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"]
     y-axis "Pull requests" 0 --> 175
-    bar [22, 9, 2, 4, 22, 41, 52, 148, 38, 3]
-    line [10, 9, 0, 2, 10, 17, 26, 96, 5, 0]
+    bar [22, 9, 2, 4, 22, 41, 52, 148, 38, 110]
+    line [10, 9, 0, 2, 10, 17, 26, 96, 5, 21]
 ```
 
 | Month | Became ready | Approved | Merged | Merged without an approval | Reviews | Reviewers |
@@ -114,7 +115,7 @@ xychart-beta
 | 2026-07 | 52 | 26 | 30 | 0 | 30 | 5 |
 | 2026-08 | 148 | 96 | 108 | 12 | 111 | 4 |
 | 2026-09 | 38 | 5 | 14 | 9 | 5 | 4 |
-| 2026-10 | 3 | 0 | 2 | 2 | 0 | 0 |
+| 2026-10 | 110 | 21 | 87 | 66 | 29 | 3 |
 
 ## Who reviews
 
@@ -123,10 +124,10 @@ Reviews submitted, by rank; each slice and each column is one person.
 ```mermaid
 pie showData title Share of all reviews, by reviewer rank
     "#1" : 87
-    "#2" : 47
-    "#3" : 41
+    "#2" : 56
+    "#3" : 51
     "#4" : 33
-    "#5" : 20
+    "#5" : 30
     "#6" : 3
     "#7" : 1
     "#8" : 1
@@ -136,32 +137,32 @@ pie showData title Share of all reviews, by reviewer rank
 
 | Rank | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| Reviews | 87 | 47 | 41 | 33 | 20 | 3 | 1 | 1 | 1 | 1 |
+| Reviews | 87 | 56 | 51 | 33 | 30 | 3 | 1 | 1 | 1 | 1 |
 
 ## Waiting for review
 
 | Measure | Value |
 |---|---|
-| Waiting now | 63 |
-| Waiting: median / mean / longest | 37.6 days / 48.3 days / 253.1 days |
-| More than 30 / 90 days | 42 / 12 |
+| Waiting now | 81 |
+| Waiting: median / mean / longest | 36.9 days / 49.5 days / 153.3 days |
+| More than 30 / 90 days | 41 / 11 |
 
 ```mermaid
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
 xychart-beta
     title "Ready pull requests waiting, by time waited"
     x-axis ["under 7 days", "7 to 30 days", "30 to 90 days", "over 90 days"]
-    y-axis "Pull requests" 0 --> 35
-    bar [3, 18, 30, 12]
+    y-axis "Pull requests" 0 --> 45
+    bar [5, 35, 30, 11]
 ```
 
 Waiting longest, oldest first — a reviewer is welcome on any of them:
 
-- [xymon#36](https://github.com/xymon-monitoring/xymon/pull/36) — ci: build on FreeBSD, OpenBSD, NetBSD and in Debian and RPM containers (253.1 days)
-- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (125.6 days)
-- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: integrate SNMP into the configure framework (consistent, off by default) (122.8 days)
-- [xymon#138](https://github.com/xymon-monitoring/xymon/pull/138) — build: drop bundled c-ares 1.15.0, build against system c-ares (122 days)
-- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — snmpcollect: don't fail over to the next IP on NOSUCHNAME (fixes #137) (112.6 days)
+- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (153.3 days)
+- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (150.5 days)
+- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (140.3 days)
+- [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (140.2 days)
+- [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (140.2 days)
 
 ## Not counted
 
