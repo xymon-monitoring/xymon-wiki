@@ -75,9 +75,32 @@ query($owner:String!, $repo:String!, $endCursor:String) {
 	| jq -c --arg repo "$repo" '. + {repo:$repo}' >> "$work/prs.jsonl"
 done < "$work/repos"
 
+# ---- comment-only edits ----------------------------------------------------
+# A merge without an approval whose code files changed only comment lines is
+# allowed by the merge table's "typo, comment" row. Only the candidates are
+# looked at: xymon pull requests merged since the review rule with no approval
+# and a file outside the documentation, build and platform sets.
+allowed_re='^docs/|\.(md|[1578]|cfg|cfg\.DIST)$|^README|^(RELEASENOTES|CREDITS|Changes|COPYING)$|^(build|tests|tools|\.github)/|^configure|^Makefile|^client/xymonclient-(aix|darwin|sunos)\.sh$|^xymond/client/(aix|darwin|solaris|sunos)\.c$'
+: > "$work/comment-only"
+jq -r --arg rule "$rule_date" --arg re "$allowed_re" '
+  select(.repo=="xymon" and .mergedAt != null and .mergedAt >= $rule)
+  | . as $p
+  | select(([.reviews.nodes[] | select(.state=="APPROVED" and .author.login != $p.author.login)] | length) == 0)
+  | select([.files.nodes[]?.path] | length > 0 and any(test($re) | not))
+  | .number' "$work/prs.jsonl" | while read -r n; do
+	verdict=$(gh api "repos/$org/xymon/pulls/$n/files" 2>/dev/null | jq -r --arg re "$allowed_re" '
+	  [ .[] | select(.filename | test($re) | not) | .patch // "" | split("\n")[]
+	    | select(test("^[-+]") and (test("^[-+]{3} ") | not))
+	    | sub("^[-+]"; "") | gsub("^[[:space:]]+|[[:space:]]+$"; "")
+	    | select(. != "") ]
+	  | if length > 0 and all(test("^(/\\*|\\*|//|#)")) then "yes" else "no" end' 2>/dev/null || true)
+	if [ "$verdict" = yes ]; then echo "$n" >> "$work/comment-only"; fi
+done
+
 # ---- compute and write -----------------------------------------------------
 
 jq -s -r --arg now "$now" --arg since "$since" --arg rule "$rule_date" \
+	--argjson commentonly "$(jq -R 'tonumber' "$work/comment-only" | jq -s .)" \
 	-f /dev/stdin "$work/prs.jsonl" > "$work/page.md" <<'JQ'
 def h(a;b): (((b|fromdateiso8601)-(a|fromdateiso8601))/3600);
 def d(a;b): (h(a;b)/24);
@@ -107,7 +130,8 @@ def title_platform: (component | test("^(client|xymonclient-(aix|darwin|sunos)|a
 def is_docs: if (paths|length) > 0 then (paths | all(docs_path)) else title_docs end;
 def is_build: if (paths|length) > 0 then ((paths | all(docs_path or build_path)) and (is_docs|not)) else title_build end;
 def is_platform: if (paths|length) > 0 then ((paths | all(docs_path or build_path or platform_path)) and (is_docs|not) and (is_build|not)) else title_platform end;
-def is_allowed: (is_docs or is_build or is_platform);
+def is_comment_only: (.repo=="xymon") and (.number as $n | $commentonly | index($n) != null);
+def is_allowed: (is_docs or is_build or is_platform or is_comment_only);
 def row: "| " + join(" | ") + " |";
 # light(good; bad): 🟢 when the good test holds, 🔴 when the bad one does, 🟡 between.
 def light(good; bad): if good then "🟢" elif bad then "🔴" else "🟡" end;
@@ -163,7 +187,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
       "- \(light($r_in==0 or $r_ap >= 0.9*$r_in; $r_ap < 0.6*$r_in)) **Review does not keep up with what arrives.** Of the \($r_in) `xymon` pull requests that became ready for review since \($since_month), \($r_ap) were approved (\(pct($r_ap;$r_in))).",
       "- \(light($w30 <= 5; $w30 > 20)) **Pull requests wait a long time.** \($w30) of the \($wait|length) now waiting for a first review have waited more than a month.",
       "- \(light($p80 >= 6; $p80 <= 3)) **Review rests on few people.** \($p80) \(if $p80==1 then "person does" else "people do" end) 80% of the reviewing; the busiest does \(pct($ranks[0]//0; $rtotal)) of it.",
-      "- \(light($cna == 0; $cna > 0)) **Code is merged without a review.** Since the review rule of \($rule), \($cna) code \(if $cna==1 then "change was" else "changes were" end) merged in `xymon` without an approval; \($code_noappr|length) in the whole window.",
+      "- \(light($cna == 0; $cna > 0)) **\(if $cna==0 then "No code is merged without a review." else "Code is merged without a review." end)** Since the review rule of \($rule), \(if $cna==0 then "no" else "\($cna)" end) code \(if $cna==1 then "change was" else "changes were" end) merged in `xymon` without an approval. Before the rule no review was asked for, so earlier merges are not counted.",
       "- \(light($q_new >= 3; $q_new == 0)) **Few new contributors arrive.** \($q_new) of the \($q_authors|length) people who opened a pull request in the last three months \(if $q_new==1 then "was" else "were" end) new." ),
   "",
   "## Help wanted",
@@ -255,6 +279,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "| documentation | under `docs/`, a manual page, a `.md` file, a configuration sample, `README*`, `RELEASENOTES`, `CREDITS` or `Changes` | yes — `CONTRIBUTING.md`'s merge table |",
   "| build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |",
   "| AIX, Solaris and macOS clients | the above, or `client/xymonclient-aix.sh`, `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/aix.c`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |",
+  "| comment | a code file whose changed lines are all comment lines | yes — the same table's \"typo, comment\" row |",
   "| code | anything else | no |",
   "",
   "The summary's lights are this page's own thresholds, chosen to make a change visible; they are not project rules:",

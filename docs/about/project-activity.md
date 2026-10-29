@@ -9,7 +9,7 @@ Each line is one question about the project, with a light: 🟢 fine, 🟡 watch
 - 🔴 **Review does not keep up with what arrives.** Of the 279 `xymon` pull requests that became ready for review since June, 144 were approved (52%).
 - 🔴 **Pull requests wait a long time.** 41 of the 81 now waiting for a first review have waited more than a month.
 - 🟡 **Review rests on few people.** 4 people do 80% of the reviewing; the busiest does 33% of it.
-- 🔴 **Code is merged without a review.** Since the review rule of 2026-09-13, 1 code change was merged in `xymon` without an approval; 2 in the whole window.
+- 🟢 **No code is merged without a review.** Since the review rule of 2026-09-13, no code changes were merged in `xymon` without an approval. Before the rule no review was asked for, so earlier merges are not counted.
 - 🟡 **Few new contributors arrive.** 2 of the 6 people who opened a pull request in the last three months were new.
 
 ## Help wanted
@@ -57,7 +57,7 @@ xychart-beta
 | 2026-07 | 52 | 26 | 30 | 0 | 0 | 30 | 5 |
 | 2026-08 | 148 | 96 | 108 | 12 | 0 | 111 | 4 |
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
-| 2026-10 | 110 | 21 | 87 | 65 | 1 | 29 | 3 |
+| 2026-10 | 110 | 21 | 87 | 66 | 0 | 29 | 3 |
 
 Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one.
 
@@ -117,6 +117,7 @@ A merge without an approval is **allowed** or **needing a review** by the files 
 | documentation | under `docs/`, a manual page, a `.md` file, a configuration sample, `README*`, `RELEASENOTES`, `CREDITS` or `Changes` | yes — `CONTRIBUTING.md`'s merge table |
 | build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |
 | AIX, Solaris and macOS clients | the above, or `client/xymonclient-aix.sh`, `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/aix.c`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |
+| comment | a code file whose changed lines are all comment lines | yes — the same table's "typo, comment" row |
 | code | anything else | no |
 
 The summary's lights are this page's own thresholds, chosen to make a change visible; they are not project rules:
