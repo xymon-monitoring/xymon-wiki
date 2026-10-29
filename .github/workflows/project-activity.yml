@@ -23,11 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ORG_READ_TOKEN (read:org) is needed for the groups table; without it
-      # the page is still written and says that table is unavailable.
       - name: Generate the page
         env:
-          GH_TOKEN: ${{ secrets.ORG_READ_TOKEN || github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: tools/project-activity.sh
 
       - name: Commit and deploy if it changed

@@ -45,17 +45,6 @@ The estimate divides the arrivals by one reviewer's pace; it is a range read fro
 
 The thresholds are this page's own, chosen to make a change visible; they are not project rules.
 
-## Groups
-
-What each group grants and expects is on [Project organisation](project-organisation.md).
-
-| Group | Holders | Reviewed others' pull requests (≥1) | (≥5) | Opened a pull request (≥1) | Neither |
-|---|---|---|---|---|---|
-| maintainers | 10 | 7 | 5 | 6 | 2 |
-| contributors | 10 | 3 | 0 | 3 | 6 |
-
-Organisation owners: 13. Their activity is not published here: how many administrator accounts are idle is a security question, and it is tracked where access is managed.
-
 ## Pull requests by repository
 
 Only `xymon` asks for a review before a merge; the other repositories are pushed to directly, so a merge without an approval there is the normal way.
@@ -71,29 +60,7 @@ Only `xymon` asks for a review before a merge; the other repositories are pushed
 | `xymon-plugins` | 3 | 2 | 0 | 2 | 0 | 0 | 1 |
 | `xymon-client-windows-powershell` | 2 | 1 | 0 | 1 | 1 | 0 | 1 |
 
-```mermaid
-%%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
-xychart-beta horizontal
-    title "Share of merges that had an approval, by repository"
-    x-axis ["xymon", "xymon-rpm", "xymon-wiki", "homebrew-xymon", "xymon-experimental", "xymon-discussion-public", "xymon-plugins", "xymon-client-windows-powershell"]
-    y-axis "% of merges" 0 --> 80
-    bar [68, 0, 0, 0, 0, 0, 0, 0]
-```
-
 ## Review in `xymon`
-
-| Measure | Value |
-|---|---|
-| Review verdicts | approved 199 · changes requested 4 · commented 47 · dismissed 14 |
-| Merged with an approval | 195 of 285 (68%) |
-| Merged without an approval, allowed by the merge table: documentation / build, CI, tests | 33 / 47 |
-| Merged without an approval, needing a review: code | 10 |
-| Time from ready to first approval: median / mean / longest | 2.5 days / 13.6 days / 142.9 days |
-| Time from ready to merge: median / slowest tenth | 1.3 days / 40.1 days |
-
-`CONTRIBUTING.md`'s merge table lets documentation, build, CI and test changes merge without a review; code — a bug fix, a feature, a refactoring — needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.
-
-## By month (`xymon`)
 
 Bars: pull requests that became ready for review. Line: approvals. The gap between them is review that did not happen.
 
@@ -120,25 +87,11 @@ xychart-beta
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
 | 2026-10 | 110 | 21 | 87 | 62 | 4 | 29 | 3 |
 
-## Who reviews
+Over the whole window, 195 of 285 merges had an approval (68%); of the rest, 80 were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, and 10 were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.
 
-Reviews submitted, by rank; each slice and each column is one person.
+Reviews submitted, by reviewer; each column is one person.
 
-```mermaid
-pie showData title Share of all reviews, by reviewer rank
-    "#1" : 87
-    "#2" : 56
-    "#3" : 51
-    "#4" : 33
-    "#5" : 30
-    "#6" : 3
-    "#7" : 1
-    "#8" : 1
-    "#9" : 1
-    "#10" : 1
-```
-
-| Rank | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+| Reviewer | #1 | #2 | #3 | #4 | #5 | #6 | #7 | #8 | #9 | #10 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Reviews | 87 | 56 | 51 | 33 | 30 | 3 | 1 | 1 | 1 | 1 |
 

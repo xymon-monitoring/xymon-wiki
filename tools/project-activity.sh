@@ -14,10 +14,6 @@
 #   --out    page to write (default docs/about/project-activity.md)
 #   --since  start of the window (default: 365 days before now)
 #
-# The groups table needs a token that can read team membership and org roles
-# (GH_TOKEN with read:org). Without one it is marked unavailable and the rest
-# of the page is still written.
-#
 # Needs: gh (authenticated), jq.
 
 set -eu
@@ -78,31 +74,10 @@ query($owner:String!, $repo:String!, $endCursor:String) {
 	| jq -c --arg repo "$repo" '. + {repo:$repo}' >> "$work/prs.jsonl"
 done < "$work/repos"
 
-# Groups: optional, needs read:org.
-groups_ok=1
-{
-	gh api --paginate "orgs/$org/members?role=admin&per_page=100" --jq '.[].login' > "$work/g-owners" &&
-	gh api --paginate "orgs/$org/members?per_page=100" --jq '.[].login' > "$work/g-members" &&
-	gh api --paginate "orgs/$org/teams/maintainers/members?per_page=100" --jq '.[].login' > "$work/g-maintainers" &&
-	gh api --paginate "orgs/$org/teams/contributors/members?per_page=100" --jq '.[].login' > "$work/g-contributors"
-} 2>/dev/null || groups_ok=0
-# Without read:org, the members API answers with public members only; that
-# is not the membership, so treat an owner list shorter than 1 as unavailable.
-[ "$groups_ok" = 1 ] && [ -s "$work/g-owners" ] || groups_ok=0
-
-tojson() { jq -R . "$1" | jq -s .; }
-if [ "$groups_ok" = 1 ]; then
-	jq -n --argjson o "$(tojson "$work/g-owners")" --argjson m "$(tojson "$work/g-members")" \
-	      --argjson mt "$(tojson "$work/g-maintainers")" --argjson c "$(tojson "$work/g-contributors")" \
-	      '{owners:$o, members:$m, maintainers:$mt, contributors:$c}' > "$work/groups.json"
-else
-	echo 'null' > "$work/groups.json"
-fi
-
 # ---- compute and write -----------------------------------------------------
 
 jq -s -r --arg now "$now" --arg since "$since" --arg rule "$rule_date" \
-	--slurpfile G "$work/groups.json" -f /dev/stdin "$work/prs.jsonl" > "$work/page.md" <<'JQ'
+	-f /dev/stdin "$work/prs.jsonl" > "$work/page.md" <<'JQ'
 def h(a;b): (((b|fromdateiso8601)-(a|fromdateiso8601))/3600);
 def d(a;b): (h(a;b)/24);
 def med: sort | if length==0 then null else .[(length/2|floor)] end;
@@ -201,18 +176,6 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "",
   "The thresholds are this page's own, chosen to make a change visible; they are not project rules.",
   "",
-  ( if $G[0] == null then
-      "## Groups\n\nUnavailable: reading team membership needs a token with `read:org`."
-    else
-      ($G[0]) as $g
-      | def act($u): {o:($all|map(select(.author.login==$u))|length), r:($all|map(select([.rv[]|select(.author.login==$u)]|length>0))|length)};
-        def grow(name; list): (list | map(act(.))) as $a
-          | [name, "\(list|length)", "\($a|map(select(.r>=1))|length)", "\($a|map(select(.r>=5))|length)", "\($a|map(select(.o>=1))|length)", "\($a|map(select(.o==0 and .r==0))|length)"] | row;
-      "## Groups\n\nWhat each group grants and expects is on [Project organisation](project-organisation.md).\n\n| Group | Holders | Reviewed others' pull requests (≥1) | (≥5) | Opened a pull request (≥1) | Neither |\n|---|---|---|---|---|---|\n"
-      + grow("maintainers"; $g.maintainers) + "\n" + grow("contributors"; $g.contributors)
-      + "\n\nOrganisation owners: \($g.owners|length). Their activity is not published here: how many administrator accounts are idle is a security question, and it is tracked where access is managed."
-    end ),
-  "",
   "## Pull requests by repository",
   "",
   "Only `xymon` asks for a review before a merge; the other repositories are pushed to directly, so a merge without an approval there is the normal way.",
@@ -225,24 +188,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
         "\($g|map(select(.mergedAt and .author.login==.mergedBy.login))|length)",
         "\($g|map(select(.state=="CLOSED"))|length)", "\($g|map(select(.state=="OPEN"))|length)" ] | row ),
   "",
-  ( ( [ $all | group_by(.repo)[] | select(map(select(.mergedAt))|length > 0)
-      | {r:.[0].repo, n:(map(select(.mergedAt))|length), a:(map(select(.mergedAt and .ap))|length)} ] | sort_by(-.n) ) as $rp
-  | mm_bar_o(" horizontal"; "Share of merges that had an approval, by repository"; "% of merges"; ($rp|map(.r)); ($rp|map((.a*100/.n)|round)))),
-  "",
   "## Review in `xymon`",
-  "",
-  "| Measure | Value |",
-  "|---|---|",
-  (["Review verdicts", ([$x[] | .rv[] | .state] | group_by(.) | map("\(.[0]|ascii_downcase|gsub("_";" ")) \(length)") | join(" · "))] | row),
-  (["Merged with an approval", "\($xm|map(select(.ap))|length) of \($xm|length) (\(pct($xm|map(select(.ap))|length; $xm|length)))"] | row),
-  (["Merged without an approval, allowed by the merge table: documentation / build, CI, tests", "\($xm|map(select(.ap==null and is_docs))|length) / \($xm|map(select(.ap==null and is_build))|length)"] | row),
-  (["Merged without an approval, needing a review: code", "\($xm|map(select(.ap==null and (is_docs|not) and (is_build|not)))|length)"] | row),
-  (["Time from ready to first approval: median / mean / longest", "\($x|map(select(.ap and .fr and .fr <= .ap)|d(.fr;.ap))|med|fmt_d) / \($x|map(select(.ap and .fr and .fr <= .ap)|d(.fr;.ap))|mean|fmt_d) / \($x|map(select(.ap and .fr and .fr <= .ap)|d(.fr;.ap))|max|fmt_d)"] | row),
-  (["Time from ready to merge: median / slowest tenth", "\($xm|map(select(.fr)|d(.fr;.mergedAt))|med|fmt_d) / \($xm|map(select(.fr)|d(.fr;.mergedAt))|p90|fmt_d)"] | row),
-  "",
-  "`CONTRIBUTING.md`'s merge table lets documentation, build, CI and test changes merge without a review; code — a bug fix, a feature, a refactoring — needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.",
-  "",
-  "## By month (`xymon`)",
   "",
   "Bars: pull requests that became ready for review. Line: approvals. The gap between them is review that did not happen.",
   "",
@@ -259,16 +205,12 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
         "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_docs or is_build)))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_docs|not) and (is_build|not)))|length)",
         "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)]|length)", "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)|.author.login]|unique|length)" ] | row ),
   "",
-  "## Who reviews",
+  "Over the whole window, \($xm|map(select(.ap))|length) of \($xm|length) merges had an approval (\(pct($xm|map(select(.ap))|length; $xm|length))); of the rest, \($xm|map(select(.ap==null and (is_docs or is_build)))|length) were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, and \($xm|map(select(.ap==null and (is_docs|not) and (is_build|not)))|length) were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.",
   "",
-  "Reviews submitted, by rank; each slice and each column is one person.",
-  "",
-  ( if ($ranks|length)==0 then empty else
-    "```mermaid", "pie showData title Share of all reviews, by reviewer rank",
-    ( $ranks | to_entries[] | "    \"#\(.key+1)\" : \(.value)" ), "```" end ),
+  "Reviews submitted, by reviewer; each column is one person.",
   "",
   ( if ($ranks|length)==0 then "No reviews in the window." else
-    ("| Rank | " + ([range(1; ($ranks|length)+1)] | map(tostring) | join(" | ")) + " |"),
+    ("| Reviewer | " + ([range(1; ($ranks|length)+1)] | map("#\(.)") | join(" | ")) + " |"),
     ("|---|" + ([$ranks[]] | map("---|") | join(""))),
     ("| Reviews | " + ($ranks | map(tostring) | join(" | ")) + " |") end ),
   "",
