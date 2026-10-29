@@ -78,12 +78,12 @@ done < "$work/repos"
 # ---- comment-only edits ----------------------------------------------------
 # A merge without an approval whose code files changed only comment lines is
 # allowed by the merge table's "typo, comment" row. Only the candidates are
-# looked at: xymon pull requests merged since the review rule with no approval
-# and a file outside the documentation, build and platform sets.
+# looked at: xymon pull requests merged with no approval and a file outside the
+# documentation, build and platform sets.
 allowed_re='^docs/|\.(md|[1578]|cfg|cfg\.DIST)$|^README|^(RELEASENOTES|CREDITS|Changes|COPYING)$|^(build|tests|tools|\.github)/|^configure|^Makefile|^client/xymonclient-(aix|darwin|sunos)\.sh$|^xymond/client/(aix|darwin|solaris|sunos)\.c$'
 : > "$work/comment-only"
 jq -r --arg rule "$rule_date" --arg re "$allowed_re" '
-  select(.repo=="xymon" and .mergedAt != null and .mergedAt >= $rule)
+  select(.repo=="xymon" and .mergedAt != null)
   | . as $p
   | select(([.reviews.nodes[] | select(.state=="APPROVED" and .author.login != $p.author.login)] | length) == 0)
   | select([.files.nodes[]?.path] | length > 0 and any(test($re) | not))
@@ -187,7 +187,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
       "- \(light($r_in==0 or $r_ap >= 0.9*$r_in; $r_ap < 0.6*$r_in)) **Review does not keep up with what arrives.** Of the \($r_in) `xymon` pull requests that became ready for review since \($since_month), \($r_ap) were approved (\(pct($r_ap;$r_in))).",
       "- \(light($w30 <= 5; $w30 > 20)) **Pull requests wait a long time.** \($w30) of the \($wait|length) now waiting for a first review have waited more than a month.",
       "- \(light($p80 >= 6; $p80 <= 3)) **Review rests on few people.** \($p80) \(if $p80==1 then "person does" else "people do" end) 80% of the reviewing; the busiest does \(pct($ranks[0]//0; $rtotal)) of it.",
-      "- \(light($cna == 0; $cna > 0)) **\(if $cna==0 then "No code is merged without a review." else "Code is merged without a review." end)** Since the review rule of \($rule), \(if $cna==0 then "no" else "\($cna)" end) code \(if $cna==1 then "change was" else "changes were" end) merged in `xymon` without an approval. Before the rule no review was asked for, so earlier merges are not counted.",
+      "- \(light($cna == 0; $cna > 0)) **\(if $cna==0 then "No code is merged without a review." else "Code is merged without a review." end)** Since \($rule), when `CONTRIBUTING.md` wrote the review rule down, \(if $cna==0 then "no" else "\($cna)" end) code \(if $cna==1 then "change was" else "changes were" end) merged in `xymon` without an approval.",
       "- \(light($q_new >= 3; $q_new == 0)) **Few new contributors arrive.** \($q_new) of the \($q_authors|length) people who opened a pull request in the last three months \(if $q_new==1 then "was" else "were" end) new." ),
   "",
   "## Help wanted",
@@ -227,7 +227,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
         "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and is_allowed))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_allowed|not)))|length)",
         "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)]|length)", "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)|.author.login]|unique|length)" ] | row ),
   "",
-  "Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month; months before the first pull request in the window are left out. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one. Before the review rule of \($rule) no approval was required, so in those months the column shows what would need one under today's table; the comment check is applied only since the rule.",
+  "Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month; months before the first pull request in the window are left out. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one. The summary counts from \($rule), the day `CONTRIBUTING.md` wrote the review rule down; the column classifies every month the same way.",
   "",
   "Reviews submitted, by reviewer; each column is one person.",
   "",
@@ -289,7 +289,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "| review keeps up | ≥ 90% of what became ready in the last four whole months was approved | < 60% |",
   "| pull requests wait | ≤ 5 have waited more than 30 days | > 20 |",
   "| review rests on few people | ≥ 6 people do 80% of the reviews | ≤ 3 |",
-  "| code merged without a review | none since the review rule | ≥ 1 |",
+  "| code merged without a review | none since the rule was written down | ≥ 1 |",
   "| new contributors | ≥ 3 in the last three months | none |",
   "",
   "**Not counted**: discussion on the mailing list and in chat; reviews given as plain comments; an owner's administrative work; changes pushed without a pull request, which is how most wiki pages are written."

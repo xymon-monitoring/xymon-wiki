@@ -9,7 +9,7 @@ Each line is one question about the project, with a light: 🟢 fine, 🟡 watch
 - 🔴 **Review does not keep up with what arrives.** Of the 279 `xymon` pull requests that became ready for review since June, 144 were approved (52%).
 - 🔴 **Pull requests wait a long time.** 41 of the 81 now waiting for a first review have waited more than a month.
 - 🟡 **Review rests on few people.** 4 people do 80% of the reviewing; the busiest does 33% of it.
-- 🟢 **No code is merged without a review.** Since the review rule of 2026-09-13, no code changes were merged in `xymon` without an approval. Before the rule no review was asked for, so earlier merges are not counted.
+- 🟢 **No code is merged without a review.** Since 2026-09-13, when `CONTRIBUTING.md` wrote the review rule down, no code changes were merged in `xymon` without an approval.
 - 🟡 **Few new contributors arrive.** 2 of the 6 people who opened a pull request in the last three months were new.
 
 ## Help wanted
@@ -59,7 +59,7 @@ xychart-beta
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
 | 2026-10 | 110 | 21 | 87 | 66 | 0 | 29 | 3 |
 
-Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month; months before the first pull request in the window are left out. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one. Before the review rule of 2026-09-13 no approval was required, so in those months the column shows what would need one under today's table; the comment check is applied only since the rule.
+Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month; months before the first pull request in the window are left out. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one. The summary counts from 2026-09-13, the day `CONTRIBUTING.md` wrote the review rule down; the column classifies every month the same way.
 
 Reviews submitted, by reviewer; each column is one person.
 
@@ -127,7 +127,7 @@ The summary's lights are this page's own thresholds, chosen to make a change vis
 | review keeps up | ≥ 90% of what became ready in the last four whole months was approved | < 60% |
 | pull requests wait | ≤ 5 have waited more than 30 days | > 20 |
 | review rests on few people | ≥ 6 people do 80% of the reviews | ≤ 3 |
-| code merged without a review | none since the review rule | ≥ 1 |
+| code merged without a review | none since the rule was written down | ≥ 1 |
 | new contributors | ≥ 3 in the last three months | none |
 
 **Not counted**: discussion on the mailing list and in chat; reviews given as plain comments; an owner's administrative work; changes pushed without a pull request, which is how most wiki pages are written.
