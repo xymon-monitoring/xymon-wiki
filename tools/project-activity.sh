@@ -93,6 +93,11 @@ def first_ready(p): ([p.timelineItems.nodes[] | {t:.__typename, at:.createdAt}] 
 def component: (.title | capture("^(?<c>[A-Za-z0-9_.+/-]+):").c) // "";
 def is_docs: (component | test("^(docs|README|RELEASING|CONTRIBUTING|AGENTS|RELEASENOTES|CREDITS|Changes)$|\\.(md|cfg|[1578])$"));
 def is_build: (component | test("^(build|ci|tests|tools)$"));
+# This page's own allowance, not a project rule: until the first release that
+# ships them, nobody but their author can run the Solaris and macOS clients, so
+# a change to one is counted with what may merge unreviewed.
+def is_platform: (component | test("^(client|xymonclient-(darwin|sunos)|darwin|solaris|sunos)$")) and (.title | test("darwin|macos|solaris|sunos"; "i"));
+def is_allowed: (is_docs or is_build or is_platform);
 def row: "| " + join(" | ") + " |";
 # light(good; bad): 🟢 when the good test holds, 🔴 when the bad one does, 🟡 between.
 def light(good; bad): if good then "🟢" elif bad then "🔴" else "🟡" end;
@@ -131,7 +136,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
 | (if ($perrev//0) > 0 then (($inflow/$perrev)|ceil) else null end) as $needed
 | ([$all[] | select(.createdAt[0:7] as $m | $months[-3:]|index($m)) | .author.login] | unique) as $q_authors
 | ($all | group_by(.author.login) | map(min_by(.createdAt)) | map(select(.createdAt[0:7] as $m | $months[-3:]|index($m))) | length) as $q_new
-| ($x | map(select(.mergedAt and .ap==null and (is_docs|not) and (is_build|not)))) as $code_noappr
+| ($x | map(select(.mergedAt and .ap==null and (is_allowed|not)))) as $code_noappr
 | "# Project activity",
   "",
   "Generated \($now[0:10]) by `tools/project-activity.sh`, from the GitHub API. Window: pull requests opened since \($since), in the organisation's public repositories. No person is named here; the numbers are counts.",
@@ -202,10 +207,10 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "|---|---|---|---|---|---|---|---|",
   ( $months[] as $m
     | [ $m, "\($x|map(select(.fr and .fr[0:7]==$m))|length)", "\($x|map(select(.ap and .ap[0:7]==$m))|length)",
-        "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_docs or is_build)))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_docs|not) and (is_build|not)))|length)",
+        "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and is_allowed))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_allowed|not)))|length)",
         "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)]|length)", "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)|.author.login]|unique|length)" ] | row ),
   "",
-  "Over the whole window, \($xm|map(select(.ap))|length) of \($xm|length) merges had an approval (\(pct($xm|map(select(.ap))|length; $xm|length))); of the rest, \($xm|map(select(.ap==null and (is_docs or is_build)))|length) were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, and \($xm|map(select(.ap==null and (is_docs|not) and (is_build|not)))|length) were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.",
+  "Over the whole window, \($xm|map(select(.ap))|length) of \($xm|length) merges had an approval (\(pct($xm|map(select(.ap))|length; $xm|length))); of the rest, \($xm|map(select(.ap==null and is_allowed))|length) were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, or changes to the Solaris and macOS clients, which this page counts the same way until the first release that ships them, since nobody but their author can run them yet, and \($xm|map(select(.ap==null and (is_allowed|not)))|length) were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; a `client:`, `xymonclient-darwin:` or `xymonclient-sunos:` title naming Darwin, macOS or Solaris as one of those clients; anything else as code.",
   "",
   "Reviews submitted, by reviewer; each column is one person.",
   "",

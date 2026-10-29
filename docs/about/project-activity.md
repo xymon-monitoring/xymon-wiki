@@ -40,7 +40,7 @@ The estimate divides the arrivals by one reviewer's pace; it is a range read fro
 | 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 279 became ready · 144 approved (52%) | ≥ 90% approved | < 60% |
 | 🔴 | Ready pull requests waiting more than 30 days | 41 of 81 waiting | ≤ 5 | > 20 |
 | 🟡 | People doing 80% of the reviews | 4 (busiest: 33% of all reviews) | ≥ 6 | ≤ 3 |
-| 🔴 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 4 | 0 | ≥ 1 |
+| 🔴 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 1 | 0 | ≥ 1 |
 | 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 | 0 |
 
 The thresholds are this page's own, chosen to make a change visible; they are not project rules.
@@ -85,9 +85,9 @@ xychart-beta
 | 2026-07 | 52 | 26 | 30 | 0 | 0 | 30 | 5 |
 | 2026-08 | 148 | 96 | 108 | 8 | 4 | 111 | 4 |
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
-| 2026-10 | 110 | 21 | 87 | 62 | 4 | 29 | 3 |
+| 2026-10 | 110 | 21 | 87 | 65 | 1 | 29 | 3 |
 
-Over the whole window, 195 of 285 merges had an approval (68%); of the rest, 80 were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, and 10 were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.
+Over the whole window, 195 of 285 merges had an approval (68%); of the rest, 83 were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, or changes to the Solaris and macOS clients, which this page counts the same way until the first release that ships them, since nobody but their author can run them yet, and 7 were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; a `client:`, `xymonclient-darwin:` or `xymonclient-sunos:` title naming Darwin, macOS or Solaris as one of those clients; anything else as code.
 
 Reviews submitted, by reviewer; each column is one person.
 
