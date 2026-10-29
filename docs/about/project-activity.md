@@ -7,7 +7,7 @@ Generated 2026-10-29 by `tools/project-activity.sh`, from the GitHub API, over t
 Each line is one question about the project, with a light: 🟢 fine, 🟡 watch, 🔴 needs people. What each light means by the numbers is under [How this is counted](#how-this-is-counted).
 
 - 🔴 **Review does not keep up with what arrives.** Of the 279 `xymon` pull requests that became ready for review since June, 144 were approved (52%).
-- 🔴 **Pull requests wait a long time.** 41 of the 81 now waiting for a first review have waited more than a month.
+- 🔴 **Pull requests wait a long time.** 41 of the 81 now waiting for an approval have waited more than a month.
 - 🟡 **Review rests on few people.** 4 people do 80% of the reviewing; the busiest does 33% of it.
 - 🟢 **No code is merged without a review.** Since 2026-09-13, when `CONTRIBUTING.md` wrote the review rule down, no code changes were merged in `xymon` without an approval.
 - 🟡 **Few new contributors arrive.** 2 of the 6 people who opened a pull request in the last three months were new.
@@ -87,14 +87,14 @@ xychart-beta
 Waiting longest, oldest first — a reviewer is welcome on any of them:
 
 - [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (153.3 days)
-- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (150.5 days)
+- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (150.6 days)
 - [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (140.3 days)
 - [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (140.3 days)
 - [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (140.3 days)
 
 ## Pull requests by repository
 
-Only `xymon` asks for a review before a merge; the other repositories are pushed to directly, so a merge without an approval there is the normal way. **Open** counts every open pull request, drafts and approved ones included, which is why it is more than the number waiting for review.
+Only `xymon` asks for a review before a merge; the other repositories take direct pushes and pull requests their authors merge themselves, so a merge without an approval there is the normal way. **Open** counts every open pull request, drafts and approved ones included, which is why it is more than the number waiting for review.
 
 | Repository | Opened | Merged | Merged with an approval | Merged without | Closed unmerged | Open |
 |---|---|---|---|---|---|---|
@@ -117,7 +117,7 @@ A merge without an approval is **allowed** or **needing a review** by the files 
 | documentation | under `docs/`, a manual page, a `.md` file, a configuration sample, `README*`, `RELEASENOTES`, `CREDITS` or `Changes` | yes — `CONTRIBUTING.md`'s merge table |
 | build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |
 | AIX, Solaris and macOS clients | the above, or `client/xymonclient-aix.sh`, `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/aix.c`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |
-| comment | a code file whose changed lines are all comment lines | yes — the same table's "typo, comment" row |
+| comment | a code file whose changed lines are all comment lines | yes — the merge table's "typo, comment" row |
 | code | anything else | no |
 
 The summary's lights are this page's own thresholds, chosen to make a change visible; they are not project rules:
