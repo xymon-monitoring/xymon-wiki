@@ -81,13 +81,13 @@ xychart-beta
 | 2026-03 | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 2026-04 | 4 | 2 | 2 | 0 | 0 | 2 | 2 |
 | 2026-05 | 22 | 10 | 9 | 0 | 0 | 14 | 2 |
-| 2026-06 | 41 | 17 | 17 | 1 | 2 | 31 | 6 |
+| 2026-06 | 41 | 17 | 17 | 2 | 1 | 31 | 6 |
 | 2026-07 | 52 | 26 | 30 | 0 | 0 | 30 | 5 |
-| 2026-08 | 148 | 96 | 108 | 8 | 4 | 111 | 4 |
+| 2026-08 | 148 | 96 | 108 | 10 | 2 | 111 | 4 |
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
 | 2026-10 | 110 | 21 | 87 | 65 | 1 | 29 | 3 |
 
-Over the whole window, 195 of 285 merges had an approval (68%); of the rest, 83 were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, or changes to the Solaris and macOS clients, which this page counts the same way until the first release that ships them, since nobody but their author can run them yet, and 7 were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; a `client:`, `xymonclient-darwin:` or `xymonclient-sunos:` title naming Darwin, macOS or Solaris as one of those clients; anything else as code.
+Over the whole window, 195 of 285 merges had an approval (68%); of the rest, 86 were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, or changes to the Solaris and macOS clients, which this page counts the same way until the first release that ships them, since nobody but their author can run them yet, and 4 were code, which needs one. Classification by the files a pull request touches: only documentation (`docs/`, manual pages, `.md` files, configuration samples, `README`, `RELEASENOTES`, `CREDITS`, `Changes`) counts as documentation; only those and files under `build/`, `tests/`, `tools/` or `.github/`, or `configure`, as build, CI and tests; only those and the Solaris or macOS client as one of those clients; anything else as code. A pull request with no file list is classified by its title's component instead.
 
 Reviews submitted, by reviewer; each column is one person.
 

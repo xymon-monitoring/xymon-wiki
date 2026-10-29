@@ -63,6 +63,7 @@ query($owner:String!, $repo:String!, $endCursor:String) {
       nodes {
         number title url state isDraft createdAt mergedAt
         author { login } mergedBy { login }
+        files(first:100) { nodes { path } }
         reviews(first:100) { nodes { author { login } state submittedAt } }
         timelineItems(first:50, itemTypes:[READY_FOR_REVIEW_EVENT, CONVERT_TO_DRAFT_EVENT]) {
           nodes { __typename ... on ReadyForReviewEvent { createdAt } ... on ConvertToDraftEvent { createdAt } }
@@ -91,12 +92,21 @@ def first_ready(p): ([p.timelineItems.nodes[] | {t:.__typename, at:.createdAt}] 
   | if ($e|length)==0 then (if p.isDraft then null else p.createdAt end)
     elif $e[0].t=="ReadyForReviewEvent" then $e[0].at else p.createdAt end;
 def component: (.title | capture("^(?<c>[A-Za-z0-9_.+/-]+):").c) // "";
-def is_docs: (component | test("^(docs|README|RELEASING|CONTRIBUTING|AGENTS|RELEASENOTES|CREDITS|Changes)$|\\.(md|cfg|[1578])$"));
-def is_build: (component | test("^(build|ci|tests|tools)$"));
+# Classification by the files a pull request touches; by its title when the
+# file list is missing (more than 100 files, or an API gap).
+def docs_path: test("^docs/|\\.(md|[1578]|cfg|cfg\\.DIST)$|^README|^(RELEASENOTES|CREDITS|Changes|COPYING)$");
+def build_path: test("^(build|tests|tools|\\.github)/|^configure|^Makefile");
 # This page's own allowance, not a project rule: until the first release that
 # ships them, nobody but their author can run the Solaris and macOS clients, so
 # a change to one is counted with what may merge unreviewed.
-def is_platform: (component | test("^(client|xymonclient-(darwin|sunos)|darwin|solaris|sunos)$")) and (.title | test("darwin|macos|solaris|sunos"; "i"));
+def platform_path: test("^client/xymonclient-(darwin|sunos)\\.sh$|^xymond/client/(darwin|solaris|sunos)\\.c$");
+def paths: [.files.nodes[]?.path];
+def title_docs: (component | test("^(docs|README|RELEASING|CONTRIBUTING|AGENTS|RELEASENOTES|CREDITS|Changes)$|\\.(md|cfg|[1578])$"));
+def title_build: (component | test("^(build|ci|tests|tools)$"));
+def title_platform: (component | test("^(client|xymonclient-(darwin|sunos)|darwin|solaris|sunos)$")) and (.title | test("darwin|macos|solaris|sunos"; "i"));
+def is_docs: if (paths|length) > 0 then (paths | all(docs_path)) else title_docs end;
+def is_build: if (paths|length) > 0 then ((paths | all(docs_path or build_path)) and (is_docs|not)) else title_build end;
+def is_platform: if (paths|length) > 0 then ((paths | all(docs_path or build_path or platform_path)) and (is_docs|not) and (is_build|not)) else title_platform end;
 def is_allowed: (is_docs or is_build or is_platform);
 def row: "| " + join(" | ") + " |";
 # light(good; bad): 🟢 when the good test holds, 🔴 when the bad one does, 🟡 between.
@@ -210,7 +220,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
         "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and is_allowed))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_allowed|not)))|length)",
         "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)]|length)", "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)|.author.login]|unique|length)" ] | row ),
   "",
-  "Over the whole window, \($xm|map(select(.ap))|length) of \($xm|length) merges had an approval (\(pct($xm|map(select(.ap))|length; $xm|length))); of the rest, \($xm|map(select(.ap==null and is_allowed))|length) were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, or changes to the Solaris and macOS clients, which this page counts the same way until the first release that ships them, since nobody but their author can run them yet, and \($xm|map(select(.ap==null and (is_allowed|not)))|length) were code, which needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; a `client:`, `xymonclient-darwin:` or `xymonclient-sunos:` title naming Darwin, macOS or Solaris as one of those clients; anything else as code.",
+  "Over the whole window, \($xm|map(select(.ap))|length) of \($xm|length) merges had an approval (\(pct($xm|map(select(.ap))|length; $xm|length))); of the rest, \($xm|map(select(.ap==null and is_allowed))|length) were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, or changes to the Solaris and macOS clients, which this page counts the same way until the first release that ships them, since nobody but their author can run them yet, and \($xm|map(select(.ap==null and (is_allowed|not)))|length) were code, which needs one. Classification by the files a pull request touches: only documentation (`docs/`, manual pages, `.md` files, configuration samples, `README`, `RELEASENOTES`, `CREDITS`, `Changes`) counts as documentation; only those and files under `build/`, `tests/`, `tools/` or `.github/`, or `configure`, as build, CI and tests; only those and the Solaris or macOS client as one of those clients; anything else as code. A pull request with no file list is classified by its title's component instead.",
   "",
   "Reviews submitted, by reviewer; each column is one person.",
   "",
