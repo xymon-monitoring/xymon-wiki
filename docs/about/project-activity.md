@@ -1,37 +1,6 @@
 # Project activity
 
-Generated 2026-10-29 by `tools/project-activity.sh`, from the GitHub API. Window: pull requests opened since 2025-10-29, in the organisation's public repositories. No person is named here; the numbers are counts.
-
-**Waiting for review** means ready (not a draft), still open, and without an approval from someone other than its author; it is measured from the first time the pull request was ready. A **review** is a GitHub review by someone other than the author; a plain comment is not one.
-
-## Help wanted
-
-Review is the project's bottleneck, and everyone is welcome to help fill the gap — no membership is needed to review a pull request or to open one.
-
-| | Value |
-|---|---|
-| Review requests arriving in `xymon` (median of the last four whole months) | 52 a month |
-| Approvals one active reviewer gives in a month (median, same months) | 5.2 |
-| Reviewers active in a month (median, same months) | 5 |
-| Reviewers needed to keep up (estimate) | 10 — about 5 missing |
-| Pull request authors in the last three months / of them new | 6 / 2 |
-
-```mermaid
-%%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
-xychart-beta
-    title "Reviewers in a month: active and needed"
-    x-axis ["active", "needed"]
-    y-axis "Reviewers" 0 --> 15
-    bar [5, 10]
-```
-
-How to help:
-
-- **Review** one of the pull requests waiting longest, listed under [Waiting for review](#waiting-for-review): read it, try it if you can, and approve it or say what is wrong. A review from someone who runs Xymon in production is worth as much as one from a developer.
-- **Contribute**: pick an issue and open a pull request — [First contribution](../contributing/git/first-contribution.md) says how.
-- **Talk to us** on the mailing list, linked from [Project & community](project-and-community.md).
-
-The estimate divides the arrivals by one reviewer's pace; it is a range read from a few months, not a target.
+Generated 2026-10-29 by `tools/project-activity.sh`, from the GitHub API, over the pull requests opened since 2025-10-29. No person is named here; the numbers are counts. What each one counts is at the end, under [How this is counted](#how-this-is-counted).
 
 ## Summary
 
@@ -40,25 +9,30 @@ The estimate divides the arrivals by one reviewer's pace; it is a range read fro
 | 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 279 became ready · 144 approved (52%) | ≥ 90% approved | < 60% |
 | 🔴 | Ready pull requests waiting more than 30 days | 41 of 81 waiting | ≤ 5 | > 20 |
 | 🟡 | People doing 80% of the reviews | 4 (busiest: 33% of all reviews) | ≥ 6 | ≤ 3 |
-| 🔴 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 1 | 0 | ≥ 1 |
+| 🔴 | Code merged in `xymon` without an approval | 1 since the review rule (2026-09-13) · 4 in the whole window | 0 since the rule | ≥ 1 |
 | 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 | 0 |
 
 The thresholds are this page's own, chosen to make a change visible; they are not project rules.
 
-## Pull requests by repository
+## Help wanted
 
-Only `xymon` asks for a review before a merge; the other repositories are pushed to directly, so a merge without an approval there is the normal way.
+Review is the project's bottleneck, and everyone is welcome to help fill the gap — no membership is needed to review a pull request or to open one.
 
-| Repository | Opened | Merged | Merged with an approval | Merged without | Merged by their own author | Closed unmerged | Open |
-|---|---|---|---|---|---|---|---|
-| `xymon` | 465 | 285 | 195 | 90 | 212 | 79 | 101 |
-| `xymon-rpm` | 100 | 94 | 0 | 94 | 92 | 3 | 3 |
-| `xymon-wiki` | 29 | 29 | 0 | 29 | 29 | 0 | 0 |
-| `homebrew-xymon` | 20 | 20 | 0 | 20 | 20 | 0 | 0 |
-| `xymon-experimental` | 18 | 18 | 0 | 18 | 18 | 0 | 0 |
-| `xymon-discussion-public` | 4 | 4 | 0 | 4 | 4 | 0 | 0 |
-| `xymon-plugins` | 3 | 2 | 0 | 2 | 0 | 0 | 1 |
-| `xymon-client-windows-powershell` | 2 | 1 | 0 | 1 | 1 | 0 | 1 |
+| | Value |
+|---|---|
+| Review requests arriving in `xymon` in a typical month (median of the last four whole months) | 46.5 |
+| Approvals one active reviewer gives in a month (median, same months) | 4 |
+| Reviewers active in a month (median, same months) | 4.5 |
+| Reviewers needed to keep up (estimate) | 12 — about 8 missing |
+| Pull request authors in the last three months / of them new | 6 / 2 |
+
+The estimate divides the arrivals by one reviewer's pace; it is a range read from a few months, not a target.
+
+How to help:
+
+- **Review** one of the pull requests waiting longest, listed under [Waiting for review](#waiting-for-review): read it, try it if you can, and approve it or say what is wrong. A review from someone who runs Xymon in production is worth as much as one from a developer.
+- **Contribute**: pick an issue and open a pull request — [First contribution](../contributing/git/first-contribution.md) says how.
+- **Talk to us** on the mailing list, linked from [Project & community](project-and-community.md).
 
 ## Review in `xymon`
 
@@ -87,7 +61,7 @@ xychart-beta
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
 | 2026-10 | 110 | 21 | 87 | 65 | 1 | 29 | 3 |
 
-Over the whole window, 195 of 285 merges had an approval (68%); of the rest, 86 were documentation, build, CI or test changes, which `CONTRIBUTING.md`'s merge table lets a maintainer merge without a review, or changes to the Solaris and macOS clients, which this page counts the same way until the first release that ships them, since nobody but their author can run them yet, and 4 were code, which needs one. Classification by the files a pull request touches: only documentation (`docs/`, manual pages, `.md` files, configuration samples, `README`, `RELEASENOTES`, `CREDITS`, `Changes`) counts as documentation; only those and files under `build/`, `tests/`, `tools/` or `.github/`, or `configure`, as build, CI and tests; only those and the Solaris or macOS client as one of those clients; anything else as code. A pull request with no file list is classified by its title's component instead.
+Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one.
 
 Reviews submitted, by reviewer; each column is one person.
 
@@ -120,6 +94,31 @@ Waiting longest, oldest first — a reviewer is welcome on any of them:
 - [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (140.3 days)
 - [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (140.2 days)
 
-## Not counted
+## Pull requests by repository
 
-Discussion on the mailing list and in chat; reviews given as plain comments; an owner's administrative work; changes pushed without a pull request, which is how most wiki pages are written.
+Only `xymon` asks for a review before a merge; the other repositories are pushed to directly, so a merge without an approval there is the normal way. **Open** counts every open pull request, drafts and approved ones included, which is why it is more than the number waiting for review.
+
+| Repository | Opened | Merged | Merged with an approval | Merged without | Closed unmerged | Open |
+|---|---|---|---|---|---|---|
+| `xymon` | 465 | 285 | 195 | 90 | 79 | 101 |
+| `xymon-rpm` | 100 | 94 | 0 | 94 | 3 | 3 |
+| `xymon-wiki` | 29 | 29 | 0 | 29 | 0 | 0 |
+| `homebrew-xymon` | 20 | 20 | 0 | 20 | 0 | 0 |
+| `xymon-experimental` | 18 | 18 | 0 | 18 | 0 | 0 |
+
+3 smaller repositories with fewer than 10 pull requests are left out: `xymon-client-windows-powershell`, `xymon-discussion-public`, `xymon-plugins`.
+
+## How this is counted
+
+**Waiting for review** means ready (not a draft), still open, and without an approval from someone other than its author; it is measured from the first time the pull request was ready. A **review** is a GitHub review by someone other than the author; a plain comment is not one.
+
+A merge without an approval is **allowed** or **needing a review** by the files the pull request touches; a pull request with no file list is classified by its title's component instead:
+
+| Counted as | When every file is | May merge without a review |
+|---|---|---|
+| documentation | under `docs/`, a manual page, a `.md` file, a configuration sample, `README*`, `RELEASENOTES`, `CREDITS` or `Changes` | yes — `CONTRIBUTING.md`'s merge table |
+| build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |
+| Solaris and macOS clients | the above, or `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |
+| code | anything else | no |
+
+**Not counted**: discussion on the mailing list and in chat; reviews given as plain comments; an owner's administrative work; changes pushed without a pull request, which is how most wiki pages are written.
