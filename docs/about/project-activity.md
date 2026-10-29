@@ -4,15 +4,13 @@ Generated 2026-10-29 by `tools/project-activity.sh`, from the GitHub API, over t
 
 ## Summary
 
-| | Question | Value | 🟢 when | 🔴 when |
-|---|---|---|---|---|
-| 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 279 became ready · 144 approved (52%) | ≥ 90% approved | < 60% |
-| 🔴 | Ready pull requests that have waited more than 30 days | 41 of 81 waiting | ≤ 5 pull requests | > 20 pull requests |
-| 🟡 | People doing 80% of the reviews | 4 (busiest: 33% of all reviews) | ≥ 6 people | ≤ 3 people |
-| 🔴 | Code merged in `xymon` without an approval | 1 since the review rule (2026-09-13) · 4 in the whole window | 0 since the rule | ≥ 1 since the rule |
-| 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 new authors | none |
+Each line is one question about the project, with a light: 🟢 fine, 🟡 watch, 🔴 needs people. What each light means by the numbers is under [How this is counted](#how-this-is-counted).
 
-The thresholds are this page's own, chosen to make a change visible; they are not project rules.
+- 🔴 **Review does not keep up with what arrives.** Of the 279 `xymon` pull requests that became ready for review since June, 144 were approved (52%).
+- 🔴 **Pull requests wait a long time.** 41 of the 81 now waiting for a first review have waited more than a month.
+- 🟡 **Review rests on few people.** 4 people do 80% of the reviewing; the busiest does 33% of it.
+- 🔴 **Code is merged without a review.** Since the review rule of 2026-09-13, 1 code change was merged in `xymon` without an approval; 4 in the whole window.
+- 🟡 **Few new contributors arrive.** 2 of the 6 people who opened a pull request in the last three months were new.
 
 ## Help wanted
 
@@ -74,7 +72,7 @@ Reviews submitted, by reviewer; each column is one person.
 | Measure | Value |
 |---|---|
 | Waiting now | 81 |
-| Waiting: median / mean / longest | 36.9 days / 49.5 days / 153.3 days |
+| Waiting: median / mean / longest | 37 days / 49.5 days / 153.3 days |
 | More than 30 / 90 days | 41 / 11 |
 
 ```mermaid
@@ -120,5 +118,15 @@ A merge without an approval is **allowed** or **needing a review** by the files 
 | build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |
 | Solaris and macOS clients | the above, or `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |
 | code | anything else | no |
+
+The summary's lights are this page's own thresholds, chosen to make a change visible; they are not project rules:
+
+| Line | 🟢 when | 🔴 when |
+|---|---|---|
+| review keeps up | ≥ 90% of what became ready in the last four whole months was approved | < 60% |
+| pull requests wait | ≤ 5 have waited more than 30 days | > 20 |
+| review rests on few people | ≥ 6 people do 80% of the reviews | ≤ 3 |
+| code merged without a review | none since the review rule | ≥ 1 |
+| new contributors | ≥ 3 in the last three months | none |
 
 **Not counted**: discussion on the mailing list and in chat; reviews given as plain comments; an owner's administrative work; changes pushed without a pull request, which is how most wiki pages are written.

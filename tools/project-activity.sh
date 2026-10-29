@@ -157,15 +157,14 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
     | ($recent | map(. as $m | $x | map(select(.ap and .ap[0:7]==$m)) | length) | add // 0) as $r_ap
     | ($wait|map(select(d(.fr;$now)>30))|length) as $w30
     | ($code_noappr|map(select(.mergedAt >= $rule))|length) as $cna
-    | "| | Question | Value | 🟢 when | 🔴 when |",
-      "|---|---|---|---|---|",
-      ([ light($r_in==0 or $r_ap >= 0.9*$r_in; $r_ap < 0.6*$r_in), "Does review keep up with what arrives? (`xymon`, last four whole months)", "\($r_in) became ready · \($r_ap) approved (\(pct($r_ap;$r_in)))", "≥ 90% approved", "< 60%" ] | row),
-      ([ light($w30 <= 5; $w30 > 20), "Ready pull requests that have waited more than 30 days", "\($w30) of \($wait|length) waiting", "≤ 5 pull requests", "> 20 pull requests" ] | row),
-      ([ light($p80 >= 6; $p80 <= 3), "People doing 80% of the reviews", "\($p80) (busiest: \(pct($ranks[0]//0; $rtotal)) of all reviews)", "≥ 6 people", "≤ 3 people" ] | row),
-      ([ light($cna == 0; $cna > 0), "Code merged in `xymon` without an approval", "\($cna) since the review rule (\($rule)) · \($code_noappr|length) in the whole window", "0 since the rule", "≥ 1 since the rule" ] | row),
-      ([ light($q_new >= 3; $q_new == 0), "New pull request authors in the last three months", "\($q_new) (of \($q_authors|length) authors)", "≥ 3 new authors", "none" ] | row) ),
-  "",
-  "The thresholds are this page's own, chosen to make a change visible; they are not project rules.",
+    | (["January","February","March","April","May","June","July","August","September","October","November","December"][($recent[0][5:7]|tonumber)-1]) as $since_month
+    | "Each line is one question about the project, with a light: 🟢 fine, 🟡 watch, 🔴 needs people. What each light means by the numbers is under [How this is counted](#how-this-is-counted).",
+      "",
+      "- \(light($r_in==0 or $r_ap >= 0.9*$r_in; $r_ap < 0.6*$r_in)) **Review does not keep up with what arrives.** Of the \($r_in) `xymon` pull requests that became ready for review since \($since_month), \($r_ap) were approved (\(pct($r_ap;$r_in))).",
+      "- \(light($w30 <= 5; $w30 > 20)) **Pull requests wait a long time.** \($w30) of the \($wait|length) now waiting for a first review have waited more than a month.",
+      "- \(light($p80 >= 6; $p80 <= 3)) **Review rests on few people.** \($p80) \(if $p80==1 then "person does" else "people do" end) 80% of the reviewing; the busiest does \(pct($ranks[0]//0; $rtotal)) of it.",
+      "- \(light($cna == 0; $cna > 0)) **Code is merged without a review.** Since the review rule of \($rule), \($cna) code \(if $cna==1 then "change was" else "changes were" end) merged in `xymon` without an approval; \($code_noappr|length) in the whole window.",
+      "- \(light($q_new >= 3; $q_new == 0)) **Few new contributors arrive.** \($q_new) of the \($q_authors|length) people who opened a pull request in the last three months \(if $q_new==1 then "was" else "were" end) new." ),
   "",
   "## Help wanted",
   "",
@@ -257,6 +256,16 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "| build, CI, tests | documentation, or under `build/`, `tests/`, `tools/` or `.github/`, or `configure` | yes — the same table |",
   "| Solaris and macOS clients | the above, or `client/xymonclient-darwin.sh`, `client/xymonclient-sunos.sh`, `xymond/client/darwin.c`, `xymond/client/solaris.c` | counted as yes by this page until the first release that ships them, since nobody but their author can run them yet; not a project rule |",
   "| code | anything else | no |",
+  "",
+  "The summary's lights are this page's own thresholds, chosen to make a change visible; they are not project rules:",
+  "",
+  "| Line | 🟢 when | 🔴 when |",
+  "|---|---|---|",
+  "| review keeps up | ≥ 90% of what became ready in the last four whole months was approved | < 60% |",
+  "| pull requests wait | ≤ 5 have waited more than 30 days | > 20 |",
+  "| review rests on few people | ≥ 6 people do 80% of the reviews | ≤ 3 |",
+  "| code merged without a review | none since the review rule | ≥ 1 |",
+  "| new contributors | ≥ 3 in the last three months | none |",
   "",
   "**Not counted**: discussion on the mailing list and in chat; reviews given as plain comments; an owner's administrative work; changes pushed without a pull request, which is how most wiki pages are written."
 
