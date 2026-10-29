@@ -59,7 +59,7 @@ xychart-beta
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
 | 2026-10 | 110 | 21 | 87 | 66 | 0 | 29 | 3 |
 
-Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one.
+Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month; months before the first pull request in the window are left out. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one. Before the review rule of 2026-09-13 no approval was required, so in those months the column shows what would need one under today's table; the comment check is applied only since the rule.
 
 Reviews submitted, by reviewer; each column is one person.
 

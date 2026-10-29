@@ -227,7 +227,7 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
         "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and is_allowed))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_allowed|not)))|length)",
         "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)]|length)", "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)|.author.login]|unique|length)" ] | row ),
   "",
-  "Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one.",
+  "Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month; months before the first pull request in the window are left out. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one. Before the review rule of \($rule) no approval was required, so in those months the column shows what would need one under today's table; the comment check is applied only since the rule.",
   "",
   "Reviews submitted, by reviewer; each column is one person.",
   "",
