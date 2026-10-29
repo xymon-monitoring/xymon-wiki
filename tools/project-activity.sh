@@ -116,7 +116,7 @@ def first_ready(p): ([p.timelineItems.nodes[] | {t:.__typename, at:.createdAt}] 
   | if ($e|length)==0 then (if p.isDraft then null else p.createdAt end)
     elif $e[0].t=="ReadyForReviewEvent" then $e[0].at else p.createdAt end;
 def component: (.title | capture("^(?<c>[A-Za-z0-9_.+/-]+):").c) // "";
-def is_docs: (component | test("^(docs|README|RELEASING|CONTRIBUTING|AGENTS)$|\\.[1578]$"));
+def is_docs: (component | test("^(docs|README|RELEASING|CONTRIBUTING|AGENTS|RELEASENOTES|CREDITS|Changes)$|\\.(md|cfg|[1578])$"));
 def is_build: (component | test("^(build|ci|tests|tools)$"));
 def row: "| " + join(" | ") + " |";
 # light(good; bad): 🟢 when the good test holds, 🔴 when the bad one does, 🟡 between.
@@ -215,6 +215,8 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "",
   "## Pull requests by repository",
   "",
+  "Only `xymon` asks for a review before a merge; the other repositories are pushed to directly, so a merge without an approval there is the normal way.",
+  "",
   "| Repository | Opened | Merged | Merged with an approval | Merged without | Merged by their own author | Closed unmerged | Open |",
   "|---|---|---|---|---|---|---|---|",
   ( $all | group_by(.repo) | sort_by(-length)[] | . as $g
@@ -233,11 +235,12 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
   "|---|---|",
   (["Review verdicts", ([$x[] | .rv[] | .state] | group_by(.) | map("\(.[0]|ascii_downcase|gsub("_";" ")) \(length)") | join(" · "))] | row),
   (["Merged with an approval", "\($xm|map(select(.ap))|length) of \($xm|length) (\(pct($xm|map(select(.ap))|length; $xm|length)))"] | row),
-  (["Merged without an approval: documentation / build, CI, tests / code", "\($xm|map(select(.ap==null and is_docs))|length) / \($xm|map(select(.ap==null and is_build))|length) / \($xm|map(select(.ap==null and (is_docs|not) and (is_build|not)))|length)"] | row),
+  (["Merged without an approval, allowed by the merge table: documentation / build, CI, tests", "\($xm|map(select(.ap==null and is_docs))|length) / \($xm|map(select(.ap==null and is_build))|length)"] | row),
+  (["Merged without an approval, needing a review: code", "\($xm|map(select(.ap==null and (is_docs|not) and (is_build|not)))|length)"] | row),
   (["Time from ready to first approval: median / mean / longest", "\($x|map(select(.ap and .fr and .fr <= .ap)|d(.fr;.ap))|med|fmt_d) / \($x|map(select(.ap and .fr and .fr <= .ap)|d(.fr;.ap))|mean|fmt_d) / \($x|map(select(.ap and .fr and .fr <= .ap)|d(.fr;.ap))|max|fmt_d)"] | row),
   (["Time from ready to merge: median / slowest tenth", "\($xm|map(select(.fr)|d(.fr;.mergedAt))|med|fmt_d) / \($xm|map(select(.fr)|d(.fr;.mergedAt))|p90|fmt_d)"] | row),
   "",
-  "Classification by title: a title starting `docs:`, a manual page, `README:`, `RELEASING:`, `CONTRIBUTING:` or `AGENTS:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.",
+  "`CONTRIBUTING.md`'s merge table lets documentation, build, CI and test changes merge without a review; code — a bug fix, a feature, a refactoring — needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.",
   "",
   "## By month (`xymon`)",
   "",
@@ -249,11 +252,11 @@ def mm_bar(title; ylabel; labels; values): mm_bar_o(""; title; ylabel; labels; v
       "    x-axis [\($months|qlist)]", "    y-axis \"Pull requests\" 0 --> \(($rd + $apm)|ymax)",
       "    bar [\($rd|nlist)]", "    line [\($apm|nlist)]", "```" ),
   "",
-  "| Month | Became ready | Approved | Merged | Merged without an approval | Reviews | Reviewers |",
-  "|---|---|---|---|---|---|---|",
+  "| Month | Became ready | Approved | Merged | Merged without an approval: allowed | needing a review | Reviews | Reviewers |",
+  "|---|---|---|---|---|---|---|---|",
   ( $months[] as $m
     | [ $m, "\($x|map(select(.fr and .fr[0:7]==$m))|length)", "\($x|map(select(.ap and .ap[0:7]==$m))|length)",
-        "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null))|length)",
+        "\($xm|map(select(.mergedAt[0:7]==$m))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_docs or is_build)))|length)", "\($xm|map(select(.mergedAt[0:7]==$m and .ap==null and (is_docs|not) and (is_build|not)))|length)",
         "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)]|length)", "\([$x[]|.rv[]|select(.submittedAt[0:7]==$m)|.author.login]|unique|length)" ] | row ),
   "",
   "## Who reviews",

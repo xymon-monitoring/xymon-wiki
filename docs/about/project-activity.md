@@ -40,7 +40,7 @@ The estimate divides the arrivals by one reviewer's pace; it is a range read fro
 | 🔴 | Does review keep up with what arrives? (`xymon`, last four whole months) | 279 became ready · 144 approved (52%) | ≥ 90% approved | < 60% |
 | 🔴 | Ready pull requests waiting more than 30 days | 41 of 81 waiting | ≤ 5 | > 20 |
 | 🟡 | People doing 80% of the reviews | 4 (busiest: 33% of all reviews) | ≥ 6 | ≤ 3 |
-| 🔴 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 11 | 0 | ≥ 1 |
+| 🔴 | Code merged in `xymon` without an approval since the review rule (2026-09-13) | 4 | 0 | ≥ 1 |
 | 🟡 | New pull request authors in the last three months | 2 (of 6 authors) | ≥ 3 | 0 |
 
 The thresholds are this page's own, chosen to make a change visible; they are not project rules.
@@ -57,6 +57,8 @@ What each group grants and expects is on [Project organisation](project-organisa
 Organisation owners: 13. Their activity is not published here: how many administrator accounts are idle is a security question, and it is tracked where access is managed.
 
 ## Pull requests by repository
+
+Only `xymon` asks for a review before a merge; the other repositories are pushed to directly, so a merge without an approval there is the normal way.
 
 | Repository | Opened | Merged | Merged with an approval | Merged without | Merged by their own author | Closed unmerged | Open |
 |---|---|---|---|---|---|---|---|
@@ -84,11 +86,12 @@ xychart-beta horizontal
 |---|---|
 | Review verdicts | approved 199 · changes requested 4 · commented 47 · dismissed 14 |
 | Merged with an approval | 195 of 285 (68%) |
-| Merged without an approval: documentation / build, CI, tests / code | 26 / 47 / 17 |
+| Merged without an approval, allowed by the merge table: documentation / build, CI, tests | 33 / 47 |
+| Merged without an approval, needing a review: code | 10 |
 | Time from ready to first approval: median / mean / longest | 2.5 days / 13.6 days / 142.9 days |
 | Time from ready to merge: median / slowest tenth | 1.3 days / 40.1 days |
 
-Classification by title: a title starting `docs:`, a manual page, `README:`, `RELEASING:`, `CONTRIBUTING:` or `AGENTS:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.
+`CONTRIBUTING.md`'s merge table lets documentation, build, CI and test changes merge without a review; code — a bug fix, a feature, a refactoring — needs one. Classification by title: a title starting `docs:`, a manual page, a configuration file, a `.md` file, `README:`, `RELEASING:`, `CONTRIBUTING:`, `AGENTS:`, `RELEASENOTES:`, `CREDITS:` or `Changes:` counts as documentation; `build:`, `ci:`, `tests:` or `tools:` as build, CI and tests; anything else as code.
 
 ## By month (`xymon`)
 
@@ -104,18 +107,18 @@ xychart-beta
     line [10, 9, 0, 2, 10, 17, 26, 96, 5, 21]
 ```
 
-| Month | Became ready | Approved | Merged | Merged without an approval | Reviews | Reviewers |
-|---|---|---|---|---|---|---|
-| 2026-01 | 22 | 10 | 10 | 0 | 14 | 4 |
-| 2026-02 | 9 | 9 | 8 | 0 | 28 | 4 |
-| 2026-03 | 2 | 0 | 0 | 0 | 0 | 0 |
-| 2026-04 | 4 | 2 | 2 | 0 | 2 | 2 |
-| 2026-05 | 22 | 10 | 9 | 0 | 14 | 2 |
-| 2026-06 | 41 | 17 | 17 | 3 | 31 | 6 |
-| 2026-07 | 52 | 26 | 30 | 0 | 30 | 5 |
-| 2026-08 | 148 | 96 | 108 | 12 | 111 | 4 |
-| 2026-09 | 38 | 5 | 14 | 9 | 5 | 4 |
-| 2026-10 | 110 | 21 | 87 | 66 | 29 | 3 |
+| Month | Became ready | Approved | Merged | Merged without an approval: allowed | needing a review | Reviews | Reviewers |
+|---|---|---|---|---|---|---|---|
+| 2026-01 | 22 | 10 | 10 | 0 | 0 | 14 | 4 |
+| 2026-02 | 9 | 9 | 8 | 0 | 0 | 28 | 4 |
+| 2026-03 | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
+| 2026-04 | 4 | 2 | 2 | 0 | 0 | 2 | 2 |
+| 2026-05 | 22 | 10 | 9 | 0 | 0 | 14 | 2 |
+| 2026-06 | 41 | 17 | 17 | 1 | 2 | 31 | 6 |
+| 2026-07 | 52 | 26 | 30 | 0 | 0 | 30 | 5 |
+| 2026-08 | 148 | 96 | 108 | 8 | 4 | 111 | 4 |
+| 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
+| 2026-10 | 110 | 21 | 87 | 62 | 4 | 29 | 3 |
 
 ## Who reviews
 
@@ -161,7 +164,7 @@ Waiting longest, oldest first — a reviewer is welcome on any of them:
 - [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (153.3 days)
 - [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (150.5 days)
 - [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (140.3 days)
-- [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (140.2 days)
+- [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (140.3 days)
 - [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (140.2 days)
 
 ## Not counted
