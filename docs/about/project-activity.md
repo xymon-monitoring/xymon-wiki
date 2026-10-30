@@ -1,13 +1,13 @@
 # Project activity
 
-Generated 2026-10-29 by `tools/project-activity.sh`, from the GitHub API, over the pull requests opened since 2025-10-29. No person is named here; the numbers are counts. What each one counts is at the end, under [How this is counted](#how-this-is-counted).
+Generated 2026-10-30 by `tools/project-activity.sh`, from the GitHub API, over the pull requests opened since 2025-10-30. No person is named here; the numbers are counts. What each one counts is at the end, under [How this is counted](#how-this-is-counted).
 
 ## Summary
 
 Each line is one question about the project, with a light: 🟢 fine, 🟡 watch, 🔴 needs people. What each light means by the numbers is under [How this is counted](#how-this-is-counted).
 
 - 🔴 **Review does not keep up with what arrives.** Of the 279 `xymon` pull requests that became ready for review since June, 144 were approved (52%).
-- 🔴 **Pull requests wait a long time.** 41 of the 81 now waiting for an approval have waited more than a month.
+- 🔴 **Pull requests wait a long time.** 41 of the 82 now waiting for an approval have waited more than a month.
 - 🟡 **Review rests on few people.** 4 people do 80% of the reviewing; the busiest does 33% of it.
 - 🟢 **No code is merged without a review.** Since 2026-09-13, when `CONTRIBUTING.md` wrote the review rule down, no code changes were merged in `xymon` without an approval.
 - 🟡 **Few new contributors arrive.** 2 of the 6 people who opened a pull request in the last three months were new.
@@ -71,8 +71,8 @@ Reviews submitted, by reviewer; each column is one person.
 
 | Measure | Value |
 |---|---|
-| Waiting now | 81 |
-| Waiting: median / mean / longest | 37 days / 49.5 days / 153.3 days |
+| Waiting now | 82 |
+| Waiting: median / mean / longest | 33.9 days / 50 days / 154.3 days |
 | More than 30 / 90 days | 41 / 11 |
 
 ```mermaid
@@ -81,16 +81,16 @@ xychart-beta
     title "Ready pull requests waiting, by time waited"
     x-axis ["under 7 days", "7 to 30 days", "30 to 90 days", "over 90 days"]
     y-axis "Pull requests" 0 --> 45
-    bar [5, 35, 30, 11]
+    bar [6, 35, 30, 11]
 ```
 
 Waiting longest, oldest first — a reviewer is welcome on any of them:
 
-- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (153.3 days)
-- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (150.6 days)
-- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (140.3 days)
-- [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (140.3 days)
-- [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (140.3 days)
+- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (154.3 days)
+- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (151.6 days)
+- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (141.4 days)
+- [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (141.3 days)
+- [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (141.3 days)
 
 ## Pull requests by repository
 
@@ -100,7 +100,7 @@ Only `xymon` asks for a review before a merge; the other repositories take direc
 |---|---|---|---|---|---|---|
 | `xymon` | 465 | 285 | 195 | 90 | 79 | 101 |
 | `xymon-rpm` | 100 | 94 | 0 | 94 | 3 | 3 |
-| `xymon-wiki` | 29 | 29 | 0 | 29 | 0 | 0 |
+| `xymon-wiki` | 30 | 29 | 0 | 29 | 0 | 1 |
 | `homebrew-xymon` | 20 | 20 | 0 | 20 | 0 | 0 |
 | `xymon-experimental` | 18 | 18 | 0 | 18 | 0 | 0 |
 
