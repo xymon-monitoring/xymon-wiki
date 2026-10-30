@@ -23,11 +23,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # ORG_READ_TOKEN (read:org) is needed for the groups table; without it
-      # the page is still written and says that table is unavailable.
+      # The groups table needs org membership, read through the
+      # xymon-wiki-activity GitHub App (Members: read). Without the app the
+      # page is still written and says that table is unavailable.
+      - name: Get an org token from the GitHub App
+        id: app
+        continue-on-error: true
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.ORG_APP_ID }}
+          private-key: ${{ secrets.ORG_APP_KEY }}
+          owner: ${{ github.repository_owner }}
+
       - name: Generate the page
         env:
-          GH_TOKEN: ${{ secrets.ORG_READ_TOKEN || github.token }}
+          GH_TOKEN: ${{ steps.app.outputs.token || github.token }}
         run: tools/project-activity.sh
 
       - name: Commit and deploy if it changed
