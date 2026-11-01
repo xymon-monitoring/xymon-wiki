@@ -1,16 +1,16 @@
 # Project activity
 
-Generated 2026-10-30 by `tools/project-activity.sh`, from the GitHub API, over the pull requests opened since 2025-10-30. No person is named here; the numbers are counts. What each one counts is at the end, under [How this is counted](#how-this-is-counted).
+Generated 2026-11-01 by `tools/project-activity.sh`, from the GitHub API, over the pull requests opened since 2025-11-01. No person is named here; the numbers are counts. What each one counts is at the end, under [How this is counted](#how-this-is-counted).
 
 ## Summary
 
 Each line is one question about the project, with a light: 🟢 fine, 🟡 watch, 🔴 needs people. What each light means by the numbers is under [How this is counted](#how-this-is-counted).
 
-- 🔴 **Review does not keep up with what arrives.** Of the 279 `xymon` pull requests that became ready for review since June, 144 were approved (52%).
-- 🔴 **Pull requests wait a long time.** 41 of the 82 now waiting for an approval have waited more than a month.
+- 🔴 **Review does not keep up with what arrives.** Of the 348 `xymon` pull requests that became ready for review since July, 148 were approved (43%).
+- 🔴 **Pull requests wait a long time.** 42 of the 83 now waiting for an approval have waited more than a month.
 - 🟡 **Review rests on few people.** 4 people do 80% of the reviewing; the busiest does 33% of it.
 - 🟢 **No code is merged without a review.** Since 2026-09-13, when `CONTRIBUTING.md` wrote the review rule down, no code changes were merged in `xymon` without an approval.
-- 🟡 **Few new contributors arrive.** 2 of the 6 people who opened a pull request in the last three months were new.
+- 🟡 **Few new contributors arrive.** 1 of the 3 people who opened a pull request in the last three months was new.
 
 ## Help wanted
 
@@ -18,11 +18,11 @@ Review is the project's bottleneck, and everyone is welcome to help fill the gap
 
 | | Value |
 |---|---|
-| Review requests arriving in `xymon` in a typical month (median of the last four whole months) | 46.5 |
-| Approvals one active reviewer gives in a month (median, same months) | 4 |
-| Reviewers active in a month (median, same months) | 4.5 |
-| Reviewers needed to keep up (estimate) | 12 — about 8 missing |
-| Pull request authors in the last three months / of them new | 6 / 2 |
+| Review requests arriving in `xymon` in a typical month (median of the last four whole months) | 81 |
+| Approvals one active reviewer gives in a month (median, same months) | 6.1 |
+| Reviewers active in a month (median, same months) | 4 |
+| Reviewers needed to keep up (estimate) | 14 — about 10 missing |
+| Pull request authors in the last three months / of them new | 3 / 1 |
 
 The estimate divides the arrivals by one reviewer's pace; it is a range read from a few months, not a target.
 
@@ -40,10 +40,10 @@ Bars: pull requests that became ready for review. Line: approvals. The gap betwe
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
 xychart-beta
     title "Review requests and approvals, by month"
-    x-axis ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"]
+    x-axis ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10", "2026-11"]
     y-axis "Pull requests" 0 --> 175
-    bar [22, 9, 2, 4, 22, 41, 52, 148, 38, 110]
-    line [10, 9, 0, 2, 10, 17, 26, 96, 5, 21]
+    bar [22, 9, 2, 4, 22, 41, 52, 148, 38, 110, 0]
+    line [10, 9, 0, 2, 10, 17, 26, 96, 5, 21, 0]
 ```
 
 | Month | Became ready | Approved | Merged | Merged without an approval: allowed | needing a review | Reviews | Reviewers |
@@ -58,6 +58,7 @@ xychart-beta
 | 2026-08 | 148 | 96 | 108 | 12 | 0 | 111 | 4 |
 | 2026-09 | 38 | 5 | 14 | 9 | 0 | 5 | 4 |
 | 2026-10 | 110 | 21 | 87 | 66 | 0 | 29 | 3 |
+| 2026-11 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 Each column counts by its own date: became ready, approved and reviewed in that month, or merged in that month; months before the first pull request in the window are left out. **Reviews** counts every review, approving or not. **Allowed** is what the merge table lets a maintainer merge without a review, as [How this is counted](#how-this-is-counted) says; **needing a review** is code merged without one. The summary counts from 2026-09-13, the day `CONTRIBUTING.md` wrote the review rule down; the column classifies every month the same way.
 
@@ -71,9 +72,9 @@ Reviews submitted, by reviewer; each column is one person.
 
 | Measure | Value |
 |---|---|
-| Waiting now | 82 |
-| Waiting: median / mean / longest | 33.9 days / 50 days / 154.3 days |
-| More than 30 / 90 days | 41 / 11 |
+| Waiting now | 83 |
+| Waiting: median / mean / longest | 32 days / 51.6 days / 156.6 days |
+| More than 30 / 90 days | 42 / 11 |
 
 ```mermaid
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#3b6fd8, #e07b2a"}}}}%%
@@ -81,16 +82,16 @@ xychart-beta
     title "Ready pull requests waiting, by time waited"
     x-axis ["under 7 days", "7 to 30 days", "30 to 90 days", "over 90 days"]
     y-axis "Pull requests" 0 --> 45
-    bar [6, 35, 30, 11]
+    bar [3, 38, 31, 11]
 ```
 
 Waiting longest, oldest first — a reviewer is welcome on any of them:
 
-- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (154.3 days)
-- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (151.6 days)
-- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (141.4 days)
-- [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (141.3 days)
-- [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (141.3 days)
+- [xymon#111](https://github.com/xymon-monitoring/xymon/pull/111) — build: drop the make-era platform targets nobody builds (#85) (156.6 days)
+- [xymon#135](https://github.com/xymon-monitoring/xymon/pull/135) — build: make SNMP a configure option like RRD, SSL and LDAP, still off by default (153.8 days)
+- [xymon#150](https://github.com/xymon-monitoring/xymon/pull/150) — xymon-snmpcollect: stop polling the next IP when an agent answers NOSUCHNAME (143.6 days)
+- [xymon#151](https://github.com/xymon-monitoring/xymon/pull/151) — svcstatus: stop the trends-page locator redirect loop with SKIPLOC (TBT 44) (143.6 days)
+- [xymon#152](https://github.com/xymon-monitoring/xymon/pull/152) — do_rrd: remember an RRD exists instead of stat()ing it every update (TBT 214, devel f106d8840) (143.6 days)
 
 ## Pull requests by repository
 
@@ -99,10 +100,10 @@ Only `xymon` asks for a review before a merge; the other repositories take direc
 | Repository | Opened | Merged | Merged with an approval | Merged without | Closed unmerged | Open |
 |---|---|---|---|---|---|---|
 | `xymon` | 465 | 285 | 195 | 90 | 79 | 101 |
-| `xymon-rpm` | 100 | 94 | 0 | 94 | 3 | 3 |
-| `xymon-wiki` | 30 | 29 | 0 | 29 | 0 | 1 |
-| `homebrew-xymon` | 20 | 20 | 0 | 20 | 0 | 0 |
-| `xymon-experimental` | 18 | 18 | 0 | 18 | 0 | 0 |
+| `xymon-rpm` | 102 | 96 | 0 | 96 | 3 | 3 |
+| `xymon-wiki` | 30 | 29 | 0 | 29 | 1 | 0 |
+| `homebrew-xymon` | 23 | 22 | 0 | 22 | 0 | 1 |
+| `xymon-experimental` | 19 | 19 | 0 | 19 | 0 | 0 |
 
 3 smaller repositories with fewer than 10 pull requests are left out: `xymon-client-windows-powershell`, `xymon-discussion-public`, `xymon-plugins`.
 
