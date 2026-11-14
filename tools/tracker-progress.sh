@@ -11,7 +11,8 @@
 #   (default)  print the progress block computed from the issue's lines
 #   --check    also verify, for every line whose box is [x], that the PR it
 #              links names the change back in its title (rule 9); a line whose
-#              verdict is "drop — superseded" is exempt; and, for every pointer,
+#              verdict is "drop — superseded" is exempt, and so is a PR the line
+#              cites as "made unnecessary by **PR #N**"; and, for every pointer,
 #              that its target line exists on the owning tracker and names the
 #              pointer's commit back (rule 6)
 #   --apply    write the block at the top of the issue body, replacing an
@@ -107,14 +108,21 @@ if [ "$check" = 1 ]; then
 	awk -F'\t' '$1=="[x]" && $4!="superseded" { print $3 "\t" $5 }' "$tmp/items" |
 	while IFS="$(printf '\t')" read -r id line; do
 		pr=""
+		# A PR the line says made the change unnecessary ("made unnecessary
+		# by **PR #N**") is not its carrier, and rule 9 exempts it from
+		# naming the change.
+		unneeded=$(printf '%s\n' "$line" | grep -o -E 'made unnecessary by \*\*(PR )?#[0-9]{2,}\*\*' | grep -o -E '[0-9]+' || true)
 		# the carrier is written in bold (**PR #N** or **#N**); fall back to
 		# the first PR number on the line
 		for n in $(printf '%s\n' "$line" | grep -o -E '\*\*(PR )?#[0-9]{2,}\*\*' | grep -o -E '[0-9]+') \
 		         $(printf '%s\n' "$line" | grep -o -E '#[0-9]{2,}' | tr -d '#'); do
 			[ "$n" = "$sibling" ] && continue
 			[ "$n" = "$issue" ] && continue
+			printf '%s\n' "$unneeded" | grep -q -x "$n" && continue
 			pr=$n; break
 		done
+		# every PR on the line is one that made the change unnecessary: exempt
+		if [ -z "$pr" ] && [ -n "$unneeded" ]; then continue; fi
 		if [ -z "$pr" ]; then echo "check: $id is [x] but links no PR"; continue; fi
 		title=$(gh pr view "$pr" -R "$repo" --json title --jq .title 2>/dev/null) || { echo "check: $id links #$pr, which is not a PR"; continue; }
 		key=$id

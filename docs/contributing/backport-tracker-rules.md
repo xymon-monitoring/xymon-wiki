@@ -156,7 +156,9 @@ for prose.
    The line and its carrier name each other: the line links the PR, and the
    PR's title names the change in its trailing parenthesis, in the tracker's
    citation form (the profile's **Ids**). A PR that only makes a change
-   unnecessary is exempt.
+   unnecessary is exempt: a `drop — superseded` verdict names it, and any
+   other line cites it as `made unnecessary by **PR #N**`, which
+   `tracker-progress --check` reads.
 10. **Lines are grouped by subject** (the part of Xymon they touch). A heading
     says only what is true of every line under it, and so may one sentence
     opening a section; anything more belongs on the lines.
