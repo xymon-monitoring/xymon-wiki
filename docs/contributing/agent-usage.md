@@ -42,6 +42,24 @@ the variety where the questions are open, in the first analysis and the last
 review; with budget left, the last review can go to two different readers in
 turn.
 
+## Split the last review by the kind of question
+
+The last review asks two kinds of question, and they need different readers:
+
+| part | asks | ideally | otherwise |
+|---|---|---|---|
+| 1. the earlier findings again | is each finding from the iterations still fixed in the final version? This catches one fix undoing another, which the iterations miss | no agent: the tests that pin each finding, run again | the fast verifier, for what no test can reach (a manual page, a commit message) |
+| 2. one open question | what is missing? Asked cold, without the earlier conclusions | the most independent strong reader available | one degree down, said so |
+
+Run part 1 first. If a finding has come back, the change goes back to iterating
+before the costly reading of part 2 is spent on a version that will change. And
+pin findings with tests wherever you can: a test rechecks its finding for nothing,
+the same way every time, while only the open question can find something new, so
+that is where the depth goes.
+
+Part 1 also gives the final "nothing found" its content: the list of earlier
+findings, each with its state.
+
 ## Independence comes in degrees
 
 Models trained by the same provider share much of their data and methods, so
