@@ -27,6 +27,10 @@ git diff <base>...<head> | codex exec --sandbox read-only -c model_reasoning_eff
   the diff alone.
 - When it has run out of its allowance it says so, with the time it resets, in answer to
   any request: a one-word request is a cheap probe.
+- What is left is recorded in each of its session files, under
+  `~/.codex/sessions/YEAR/MONTH/DAY/*.jsonl`, as `rate_limits`: a `primary` window
+  (5 hours) and a `secondary` one (a week), each with `used_percent` and `resets_at`
+  (a Unix time). The newest file gives the latest figures, without spending anything.
 
 ### Claude as the reviewer
 

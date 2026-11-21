@@ -134,6 +134,22 @@ An agent that has run out often says so, and when it resets, in answer to any
 request; where it does, a one-line probe before relying on it costs almost
 nothing. Your own main budget you usually see only from its usage page.
 
+Measure before deciding rather than guessing: read what each budget reports
+(the recipes page says where one tool keeps it), and note it before and after
+an expensive review to learn what one costs. Where a budget shows nothing, go by
+what you see on its usage page.
+
+Each time a limit is reached, look back at once, while the cause is known:
+
+- Was it foreseen, or did the budget run out by surprise?
+- What spent it: which reviews, at what depth, how many at the same time?
+- What should change: a threshold, a row of the table above, the depth asked
+  for?
+
+One lesson from doing this: several deep reviews started at the same time on
+the scarcest budget can spend most of it before any result comes back. Run them
+one after another, and look at what is left between them.
+
 ## Delegate the reading that floods the context
 
 In a long session, what fills the main agent's context is less its own
