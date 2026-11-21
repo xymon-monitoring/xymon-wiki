@@ -19,6 +19,11 @@ now:
 | fast verifier | each iteration: is this finding fixed, does the test fail without the fix, did the change add anything in those lines | any fast model: the questions are narrow and checkable |
 | independent gate | the last review, once, cold, without the author's conclusions | the most independent reader available (below) |
 
+The independent gate is an agent's review, made before the change is offered.
+It does not replace the review by a person that CONTRIBUTING.md asks for, and
+AGENTS.md (*Reviews*) leaves choosing and asking a reviewer to the author, never
+to an agent.
+
 Spend the strong model at the start and at the end. A design flaw found only at
 the end makes every cheap iteration before it wasted work.
 
@@ -36,8 +41,9 @@ suits the fast and deep roles, more than in independence.
 | weak | the same model, in a fresh context |
 
 When you report a review, say which degree it had. CONTRIBUTING.md's pre-review
-already asks who ran each check, and AGENTS.md forbids naming the tool in a pull
-request: give the degree, not the product.
+already asks whose run each check is, and gives an AI tool's finding in the words
+of whoever reports it, without naming the tool; AGENTS.md forbids crediting one.
+So give the degree, not the product.
 
 ## Ask for deliverables, not for problems
 
@@ -58,8 +64,8 @@ Decide before each heavy task, from what is available at that moment:
 | one agent out | an agent reports its usage limit, and when it resets | a fast model | the last review one degree down, said so; or wait for the reset if the change can wait, and note when | as needed |
 | frugal | the main budget is running low | a fast model, short reports | a deep pass only where it matters; optional reviews postponed, and listed | the tests that cover the change, on a build kept between runs |
 
-Most command-line agents answer a tiny request with their limit and reset time
-when they have run out, so a one-line probe before relying on one costs almost
+An agent that has run out often says so, and when it resets, in answer to any
+request; where it does, a one-line probe before relying on it costs almost
 nothing. Your own main budget you usually see only from its usage page.
 
 ## Delegate the reading that floods the context
