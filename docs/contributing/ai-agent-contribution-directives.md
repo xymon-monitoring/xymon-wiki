@@ -15,3 +15,6 @@ for every contributor.
 Where a repository has none of its own — the wiki, the plugins, the Windows
 PowerShell client — follow `xymon`'s. It is the only copy, so there is nothing
 here to fall out of date with it.
+
+How to spend agents' time when their budgets are limited, as a technique rather
+than a rule, is in [Using AI agents within limited budgets](agent-usage.md).
