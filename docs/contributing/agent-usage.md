@@ -45,6 +45,11 @@ already asks whose run each check is, and gives an AI tool's finding in the word
 of whoever reports it, without naming the tool; AGENTS.md forbids crediting one.
 So give the degree, not the product.
 
+Sending work to another provider sends it to another company: read what goes out
+first, as *Before anything leaves your machine* in the
+[prose ambiguity test](prose-ambiguity-test.md#before-anything-leaves-your-machine)
+describes.
+
 ## Ask for deliverables, not for problems
 
 "Review this" invites a reader to stop at the first plausible "nothing found".
