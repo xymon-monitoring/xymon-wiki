@@ -6,7 +6,9 @@ a pull request is not held back for lacking it. The rules live in the
 repository they govern: for `xymon`,
 [CONTRIBUTING.md](https://github.com/xymon-monitoring/xymon/blob/main/CONTRIBUTING.md)
 and [AGENTS.md](https://github.com/xymon-monitoring/xymon/blob/main/AGENTS.md).
-Whatever this page suggests, the evidence they ask for stays the same.
+Whatever this page suggests, the evidence they ask for stays the same. The
+commands for particular tools, which change faster than this page, are in
+[Agent recipes](agent-recipes.md).
 
 ## Roles, not tools
 
