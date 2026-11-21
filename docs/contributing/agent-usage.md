@@ -62,6 +62,15 @@ that is where the depth goes.
 Part 1 also gives the final "nothing found" its content: the list of earlier
 findings, each with its state.
 
+Keep the reader of part 2 away from the earlier findings, even when it is
+another model: one that knows what was found looks where it was found, and
+confirms it is fixed, when the question is what nobody has looked at. Never
+ask it in the context that did the iterations, and prefer a reader other than
+the one that answered the closed questions. If that same model is the only
+strong one available, give it a fresh context, and say so. And a strong model
+spent on the closed questions was spent in the wrong place: keep it for the
+open one.
+
 ## Independence comes in degrees
 
 Models trained by the same provider share much of their data and methods, so
