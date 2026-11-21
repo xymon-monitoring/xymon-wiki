@@ -71,6 +71,23 @@ strong one available, give it a fresh context, and say so. And a strong model
 spent on the closed questions was spent in the wrong place: keep it for the
 open one.
 
+## Match the last review to the change
+
+What a change could break, more than its size, decides who reads it last and
+how hard. A one-line change can carry a risk a long one does not.
+
+| the change | the last review |
+|---|---|
+| low: a sentence of documentation, a cosmetic line, a test with no new logic | another strong model of the same provider, in a fresh context |
+| medium: simple code, one path changed, covered by a test | the most independent reader, one pass, ordinary depth |
+| high: several paths that interact, an error or abort path, a parser, code many callers share, input from outside | the most independent reader, one pass, full depth, with more deliverables: every caller, every path |
+| critical: security, a protocol, the architecture, a large change | the most independent reader at the first analysis as well as at the end |
+
+When the most independent reader is the scarcest budget, this is where it is
+saved: on the low row, and by asking it once, at the end, everywhere else. If
+it finds something, fix it and recheck with the fast verifier; ask it again
+only when the fix changes the code substantially.
+
 ## Independence comes in degrees
 
 Models trained by the same provider share much of their data and methods, so
