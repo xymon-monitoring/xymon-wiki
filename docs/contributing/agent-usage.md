@@ -27,6 +27,21 @@ to an agent.
 Spend the strong model at the start and at the end. A design flaw found only at
 the end makes every cheap iteration before it wasted work.
 
+## Change models where the question is open
+
+Switching models at every iteration looks like more coverage, but it costs more
+than it finds. A new reader brings its own remarks, often about form or taste,
+so each round opens new ones and the iterations stop converging. A finding can no
+longer be traced to the change rather than to the reader. And each new model
+reads everything again to answer a narrow question: whether a check fails without
+the fix has one answer, whichever model gives it.
+
+Keep one fast verifier through the iterations of a change, and take another only
+when it becomes unavailable: the questions are closed, so any model will do. Put
+the variety where the questions are open, in the first analysis and the last
+review; with budget left, the last review can go to two different readers in
+turn.
+
 ## Independence comes in degrees
 
 Models trained by the same provider share much of their data and methods, so
